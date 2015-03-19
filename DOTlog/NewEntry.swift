@@ -47,6 +47,15 @@ class NewEntry: UIViewController, UITextFieldDelegate {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
+		var todaysDate:NSDate = NSDate()
+		var dateFormatter:NSDateFormatter = NSDateFormatter()
+		dateFormatter.dateFormat = "hh:mm a"
+		textEventTime.text = dateFormatter.stringFromDate(todaysDate)
+
+		dateFormatter.dateFormat = "MMM dd yyyy"
+		textEventDate.text = dateFormatter.stringFromDate(todaysDate)
+
 	}
 
 	override func didReceiveMemoryWarning() {
@@ -81,26 +90,6 @@ class NewEntry: UIViewController, UITextFieldDelegate {
 		} else {
 			// Clear fields
 		}
-	}
-
-	func getDateFromString() -> String {
-		var todaysDate = NSDate().dateFromString("2015-02-04 23:29:28", format:  "yyyy-MM-dd HH:mm:ss")
-
-		var dateFormatter = NSDateFormatter()
-		dateFormatter.dateFormat = "dd-MM-yyyy"
-		var DateInFormat = dateFormatter.stringFromDate(todaysDate)
-
-		return DateInFormat
-	}
-
-	func getTimeFromString() -> String {
-		var todaysDate = NSDate().dateFromString("2015-02-04 23:29:28", format:  "yyyy-MM-dd HH:mm:ss")
-
-		var dateFormatter = NSDateFormatter()
-		dateFormatter.dateFormat = "dd-MM-yyyy"
-		var DateInFormat = dateFormatter.stringFromDate(todaysDate)
-
-		return DateInFormat
 	}
 
 }
