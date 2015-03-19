@@ -20,11 +20,29 @@ class NewEntry: UIViewController, UITextFieldDelegate {
 	@IBOutlet weak var textEventDate: UITextField!
 
 	@IBAction func editEventTime(sender: UITextField) {
-
+		var datePickerView  : UIDatePicker = UIDatePicker()
+		datePickerView.datePickerMode = UIDatePickerMode.Date
+		sender.inputView = datePickerView
+		datePickerView.addTarget(self, action: Selector("handleDatePickerTime:"), forControlEvents: UIControlEvents.ValueChanged)
 	}
 
 	@IBAction func editEventDate(sender: UITextField) {
-		
+		var datePickerView  : UIDatePicker = UIDatePicker()
+		datePickerView.datePickerMode = UIDatePickerMode.Time
+		sender.inputView = datePickerView
+		datePickerView.addTarget(self, action: Selector("handleDatePickerDate:"), forControlEvents: UIControlEvents.ValueChanged)
+	}
+
+	func handleDatePickerDate(sender: UIDatePicker) {
+		var dateFormatter = NSDateFormatter()
+		dateFormatter.dateFormat = "HH:mm"
+		textEventDate.text = dateFormatter.stringFromDate(sender.date)
+	}
+
+	func handleDatePickerTime(sender: UIDatePicker) {
+		var dateFormatter = NSDateFormatter()
+		dateFormatter.dateFormat = "dd MM yyyy"
+		textEventTime.text = dateFormatter.stringFromDate(sender.date)
 	}
 
 	override func viewDidLoad() {
