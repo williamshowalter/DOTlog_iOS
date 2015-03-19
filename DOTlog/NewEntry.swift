@@ -21,27 +21,27 @@ class NewEntry: UIViewController, UITextFieldDelegate {
 
 	@IBAction func editEventTime(sender: UITextField) {
 		var datePickerView  : UIDatePicker = UIDatePicker()
-		datePickerView.datePickerMode = UIDatePickerMode.Date
+		datePickerView.datePickerMode = UIDatePickerMode.Time
 		sender.inputView = datePickerView
 		datePickerView.addTarget(self, action: Selector("handleDatePickerTime:"), forControlEvents: UIControlEvents.ValueChanged)
 	}
 
 	@IBAction func editEventDate(sender: UITextField) {
 		var datePickerView  : UIDatePicker = UIDatePicker()
-		datePickerView.datePickerMode = UIDatePickerMode.Time
+		datePickerView.datePickerMode = UIDatePickerMode.Date
 		sender.inputView = datePickerView
 		datePickerView.addTarget(self, action: Selector("handleDatePickerDate:"), forControlEvents: UIControlEvents.ValueChanged)
 	}
 
 	func handleDatePickerDate(sender: UIDatePicker) {
 		var dateFormatter = NSDateFormatter()
-		dateFormatter.dateFormat = "HH:mm"
+		dateFormatter.dateFormat = "MMM dd yyyy"
 		textEventDate.text = dateFormatter.stringFromDate(sender.date)
 	}
 
 	func handleDatePickerTime(sender: UIDatePicker) {
 		var dateFormatter = NSDateFormatter()
-		dateFormatter.dateFormat = "dd MM yyyy"
+		dateFormatter.dateFormat = "hh:mm a"
 		textEventTime.text = dateFormatter.stringFromDate(sender.date)
 	}
 
@@ -83,4 +83,36 @@ class NewEntry: UIViewController, UITextFieldDelegate {
 		}
 	}
 
+	func getDateFromString() -> String {
+		var todaysDate = NSDate().dateFromString("2015-02-04 23:29:28", format:  "yyyy-MM-dd HH:mm:ss")
+
+		var dateFormatter = NSDateFormatter()
+		dateFormatter.dateFormat = "dd-MM-yyyy"
+		var DateInFormat = dateFormatter.stringFromDate(todaysDate)
+
+		return DateInFormat
+	}
+
+	func getTimeFromString() -> String {
+		var todaysDate = NSDate().dateFromString("2015-02-04 23:29:28", format:  "yyyy-MM-dd HH:mm:ss")
+
+		var dateFormatter = NSDateFormatter()
+		dateFormatter.dateFormat = "dd-MM-yyyy"
+		var DateInFormat = dateFormatter.stringFromDate(todaysDate)
+
+		return DateInFormat
+	}
+
+}
+
+extension NSDate {
+	func dateFromString(date: String, format: String) -> NSDate {
+		let formatter = NSDateFormatter()
+		let locale = NSLocale(localeIdentifier: "en_US_POSIX")
+
+		formatter.locale = locale
+		formatter.dateFormat = format
+
+		return formatter.dateFromString(date)!
+	}
 }
