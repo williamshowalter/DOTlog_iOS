@@ -10,9 +10,11 @@ import Foundation
 import UIKit
 import CoreData
 
-class NewEntry: UIViewController, UITextFieldDelegate {
+class NewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
 	let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext
+	var categories = ["Hazard","Airport Closure","Kittens on Runway"]
+	@IBOutlet var pickerCategories: UIPickerView! = UIPickerView()
 
 	@IBOutlet weak var textCategory: UITextField!
 	@IBOutlet weak var textEvent: UITextView!
@@ -33,6 +35,7 @@ class NewEntry: UIViewController, UITextFieldDelegate {
 		datePickerView.addTarget(self, action: Selector("handleDatePickerDate:"), forControlEvents: UIControlEvents.ValueChanged)
 	}
 
+	@IBOutlet weak var categoryPicker: UIPickerView!
 	func handleDatePickerDate(sender: UIDatePicker) {
 		var dateFormatter = NSDateFormatter()
 		dateFormatter.dateFormat = "MMM dd yyyy"
@@ -56,6 +59,8 @@ class NewEntry: UIViewController, UITextFieldDelegate {
 		dateFormatter.dateFormat = "MMM dd yyyy"
 		textEventDate.text = dateFormatter.stringFromDate(todaysDate)
 
+		textCategory.text = categories[0]
+		pickerCategories.delegate = self;
 	}
 
 	override func didReceiveMemoryWarning() {
@@ -90,6 +95,33 @@ class NewEntry: UIViewController, UITextFieldDelegate {
 		} else {
 			// Clear fields
 		}
+
+		self.textEvent.text = ""
+		self.textCategory.text = categories[0]
+		self.viewDidLoad()
+	}
+
+	// returns the number of 'columns' to display.
+	func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int{
+		return 1
+	}
+
+	// returns the # of rows in each component..
+	func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
+		return categories.count
+	}
+
+	func pickerView(pickerView: UIPickerView!, titleForRow row: Int, forComponent component: Int) -> String! {
+		return categories[row]
+	}
+
+	func pickerView(pickerView: UIPickerView!, didSelectRow row: Int, inComponent component: Int)
+	{
+		textCategory.text = categories[row]
+	}
+
+	@IBAction func editCategories(sender: UITextField) {
+		sender.inputView = pickerCategories
 	}
 
 }
