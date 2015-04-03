@@ -29,35 +29,6 @@ class ViewController: UIViewController {
 		// Do any additional setup after loading the view, typically from a nib.
 	}
 
-	@IBAction func saveLogEntry(sender: AnyObject) {
-		let entityDescription =
-		NSEntityDescription.entityForName("LogEntry",
-		inManagedObjectContext: managedObjectContext!)
-
-		let logEntry = LogEntry(entity: entityDescription!,
-			insertIntoManagedObjectContext: managedObjectContext)
-
-		let tempAirport = airportID.text.toInt() as Int!;
-		let tempCategory = airportID.text.toInt() as Int!;
-
-		logEntry.entryDescription = entryDescription.text
-		logEntry.airportID = tempAirport
-		logEntry.categoryID = tempCategory
-
-		var error: NSError?
-
-		managedObjectContext?.save(&error)
-
-		if let err = error {
-			status.text = err.localizedFailureReason
-		} else {
-			entryDescription.text = ""
-			airportID.text = ""
-			categoryID.text = ""
-			status.text = "LogEntry Saved"
-		}
-	}
-
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
