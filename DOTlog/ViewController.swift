@@ -17,7 +17,14 @@ class ViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		// Do any additional setup after loading the view, typically from a nib.
+
+		// PROOF OF CONCEPT - not final
+		let username = "USERNAME"
+		let password = "PASS"
+
+		let url = NSURL (string: "http://" + username + ":" + password + "@dotlog.uafcsc.com/dotlog/pages/")
+		let requestObj = NSMutableURLRequest (URL: url!)
+		webView.loadRequest(requestObj)
 	}
 
 	override func didReceiveMemoryWarning() {
@@ -25,6 +32,7 @@ class ViewController: UIViewController {
 		// Dispose of any resources that can be recreated.
 	}
 
+	@IBOutlet weak var webView: UIWebView!
 
 }
 

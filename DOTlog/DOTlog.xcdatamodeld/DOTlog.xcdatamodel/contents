@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6751" systemVersion="14C1514" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Airports" representedClassName="Airports" syncable="YES">
+    <entity name="AirportEntry" representedClassName="DOTlog.AirportEntry" syncable="YES">
         <attribute name="faa_code" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="Categories" representedClassName="Categories" syncable="YES">
+    <entity name="CategoryEntry" representedClassName="DOTlog.CategoryEntry" syncable="YES">
         <attribute name="category_title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="LogEntry" representedClassName="DOTlog.LogEntry" syncable="YES">
@@ -14,8 +14,8 @@
         <attribute name="in_weekly_report" optional="YES" attributeType="Boolean" syncable="YES"/>
     </entity>
     <elements>
-        <element name="LogEntry" positionX="-54" positionY="-9" width="128" height="120"/>
-        <element name="Categories" positionX="-54" positionY="27" width="128" height="58"/>
-        <element name="Airports" positionX="-45" positionY="36" width="128" height="58"/>
+        <element name="AirportEntry" positionX="-45" positionY="36" width="128" height="58"/>
+        <element name="CategoryEntry" positionX="-54" positionY="27" width="128" height="58"/>
+        <element name="LogEntry" positionX="-54" positionY="-9" width="128" height="118"/>
     </elements>
 </model>

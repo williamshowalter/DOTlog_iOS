@@ -1,5 +1,5 @@
 //
-//  Categories.swift
+//  Airports.swift
 //  DOTlog
 //
 //  Created by William Showalter on 15/04/05.
@@ -9,8 +9,8 @@
 import Foundation
 import CoreData
 
-class Categories: NSManagedObject {
+class AirportEntry: NSManagedObject {
 
-    @NSManaged var category_title: String
+    @NSManaged var faa_code: String
 
 }
