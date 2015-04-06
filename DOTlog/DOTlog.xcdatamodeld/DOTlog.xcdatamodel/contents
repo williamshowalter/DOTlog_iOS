@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14C109" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6751" systemVersion="14C1514" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Airports" representedClassName="Airports" syncable="YES">
+        <attribute name="faa_code" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Categories" representedClassName="Categories" syncable="YES">
+        <attribute name="category_title" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="LogEntry" representedClassName="DOTlog.LogEntry" syncable="YES">
-        <attribute name="airportID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="categoryID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="entryDescription" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="timeEvent" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="timeStamp" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="userID" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="category_title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="event_description" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="event_time" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="faa_code" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="in_weekly_report" optional="YES" attributeType="Boolean" syncable="YES"/>
     </entity>
     <elements>
-        <element name="LogEntry" positionX="-54" positionY="-9" width="128" height="135"/>
+        <element name="LogEntry" positionX="-54" positionY="-9" width="128" height="120"/>
+        <element name="Categories" positionX="-54" positionY="27" width="128" height="58"/>
+        <element name="Airports" positionX="-45" positionY="36" width="128" height="58"/>
     </elements>
 </model>

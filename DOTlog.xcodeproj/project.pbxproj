@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D0B5D981AD201410053C0FF /* LogEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B5D971AD201410053C0FF /* LogEntry.swift */; };
+		3D0B5D991AD201410053C0FF /* LogEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B5D971AD201410053C0FF /* LogEntry.swift */; };
+		3D0B5D9E1AD2050B0053C0FF /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B5D9D1AD2050B0053C0FF /* Categories.swift */; };
+		3D0B5D9F1AD2050B0053C0FF /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B5D9D1AD2050B0053C0FF /* Categories.swift */; };
+		3D0B5DA11AD2050B0053C0FF /* Airports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B5DA01AD2050B0053C0FF /* Airports.swift */; };
+		3D0B5DA21AD2050B0053C0FF /* Airports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B5DA01AD2050B0053C0FF /* Airports.swift */; };
 		3D7A5AA31ABA2BDA00CB5871 /* EntryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7A5AA21ABA2BDA00CB5871 /* EntryList.swift */; };
 		3D7A5AA61ABA2D6500CB5871 /* NewEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7A5AA51ABA2D6500CB5871 /* NewEntry.swift */; };
 		3DDE98601AA2736500378DEE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDE985F1AA2736500378DEE /* AppDelegate.swift */; };
@@ -15,8 +21,6 @@
 		3DDE98681AA2736500378DEE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3DDE98661AA2736500378DEE /* Main.storyboard */; };
 		3DDE986A1AA2736500378DEE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DDE98691AA2736500378DEE /* Images.xcassets */; };
 		3DDE986D1AA2736500378DEE /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3DDE986B1AA2736500378DEE /* LaunchScreen.xib */; };
-		3DDE98831AA273FA00378DEE /* LogEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDE98821AA273FA00378DEE /* LogEntry.swift */; };
-		3DDE98841AA273FA00378DEE /* LogEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDE98821AA273FA00378DEE /* LogEntry.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,6 +34,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3D0B5D971AD201410053C0FF /* LogEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogEntry.swift; sourceTree = "<group>"; };
+		3D0B5D9D1AD2050B0053C0FF /* Categories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
+		3D0B5DA01AD2050B0053C0FF /* Airports.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Airports.swift; sourceTree = "<group>"; };
 		3D7A5AA21ABA2BDA00CB5871 /* EntryList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryList.swift; sourceTree = "<group>"; };
 		3D7A5AA51ABA2D6500CB5871 /* NewEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewEntry.swift; sourceTree = "<group>"; };
 		3DDE985A1AA2736500378DEE /* DOTlog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DOTlog.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -42,7 +49,6 @@
 		3DDE986C1AA2736500378DEE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		3DDE98721AA2736500378DEE /* DOTlogTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DOTlogTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DDE98771AA2736500378DEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3DDE98821AA273FA00378DEE /* LogEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogEntry.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,7 +96,9 @@
 				3DDE98691AA2736500378DEE /* Images.xcassets */,
 				3DDE986B1AA2736500378DEE /* LaunchScreen.xib */,
 				3DDE98611AA2736500378DEE /* DOTlog.xcdatamodeld */,
-				3DDE98821AA273FA00378DEE /* LogEntry.swift */,
+				3D0B5DA01AD2050B0053C0FF /* Airports.swift */,
+				3D0B5D9D1AD2050B0053C0FF /* Categories.swift */,
+				3D0B5D971AD201410053C0FF /* LogEntry.swift */,
 				3DDE985D1AA2736500378DEE /* Supporting Files */,
 				3D7A5AA21ABA2BDA00CB5871 /* EntryList.swift */,
 				3D7A5AA51ABA2D6500CB5871 /* NewEntry.swift */,
@@ -223,10 +231,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DDE98651AA2736500378DEE /* ViewController.swift in Sources */,
+				3D0B5D9E1AD2050B0053C0FF /* Categories.swift in Sources */,
 				3D7A5AA31ABA2BDA00CB5871 /* EntryList.swift in Sources */,
-				3DDE98831AA273FA00378DEE /* LogEntry.swift in Sources */,
 				3DDE98631AA2736500378DEE /* DOTlog.xcdatamodeld in Sources */,
+				3D0B5DA11AD2050B0053C0FF /* Airports.swift in Sources */,
 				3DDE98601AA2736500378DEE /* AppDelegate.swift in Sources */,
+				3D0B5D981AD201410053C0FF /* LogEntry.swift in Sources */,
 				3D7A5AA61ABA2D6500CB5871 /* NewEntry.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -235,7 +245,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3DDE98841AA273FA00378DEE /* LogEntry.swift in Sources */,
+				3D0B5DA21AD2050B0053C0FF /* Airports.swift in Sources */,
+				3D0B5D991AD201410053C0FF /* LogEntry.swift in Sources */,
+				3D0B5D9F1AD2050B0053C0FF /* Categories.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,6 +384,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -383,6 +396,7 @@
 				INFOPLIST_FILE = DOTlogTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DOTlog.app/DOTlog";
 			};
 			name = Debug;
@@ -391,6 +405,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",

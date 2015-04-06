@@ -13,8 +13,8 @@ import CoreData
 class NewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
 	let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext
-	var categories : [Int : String] = [0:"Hazard", 1:"Airport Closure", 2:"Kittens on Runway"]
-	var airports : [Int : String] = [0:"FBX", 1:"KZB", 2:"UZB", 3:"LNK"]
+	var categories : [String] = ["Hazard", "Airport Closure", "Kittens on Runway"]
+	var airports : [String] = ["FAI", "SCC", "OTZ", "OME"]
 
 	@IBOutlet var pickerCategories: UIPickerView! = UIPickerView()
 	@IBOutlet var pickerAirports: UIPickerView! = UIPickerView()
@@ -138,14 +138,15 @@ class NewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIP
 		let logEntry = LogEntry(entity: entityDescription!,
 			insertIntoManagedObjectContext: managedObjectContext)
 
-		let tempAirport = (airports as NSDictionary).allKeysForObject(textAirport.text)[0] as Int;
-		let tempCategory = 0;
-		let tempUser = 0;
+		logEntry.faa_code = textAirport.text
+		logEntry.category_title = textCategory.text
+		logEntry.event_description = textEvent.text
 
-		logEntry.entryDescription = textEvent.text
-		logEntry.airportID = tempAirport
-		logEntry.categoryID = tempCategory
-		logEntry.userID = tempUser
+		var dateFormatter:NSDateFormatter = NSDateFormatter()
+		dateFormatter.dateFormat = "MMM dd yyyy hh:mm a"
+		var tempDate:String = textEventDate.text + " " + textEventTime.text
+
+		logEntry.event_time = dateFormatter.dateFromString (tempDate)!
 
 		var error: NSError?
 
