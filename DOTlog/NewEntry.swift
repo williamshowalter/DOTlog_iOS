@@ -25,6 +25,8 @@ class NewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIP
 	@IBOutlet weak var textEventDate: UITextField!
 	@IBOutlet weak var textAirport: UITextField!
 
+	@IBOutlet weak var in_weekly_report: UISwitch!
+
 	@IBOutlet weak var labelStatus: UILabel!
 	
 	@IBAction func editEventTime(sender: UITextField) {
@@ -69,6 +71,11 @@ class NewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIP
 		textAirport.text = airports[0]
 		pickerCategories.delegate = self
 		pickerAirports.delegate = self
+
+		in_weekly_report.on = false
+
+		in_weekly_report.transform = CGAffineTransformMakeScale (0.75,0.75)
+
 	}
 
 	override func didReceiveMemoryWarning() {
@@ -141,6 +148,7 @@ class NewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIP
 		logEntry.faa_code = textAirport.text
 		logEntry.category_title = textCategory.text
 		logEntry.event_description = textEvent.text
+		logEntry.in_weekly_report = in_weekly_report.on
 
 		var dateFormatter:NSDateFormatter = NSDateFormatter()
 		dateFormatter.dateFormat = "MMM dd yyyy hh:mm a"
