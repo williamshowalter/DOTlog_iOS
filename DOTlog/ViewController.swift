@@ -27,8 +27,9 @@ class ViewController: UIViewController {
 		let password = "PASS"
 
 		//let url = NSURL (string: "http://" + username + ":" + password + "@dotlog.uafcsc.com/dotlog/pages/")
-		let baseurl = NSURL (string: "http://dotlog.uafcsc.com/dotlog/pages/")
+		let baseurl = NSURL (string: "http://dotlog.uafcsc.com/dotlog/api/index.cfm/api/airports")
 		let requestObj = NSMutableURLRequest (URL: baseurl!)
+		requestObj.HTTPMethod = "GET"
 		let initRequest = NSURLConnection(request: requestObj, delegate:self, startImmediately:true)
 	}
 

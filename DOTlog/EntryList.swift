@@ -36,7 +36,6 @@ class EntryList: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
 	// Functions for UITableViewDataSources
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		println(logEntries.count)
 		return logEntries.count;
 	}
 
