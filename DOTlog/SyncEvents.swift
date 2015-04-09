@@ -50,6 +50,8 @@ class SyncEvents : NSObject, NSURLConnectionDelegate {
 		let requestObj = NSMutableURLRequest (URL: URLObj)
 		requestObj.HTTPMethod = "PUT"
 		requestObj.HTTPBody = jsonData
+		requestObj.addValue("application/json", forHTTPHeaderField: "Content-Type")
+		requestObj.addValue("application/json", forHTTPHeaderField: "Accept")
 
 		if let initRequest = NSURLConnection(request: requestObj, delegate:self, startImmediately:true) {
 			//deleteOld()
