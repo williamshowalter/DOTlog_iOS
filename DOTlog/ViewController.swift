@@ -32,9 +32,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
 		super.viewDidLoad()
 
 		textBaseURL.text = baseURL
-		textUsername.text = keychainObj.getUsername()
+		//textUsername.text = keychainObj.getUsername()
 		textPassword.secureTextEntry = true;
-		textPassword.text = keychainObj.getPassword()
+		//textPassword.text = keychainObj.getPassword()
 	}
 
 	func sync() {

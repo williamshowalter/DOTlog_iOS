@@ -52,7 +52,9 @@ class SyncEvents : NSObject, NSURLConnectionDelegate {
 		requestObj.HTTPBody = jsonData
 
 		if let initRequest = NSURLConnection(request: requestObj, delegate:self, startImmediately:true) {
-			deleteOld()
+			//deleteOld()
+			println(jsonData)
+
 		}
 	}
 
