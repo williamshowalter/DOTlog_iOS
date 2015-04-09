@@ -13,9 +13,13 @@
         <attribute name="faa_code" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="in_weekly_report" optional="YES" attributeType="Boolean" syncable="YES"/>
     </entity>
+    <entity name="StoredData" representedClassName="DOTLOG.StoredData" syncable="YES">
+        <attribute name="urlString" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <elements>
         <element name="AirportEntry" positionX="-45" positionY="36" width="128" height="58"/>
         <element name="CategoryEntry" positionX="-54" positionY="27" width="128" height="58"/>
         <element name="LogEntry" positionX="-54" positionY="-9" width="128" height="120"/>
+        <element name="StoredData" positionX="-45" positionY="27" width="128" height="60"/>
     </elements>
 </model>

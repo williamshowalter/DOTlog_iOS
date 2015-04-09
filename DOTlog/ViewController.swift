@@ -34,6 +34,7 @@ class ViewController: UIViewController {
 		eventJSONBuilder()
 	}
 
+	// moved
 	func currentGetRequest() {
 		let request = NSMutableURLRequest (URL: activeURL)
 		request.HTTPMethod = "GET"
