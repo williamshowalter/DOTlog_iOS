@@ -75,7 +75,7 @@ class SyncCategories : NSObject, NSURLConnectionDelegate {
 		let data = JSON(data: webData)
 		var newEntries : [String] = []
 		for (index,entry) in data["CATEGORIES"]{   // CATEGORY SPECIFIC LINE
-			newEntries.append(entry["CATEGORY_TITLE"].string!)  // CATEGORY SPECIFIC LINE
+			newEntries.append(entry["NAME"].string!)  // CATEGORY SPECIFIC LINE
 		}
 
 		deleteOld()
