@@ -16,6 +16,6 @@
     <elements>
         <element name="AirportEntry" positionX="-45" positionY="36" width="128" height="58"/>
         <element name="CategoryEntry" positionX="-54" positionY="27" width="128" height="58"/>
-        <element name="LogEntry" positionX="-54" positionY="-9" width="128" height="118"/>
+        <element name="LogEntry" positionX="-54" positionY="-9" width="128" height="120"/>
     </elements>
 </model>

@@ -13,8 +13,17 @@
 		3D0B5D9F1AD2050B0053C0FF /* CategoryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B5D9D1AD2050B0053C0FF /* CategoryEntry.swift */; };
 		3D0B5DA11AD2050B0053C0FF /* AirportEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B5DA01AD2050B0053C0FF /* AirportEntry.swift */; };
 		3D0B5DA21AD2050B0053C0FF /* AirportEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B5DA01AD2050B0053C0FF /* AirportEntry.swift */; };
+		3D6322DE1AD5E34B00617DEC /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6322DC1AD5E34B00617DEC /* Alamofire.swift */; };
+		3D6322DF1AD5E34B00617DEC /* Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6322DC1AD5E34B00617DEC /* Alamofire.swift */; };
+		3D6322E01AD5E34B00617DEC /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D6322DD1AD5E34B00617DEC /* Info.plist */; };
+		3D6322E11AD5E34B00617DEC /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D6322DD1AD5E34B00617DEC /* Info.plist */; };
+		3D6322E31AD5E38500617DEC /* SyncAirports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6322E21AD5E38500617DEC /* SyncAirports.swift */; };
+		3D6322E51AD5E3B800617DEC /* SyncCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6322E41AD5E3B800617DEC /* SyncCategories.swift */; };
+		3D6322E71AD5E3D400617DEC /* SyncEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6322E61AD5E3D400617DEC /* SyncEvents.swift */; };
 		3D7A5AA31ABA2BDA00CB5871 /* EntryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7A5AA21ABA2BDA00CB5871 /* EntryList.swift */; };
 		3D7A5AA61ABA2D6500CB5871 /* NewEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7A5AA51ABA2D6500CB5871 /* NewEntry.swift */; };
+		3D8A9B631AD5F17E00DFB734 /* keychainAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8A9B621AD5F17E00DFB734 /* keychainAccess.swift */; };
+		3D981C261AD5EFB400505945 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D981C251AD5EFB400505945 /* Security.framework */; };
 		3D9AE0FF1AD4F02B005C42B3 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D9AE0FC1AD4F02B005C42B3 /* Info.plist */; };
 		3D9AE1001AD4F02B005C42B3 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D9AE0FC1AD4F02B005C42B3 /* Info.plist */; };
 		3D9AE1011AD4F02B005C42B3 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9AE0FE1AD4F02B005C42B3 /* SwiftyJSON.swift */; };
@@ -41,8 +50,16 @@
 		3D0B5D971AD201410053C0FF /* LogEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogEntry.swift; sourceTree = "<group>"; };
 		3D0B5D9D1AD2050B0053C0FF /* CategoryEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryEntry.swift; sourceTree = "<group>"; };
 		3D0B5DA01AD2050B0053C0FF /* AirportEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirportEntry.swift; sourceTree = "<group>"; };
+		3D6322DB1AD5E34B00617DEC /* Alamofire.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Alamofire.h; sourceTree = "<group>"; };
+		3D6322DC1AD5E34B00617DEC /* Alamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alamofire.swift; sourceTree = "<group>"; };
+		3D6322DD1AD5E34B00617DEC /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3D6322E21AD5E38500617DEC /* SyncAirports.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncAirports.swift; sourceTree = "<group>"; };
+		3D6322E41AD5E3B800617DEC /* SyncCategories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncCategories.swift; sourceTree = "<group>"; };
+		3D6322E61AD5E3D400617DEC /* SyncEvents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncEvents.swift; sourceTree = "<group>"; };
 		3D7A5AA21ABA2BDA00CB5871 /* EntryList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryList.swift; sourceTree = "<group>"; };
 		3D7A5AA51ABA2D6500CB5871 /* NewEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewEntry.swift; sourceTree = "<group>"; };
+		3D8A9B621AD5F17E00DFB734 /* keychainAccess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = keychainAccess.swift; sourceTree = "<group>"; };
+		3D981C251AD5EFB400505945 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		3D9AE0FC1AD4F02B005C42B3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3D9AE0FD1AD4F02B005C42B3 /* SwiftyJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftyJSON.h; sourceTree = "<group>"; };
 		3D9AE0FE1AD4F02B005C42B3 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
@@ -63,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D981C261AD5EFB400505945 /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +94,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D6322DA1AD5E34B00617DEC /* Alamofire */ = {
+			isa = PBXGroup;
+			children = (
+				3D6322DB1AD5E34B00617DEC /* Alamofire.h */,
+				3D6322DC1AD5E34B00617DEC /* Alamofire.swift */,
+				3D6322DD1AD5E34B00617DEC /* Info.plist */,
+			);
+			name = Alamofire;
+			path = Alamofire/Source;
+			sourceTree = "<group>";
+		};
+		3D981C271AD5EFC500505945 /* Included Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				3D981C251AD5EFB400505945 /* Security.framework */,
+				3D6322DA1AD5E34B00617DEC /* Alamofire */,
+				3D9AE0FB1AD4F02B005C42B3 /* SwiftyJSON */,
+			);
+			name = "Included Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
 		3D9AE0FB1AD4F02B005C42B3 /* SwiftyJSON */ = {
 			isa = PBXGroup;
 			children = (
@@ -90,7 +129,7 @@
 		3DDE98511AA2736500378DEE = {
 			isa = PBXGroup;
 			children = (
-				3D9AE0FB1AD4F02B005C42B3 /* SwiftyJSON */,
+				3D981C271AD5EFC500505945 /* Included Frameworks and Libraries */,
 				3DDE985C1AA2736500378DEE /* DOTlog */,
 				3DDE98751AA2736500378DEE /* DOTlogTests */,
 				3DDE985B1AA2736500378DEE /* Products */,
@@ -121,6 +160,10 @@
 				3DDE985D1AA2736500378DEE /* Supporting Files */,
 				3D7A5AA21ABA2BDA00CB5871 /* EntryList.swift */,
 				3D7A5AA51ABA2D6500CB5871 /* NewEntry.swift */,
+				3D6322E21AD5E38500617DEC /* SyncAirports.swift */,
+				3D6322E41AD5E3B800617DEC /* SyncCategories.swift */,
+				3D6322E61AD5E3D400617DEC /* SyncEvents.swift */,
+				3D8A9B621AD5F17E00DFB734 /* keychainAccess.swift */,
 			);
 			path = DOTlog;
 			sourceTree = "<group>";
@@ -232,6 +275,7 @@
 				3D9AE0FF1AD4F02B005C42B3 /* Info.plist in Resources */,
 				3DDE98681AA2736500378DEE /* Main.storyboard in Resources */,
 				3DDE986D1AA2736500378DEE /* LaunchScreen.xib in Resources */,
+				3D6322E01AD5E34B00617DEC /* Info.plist in Resources */,
 				3DDE986A1AA2736500378DEE /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -240,6 +284,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D6322E11AD5E34B00617DEC /* Info.plist in Resources */,
 				3D9AE1001AD4F02B005C42B3 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -252,11 +297,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				3DDE98651AA2736500378DEE /* ViewController.swift in Sources */,
+				3D6322E31AD5E38500617DEC /* SyncAirports.swift in Sources */,
 				3D0B5D9E1AD2050B0053C0FF /* CategoryEntry.swift in Sources */,
 				3D7A5AA31ABA2BDA00CB5871 /* EntryList.swift in Sources */,
+				3D6322E71AD5E3D400617DEC /* SyncEvents.swift in Sources */,
 				3DDE98631AA2736500378DEE /* DOTlog.xcdatamodeld in Sources */,
 				3D0B5DA11AD2050B0053C0FF /* AirportEntry.swift in Sources */,
+				3D6322E51AD5E3B800617DEC /* SyncCategories.swift in Sources */,
 				3DDE98601AA2736500378DEE /* AppDelegate.swift in Sources */,
+				3D8A9B631AD5F17E00DFB734 /* keychainAccess.swift in Sources */,
+				3D6322DE1AD5E34B00617DEC /* Alamofire.swift in Sources */,
 				3D9AE1011AD4F02B005C42B3 /* SwiftyJSON.swift in Sources */,
 				3D0B5D981AD201410053C0FF /* LogEntry.swift in Sources */,
 				3D7A5AA61ABA2D6500CB5871 /* NewEntry.swift in Sources */,
@@ -268,6 +318,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D0B5DA21AD2050B0053C0FF /* AirportEntry.swift in Sources */,
+				3D6322DF1AD5E34B00617DEC /* Alamofire.swift in Sources */,
 				3D0B5D991AD201410053C0FF /* LogEntry.swift in Sources */,
 				3D0B5D9F1AD2050B0053C0FF /* CategoryEntry.swift in Sources */,
 				3D9AE1021AD4F02B005C42B3 /* SwiftyJSON.swift in Sources */,

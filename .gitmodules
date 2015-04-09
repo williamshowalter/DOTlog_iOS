@@ -1,3 +1,6 @@
 [submodule "SwiftyJSON"]
 	path = SwiftyJSON
 	url = git@github.com:lingoer/SwiftyJSON.git
+[submodule "Alamofire"]
+	path = Alamofire
+	url = https://github.com/Alamofire/Alamofire.git
