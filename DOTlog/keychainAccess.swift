@@ -15,23 +15,16 @@ class KeychainAccess {
 	let storageUser = "DOT"
 
 	func setUsernamePassword (user: String, pass: String){
-		let error = Locksmith.deleteDataForUserAccount(storageUser)
-		setUsername(user)
-		setPassword(pass)
+		let errorDelete = Locksmith.deleteDataForUserAccount(storageUser, inService: serviceIdentifier)
+		let errorSave = Locksmith.saveData(["username": user,"password": pass], forUserAccount: storageUser, inService: serviceIdentifier)
 	}
 
-	func setUsername(user : String) {
-		let error = Locksmith.saveData(["username": user], forUserAccount: storageUser, inService: serviceIdentifier)
-
-	}
-	func setPassword(pass : String) {
-		let error = Locksmith.saveData(["password": pass], forUserAccount: storageUser, inService: serviceIdentifier)
-	}
 	func getUsername() -> String {
 		let (dictionary,error) = Locksmith.loadDataForUserAccount(storageUser, inService: serviceIdentifier)
 
 		return dictionary!.valueForKey("username") as String
 	}
+	
 	func getPassword()-> String {
 		let (dictionary,error) = Locksmith.loadDataForUserAccount(storageUser, inService: serviceIdentifier)
 

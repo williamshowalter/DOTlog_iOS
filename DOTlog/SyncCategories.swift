@@ -6,21 +6,23 @@
 //  Copyright (c) 2015 UAF CS Capstone 2015. All rights reserved.
 //
 
+
 import UIKit
 import CoreData
 import Foundation
 
-class SyncCategories {
+class SyncCategories : NSObject, NSURLConnectionDelegate {
 
-	var webData = NSMutableData ()
-	var URLString = String()
-	var URLObj = NSURL()
 	var finishedLoading : Bool = false
-	var apiURI = "/dotlog/api/index.cfm/api/categories"
 
-	let managedObjectContext =
-	(UIApplication.sharedApplication().delegate
-		as AppDelegate).managedObjectContext
+	private var webData = NSMutableData ()
+	private var URLString = String()
+	private var URLObj = NSURL()
+	private var apiURI = "/dotlog/api/index.cfm/api/categories"   // CATEGORY SPECIFIC LINE
+
+	private var keychainObj = KeychainAccess()
+
+	private let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext
 
 	init (baseURLString base: String){
 		URLString = base + apiURI
@@ -33,8 +35,8 @@ class SyncCategories {
 			challenge.sender.cancelAuthenticationChallenge(challenge)
 		}
 		else {
-			let credential = NSURLCredential (user: "user",
-				password: "password",
+			let credential = NSURLCredential (user: keychainObj.getUsername(),
+				password: keychainObj.getPassword(),
 				persistence: NSURLCredentialPersistence.ForSession)
 			challenge.sender.useCredential(credential, forAuthenticationChallenge: challenge)
 		}
@@ -51,40 +53,47 @@ class SyncCategories {
 
 	func connectionDidFinishLoading(connection : NSURLConnection){
 		finishedLoading = true
+		syncJSON()
+	}
+
+	func connection(connection: NSURLConnection, didFailWithError error: NSError){
+		println("Connection Error in Sync")
+	}
+
+	func connectionShouldUseCredentialStorage(connection: NSURLConnection) -> Bool {
+		return false
 	}
 
 	func requestData() {
+		finishedLoading = false
 		let request = NSMutableURLRequest (URL: URLObj)
 		request.HTTPMethod = "GET"
-		let initRequest = NSURLConnection(request: request, delegate:self, startImmediately:true)
+		let initRequest = NSURLConnection(request: request, delegate:self, startImmediately:true)!
 	}
 
-	func syncJSON() {
-		let categoryData = JSON(data: webData)
-		var newCategories : [String] = []
-		for (index,category) in categoryData["CATEGORIES"]{
-			newCategories.append(category["CATEGORY_TITLE"].string!)
+	private func syncJSON() {
+		let data = JSON(data: webData)
+		var newEntries : [String] = []
+		for (index,entry) in data["CATEGORIES"]{   // CATEGORY SPECIFIC LINE
+			newEntries.append(entry["CATEGORY_TITLE"].string!)  // CATEGORY SPECIFIC LINE
 		}
 
 		deleteOld()
 
-		for title in newCategories {
-			let categoryEntityDescription = NSEntityDescription.entityForName("categoryEntry",
-				inManagedObjectContext: managedObjectContext!)
-			let newCategory = CategoryEntry(entity: categoryEntityDescription!,
-				insertIntoManagedObjectContext: managedObjectContext)
-			newCategory.category_title = title
+		for entry in newEntries {
+			let entityDescription = NSEntityDescription.entityForName("CategoryEntry", inManagedObjectContext: managedObjectContext!)   // CATEGORY SPECIFIC LINE
+			let newEntry = CategoryEntry(entity: entityDescription!, insertIntoManagedObjectContext: managedObjectContext)  // CATEGORY SPECIFIC LINE
+			newEntry.category_title = entry   // CATEGORY SPECIFIC LINE
 			var error: NSError?
 
 			managedObjectContext?.save(&error)
 		}
 	}
 
-	func deleteOld() {
-		let fetchCategories = NSFetchRequest (entityName:"CategoryEntry")
-		let categoryEntries = managedObjectContext!.executeFetchRequest(fetchCategories, error:nil) as [CategoryEntry]
-
-		for entry in categoryEntries {
+	private func deleteOld() {
+		let fetch = NSFetchRequest (entityName:"CategoryEntry")  // CATEGORY SPECIFIC LINE
+		let entries = managedObjectContext!.executeFetchRequest(fetch, error:nil) as [CategoryEntry]  // CATEGORY SPECIFIC LINE
+		for entry in entries {
 			managedObjectContext?.deleteObject(entry)
 		}
 	}

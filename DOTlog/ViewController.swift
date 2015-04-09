@@ -19,26 +19,18 @@ class ViewController: UIViewController {
 	// Revolving webdata variable that is used by all connections
 	var webData = NSMutableData()
 	var activeURL : NSURL = NSURL()
-	var getURLs = [NSURL (string: "http://dotlog.uafcsc.com/dotlog/api/index.cfm/api/airports")!, NSURL (string: "http://dotlog.uafcsc.com/dotlog/api/index.cfm/api/categories")!]
+
 	var postURL = NSURL (string: "http://dotlog.uafcsc.com/dotlog/api/index.cfm/api/events")!
-
-	var user = "temp"
-	var password = "temp"
-
+	var baseURL : String = "http://dotlog.uafcsc.com"
 	var keychainObj = KeychainAccess()
+
+	var airports : SyncAirports = SyncAirports(baseURLString: "/")
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		activeURL = getURLs[0]
-		currentGetRequest()
-		eventJSONBuilder()
-	}
 
-	// moved
-	func currentGetRequest() {
-		let request = NSMutableURLRequest (URL: activeURL)
-		request.HTTPMethod = "GET"
-		let initRequest = NSURLConnection(request: request, delegate:self, startImmediately:true)
+		airports = SyncAirports(baseURLString: baseURL)
+		airports.requestData()
 	}
 
 	func eventPostRequest() {
@@ -67,99 +59,6 @@ class ViewController: UIViewController {
 		return ["events":events]
 	}
 
-	func airportSyncJSON() {
-		let airportData = JSON(data: webData)
-		var newAirports : [String] = []
-		for (index,airport) in airportData["AIPRORTS"]{
-			newAirports.append(airport["FAA_CODE"].string!)
-		}
-
-		deleteAirports()
-
-		for title in newAirports {
-			let airportEntityDescription = NSEntityDescription.entityForName("AirportEntry",
-				inManagedObjectContext: managedObjectContext!)
-			let newAirport = AirportEntry(entity: airportEntityDescription!,
-				insertIntoManagedObjectContext: managedObjectContext)
-			newAirport.faa_code = title
-			var error: NSError?
-
-			managedObjectContext?.save(&error)
-		}
-	}
-
-	func deleteAirports() {
-		let fetchAirports = NSFetchRequest (entityName:"AirportEntry")
-		let airportentries = managedObjectContext!.executeFetchRequest(fetchAirports, error:nil) as [AirportEntry]
-
-		for entry in airportentries {
-			managedObjectContext?.deleteObject(entry)
-		}
-	}
-
-	func categorySyncJSON() {
-		let categoryData = JSON(data: webData)
-		var newCategories : [String] = []
-		for (index,category) in categoryData["CATEGORIES"]{
-			newCategories.append(category["CATEGORY_TITLE"].string!)
-		}
-
-		deleteCategories()
-
-		for title in newCategories {
-			let categoryEntityDescription = NSEntityDescription.entityForName("categoryEntry",
-				inManagedObjectContext: managedObjectContext!)
-			let newCategory = CategoryEntry(entity: categoryEntityDescription!,
-				insertIntoManagedObjectContext: managedObjectContext)
-			newCategory.category_title = title
-			var error: NSError?
-
-			managedObjectContext?.save(&error)
-		}
-	}
-
-	func deleteCategories() {
-		let fetchCategories = NSFetchRequest (entityName:"CategoryEntry")
-		let categoryEntries = managedObjectContext!.executeFetchRequest(fetchCategories, error:nil) as [CategoryEntry]
-
-		for entry in categoryEntries {
-			managedObjectContext?.deleteObject(entry)
-		}
-	}
-
-	func connection(connection: NSURLConnection, willSendRequestForAuthenticationChallenge challenge: NSURLAuthenticationChallenge){
-		if (challenge.previousFailureCount != 0){
-			// Previous failures
-			challenge.sender.cancelAuthenticationChallenge(challenge)
-		}
-		else {
-			let credential = NSURLCredential (user: user,
-											password: password,
-						persistence: NSURLCredentialPersistence.ForSession)
-			challenge.sender.useCredential(credential, forAuthenticationChallenge: challenge)
-		}
-
-	}
-
-	func connection(connection: NSURLConnection, didReceiveData data: NSData){
-		webData.appendData(data)
-	}
-
-	func connection(connection: NSURLConnection, didReceiveResponse response: NSURLResponse){
-		webData = NSMutableData ()
-	}
-
-	func connectionDidFinishLoading(connection : NSURLConnection){
-		webView.loadData(webData, MIMEType: "text/html", textEncodingName: "UTF-8", baseURL:activeURL)
-		if (activeURL == getURLs[0]){
-			airportSyncJSON()
-			activeURL = getURLs[1]
-			currentGetRequest()
-		}
-		else if (activeURL == getURLs[1]){
-			//categorySyncJSON()
-		}
-	}
 
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
