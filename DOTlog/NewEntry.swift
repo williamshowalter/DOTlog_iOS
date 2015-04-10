@@ -12,7 +12,7 @@ import CoreData
 
 class NewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
-	let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext
+	let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 	var categories : [String] = []
 	var airports : [String] = []
 
@@ -57,9 +57,8 @@ class NewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIP
 		textEventTime.text = dateFormatter.stringFromDate(sender.date)
 	}
 
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		
+	override func viewWillAppear(animated: Bool){
+		super.viewWillAppear(animated)
 		let airportFetch = NSFetchRequest (entityName:"AirportEntry")
 		if let airportResults = managedObjectContext!.executeFetchRequest(airportFetch, error:nil) as? [AirportEntry]{
 			airports = Array<String>() // Clear old array
@@ -77,40 +76,34 @@ class NewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIP
 		}
 
 		// Initialize if no airports -- temporary until syncing is finished.
+		if airports.count != 0
+		{
+			textAirport.text = airports[0]
+		}
+		// Initialize if no categories -- temporary until syncing is finished
+		if categories.count != 0
+		{
+			textCategory.text = categories[0]
+		}
+
+		// Initialize if no airports -- temporary until syncing is finished.
 		if airports.count == 0
 		{
-			var initAirports : [String] = ["FAI", "SCC", "OTZ", "OME"]
-			for code in initAirports {
-				let airportEntityDescription = NSEntityDescription.entityForName("AirportEntry",
-					inManagedObjectContext: managedObjectContext!)
-				let newAirport = AirportEntry(entity: airportEntityDescription!,
-					insertIntoManagedObjectContext: managedObjectContext)
-				newAirport.faa_code = code
-				println(code)
-				var error: NSError?
-
-				managedObjectContext?.save(&error)
-
-			}
-			airports = ["INITIALIZED FIRST TIME RUNNING"]
+			airports = ["Please run initial sync"]
+			textAirport.text = airports[0]
 		}
 		// Initialize if no categories -- temporary until syncing is finished
 		if categories.count == 0
 		{
-			var initCategories : [String] = ["Hazard", "Airport Closure", "Kittens on Runway"]
-			for title in initCategories {
-				let categoryEntityDescription = NSEntityDescription.entityForName("CategoryEntry",
-					inManagedObjectContext: managedObjectContext!)
-				let newCategory = CategoryEntry(entity: categoryEntityDescription!,
-					insertIntoManagedObjectContext: managedObjectContext)
-				newCategory.category_title = title
-				var error: NSError?
-
-				managedObjectContext?.save(&error)
-
-			}
-			categories = ["INITIALIZED FIRST TIME RUNNING"]
+			categories = ["Please run initial sync"]
+			textCategory.text = categories[0]
 		}
+	}
+
+	override func viewDidLoad() {
+		super.viewDidLoad()
+
+
 
 
 		var todaysDate:NSDate = NSDate()
@@ -121,8 +114,6 @@ class NewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIP
 		dateFormatter.dateFormat = "MMM dd yyyy"
 		textEventDate.text = dateFormatter.stringFromDate(todaysDate)
 
-		textCategory.text = categories[0]
-		textAirport.text = airports[0]
 		pickerCategories.delegate = self
 		pickerAirports.delegate = self
 
@@ -171,7 +162,7 @@ class NewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIP
 	}
 
 	// Get rid of the keyboard when touching outside
-	override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+	override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
 		self.view.endEditing(true);
 	}
 	// Get rid of keyboard when hitting return
@@ -197,21 +188,21 @@ class NewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIP
 	}
 
 	func pickerView(pickerView: UIPickerView!, titleForRow row: Int, forComponent component: Int) -> String! {
-		if (pickerView == pickerCategories){
+		if (pickerView == pickerCategories && categories.count != 0){
 			return categories[row]
 		}
-		else if (pickerView == pickerAirports){
+		else if (pickerView == pickerAirports && airports.count != 0){
 			return airports[row];
 		}
-		return categories[row]
+		return "Please run sync"
 	}
 
 	func pickerView(pickerView: UIPickerView!, didSelectRow row: Int, inComponent component: Int)
 	{
-		if (pickerView == pickerCategories){
+		if (pickerView == pickerCategories && categories.count != 0){
 			textCategory.text = categories[row]
 		}
-		else if (pickerView == pickerAirports){
+		else if (pickerView == pickerAirports && airports.count != 0){
 			textAirport.text = airports[row];
 		}
 	}

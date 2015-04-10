@@ -14,7 +14,7 @@ class EntryList: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
 	@IBOutlet weak var entryTableView: UITableView!
 
-	let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext
+	let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
 	var logEntries = [LogEntry]()
 
@@ -41,7 +41,7 @@ class EntryList: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
 	func fetchLogs(){
 		let logsFetch = NSFetchRequest (entityName:"LogEntry")
-		logEntries = managedObjectContext!.executeFetchRequest(logsFetch, error:nil) as [LogEntry]
+		logEntries = managedObjectContext!.executeFetchRequest(logsFetch, error:nil) as! [LogEntry]
 	}
 
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

@@ -21,7 +21,7 @@ class SyncAirports : NSObject, NSURLConnectionDelegate {
 
 	private var keychainObj = KeychainAccess()
 
-	private let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext
+	private let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
 	init (baseURLString base: String){
 		URLString = base + apiURI
@@ -91,7 +91,7 @@ class SyncAirports : NSObject, NSURLConnectionDelegate {
 
 	private func deleteOld() {
 		let fetch = NSFetchRequest (entityName:"AirportEntry")   // AIRPORT SPECIFIC LINE
-		let entries = managedObjectContext!.executeFetchRequest(fetch, error:nil) as [AirportEntry]  // AIRPORT SPECIFIC LINE
+		let entries = managedObjectContext!.executeFetchRequest(fetch, error:nil) as! [AirportEntry]  // AIRPORT SPECIFIC LINE
 
 		for entry in entries {
 			managedObjectContext?.deleteObject(entry)

@@ -22,7 +22,7 @@ class SyncCategories : NSObject, NSURLConnectionDelegate {
 
 	private var keychainObj = KeychainAccess()
 
-	private let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext
+	private let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
 	init (baseURLString base: String){
 		URLString = base + apiURI
@@ -92,7 +92,7 @@ class SyncCategories : NSObject, NSURLConnectionDelegate {
 
 	private func deleteOld() {
 		let fetch = NSFetchRequest (entityName:"CategoryEntry")  // CATEGORY SPECIFIC LINE
-		let entries = managedObjectContext!.executeFetchRequest(fetch, error:nil) as [CategoryEntry]  // CATEGORY SPECIFIC LINE
+		let entries = managedObjectContext!.executeFetchRequest(fetch, error:nil) as! [CategoryEntry]  // CATEGORY SPECIFIC LINE
 		for entry in entries {
 			managedObjectContext?.deleteObject(entry)
 		}

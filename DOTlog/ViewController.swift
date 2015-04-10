@@ -18,7 +18,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
 	let managedObjectContext =
 		(UIApplication.sharedApplication().delegate
-				as AppDelegate).managedObjectContext
+				as! AppDelegate).managedObjectContext
 
 	var baseURL : String = "http://dotlog.uafcsc.com"
 
@@ -59,7 +59,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
 	}
 
 	// Get rid of the keyboard when touching outside
-	override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+	override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
 		self.view.endEditing(true);
 	}
 	// Get rid of keyboard when hitting return

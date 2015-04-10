@@ -19,7 +19,7 @@ class SyncEvents : NSObject, NSURLConnectionDelegate {
 
 	private var keychainObj = KeychainAccess()
 
-	private let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext
+	private let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
 	init (baseURLString base: String){
 		URLString = base + apiURI
@@ -54,16 +54,14 @@ class SyncEvents : NSObject, NSURLConnectionDelegate {
 		requestObj.addValue("application/json", forHTTPHeaderField: "Accept")
 
 		if let initRequest = NSURLConnection(request: requestObj, delegate:self, startImmediately:true) {
-			//deleteOld()
-			println(jsonData)
-
+			deleteOld()
 		}
 	}
 
 	func eventJSONBuilder() -> Dictionary<String,AnyObject> {
 		var events : [Dictionary<String, AnyObject>] = []
 		let fetchEvents = NSFetchRequest (entityName:"LogEntry")
-		let eventEntries = managedObjectContext!.executeFetchRequest(fetchEvents, error:nil) as [LogEntry]
+		let eventEntries = managedObjectContext!.executeFetchRequest(fetchEvents, error:nil) as! [LogEntry]
 
 		for entry in eventEntries {
 			var dateFormatter = NSDateFormatter()
@@ -79,7 +77,7 @@ class SyncEvents : NSObject, NSURLConnectionDelegate {
 
 	private func deleteOld() {
 		let fetch = NSFetchRequest (entityName:"LogEntry")   // LOG SPECIFIC LINE
-		let entries = managedObjectContext!.executeFetchRequest(fetch, error:nil) as [LogEntry]  // LOG SPECIFIC LINE
+		let entries = managedObjectContext!.executeFetchRequest(fetch, error:nil) as! [LogEntry]  // LOG SPECIFIC LINE
 		for entry in entries {
 			managedObjectContext?.deleteObject(entry)
 		}

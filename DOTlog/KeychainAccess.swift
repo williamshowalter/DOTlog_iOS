@@ -22,13 +22,13 @@ class KeychainAccess {
 	func getUsername() -> String {
 		let (dictionary,error) = Locksmith.loadDataForUserAccount(storageUser, inService: serviceIdentifier)
 
-		return dictionary!.valueForKey("username") as String
+		return dictionary!.valueForKey("username") as! String
 	}
 	
 	func getPassword()-> String {
 		let (dictionary,error) = Locksmith.loadDataForUserAccount(storageUser, inService: serviceIdentifier)
 
-		return dictionary!.valueForKey("password") as String
+		return dictionary!.valueForKey("password") as! String
 	}
 }
 
@@ -60,7 +60,7 @@ import UIKit
 import Security
 
 public let LocksmithErrorDomain = "com.locksmith.error"
-public let LocksmithDefaultService = NSBundle.mainBundle().infoDictionary![kCFBundleIdentifierKey] as String
+public let LocksmithDefaultService = NSBundle.mainBundle().infoDictionary![kCFBundleIdentifierKey] as! String
 
 
 public class Locksmith: NSObject {
@@ -397,7 +397,7 @@ public enum Accessible: Int {
 public class LocksmithRequest: NSObject, DebugPrintable {
 	// Keychain Options
 	// Required
-	public var service: String = NSBundle.mainBundle().infoDictionary![kCFBundleIdentifierKey] as String // Default to Bundle Identifier
+	public var service: String = NSBundle.mainBundle().infoDictionary![kCFBundleIdentifierKey] as!String // Default to Bundle Identifier
 	public var userAccount: String
 	public var type: RequestType = .Read  // Default to non-destructive
 
