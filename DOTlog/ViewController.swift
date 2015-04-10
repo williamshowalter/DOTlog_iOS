@@ -63,7 +63,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
 		self.view.endEditing(true);
 	}
 	// Get rid of keyboard when hitting return
-	func textFieldShouldReturn(textField: UITextField!) -> Bool {
+	func textFieldShouldReturn(textField: UITextField) -> Bool {
 		textField.resignFirstResponder();
 		return true;
 	}

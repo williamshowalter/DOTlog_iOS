@@ -166,7 +166,7 @@ class NewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIP
 		self.view.endEditing(true);
 	}
 	// Get rid of keyboard when hitting return
-	func textFieldShouldReturn(textField: UITextField!) -> Bool {
+	func textFieldShouldReturn(textField: UITextField) -> Bool {
 		textField.resignFirstResponder();
 		return true;
 	}
@@ -187,7 +187,7 @@ class NewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIP
 		return categories.count
 	}
 
-	func pickerView(pickerView: UIPickerView!, titleForRow row: Int, forComponent component: Int) -> String! {
+	func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
 		if (pickerView == pickerCategories && categories.count != 0){
 			return categories[row]
 		}
@@ -197,7 +197,7 @@ class NewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIP
 		return "Please run sync"
 	}
 
-	func pickerView(pickerView: UIPickerView!, didSelectRow row: Int, inComponent component: Int)
+	func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
 	{
 		if (pickerView == pickerCategories && categories.count != 0){
 			textCategory.text = categories[row]
