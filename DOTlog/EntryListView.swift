@@ -27,6 +27,7 @@ class EntryListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
 	override func viewWillAppear(animated: Bool){
 		super.viewWillAppear(animated)
 		fetchLogs()
+		self.entryTableView.reloadData()
 	}
 
 	override func didReceiveMemoryWarning() {
@@ -45,15 +46,15 @@ class EntryListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
 	}
 
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		var cell: UITableViewCell? = self.entryTableView.dequeueReusableCellWithIdentifier("LogEntry") as? UITableViewCell
-		if cell == nil
-		{
-			cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "LogEntry")
-		}
-		let logEntry = logEntries[indexPath.row]
-		cell!.detailTextLabel!.text = logEntry.faa_code + " - " + logEntry.category_title + " - " + logEntry.event_description
-		return cell!
+		var newCell : UITableViewCell? = tableView.dequeueReusableCellWithIdentifier("LogEntry") as? UITableViewCell
 
+		if newCell == nil {
+			newCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "LogEntry")
+		}
+
+		let logEntry = logEntries[indexPath.row]
+		newCell!.detailTextLabel!.text = logEntry.faa_code + " - " + logEntry.category_title + " - " + logEntry.event_description
+		return newCell!
 	}
 
 	func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -66,6 +67,5 @@ class EntryListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
 			tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
 		}
 	}
-
 
 }

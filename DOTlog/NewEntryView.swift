@@ -59,6 +59,7 @@ class NewEntryView: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
 
 	override func viewWillAppear(animated: Bool){
 		super.viewWillAppear(animated)
+
 		let airportFetch = NSFetchRequest (entityName:"AirportEntry")
 		if let airportResults = managedObjectContext!.executeFetchRequest(airportFetch, error:nil) as? [AirportEntry]{
 			airports = Array<String>() // Clear old array
@@ -102,9 +103,6 @@ class NewEntryView: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-
-
 
 		var todaysDate:NSDate = NSDate()
 		var dateFormatter:NSDateFormatter = NSDateFormatter()
