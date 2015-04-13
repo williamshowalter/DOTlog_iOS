@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import Foundation
 
-class SyncEvents : NSObject, NSURLConnectionDelegate, SyncType {
+class APIEventResource : NSObject, NSURLConnectionDelegate, APIResource {
 
 	private let apiURI = "/dotlog/api/index.cfm/api/events"
 	private let httpMethod = "PUT"

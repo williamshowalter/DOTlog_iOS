@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 import Foundation
 
-class SyncAirports : NSObject, NSURLConnectionDelegate, SyncType {
+class APIAirportResource : NSObject, NSURLConnectionDelegate, APIResource {
 
 	private let apiURI = "/dotlog/api/index.cfm/api/airports"
 	private let httpMethod = "GET"

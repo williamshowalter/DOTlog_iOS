@@ -10,7 +10,7 @@
 import UIKit
 import CoreData
 
-class SyncView: UIViewController, UITextFieldDelegate {
+class ViewSync: UIViewController, UITextFieldDelegate {
 
 
 	let apiAlert = UIAlertController(title: "Contact IT", message: "Error: DOTlog API Unexpected Data from Webserver. Error must be resolved with IT before sync.", preferredStyle: .Alert)
@@ -26,9 +26,9 @@ class SyncView: UIViewController, UITextFieldDelegate {
 
 	var baseURL : String = "http://dotlog.uafcsc.com"
 
-	var airports : SyncAirports = SyncAirports(baseURLString: "/")
-	var categories : SyncCategories = SyncCategories(baseURLString: "/")
-	var events : SyncEvents = SyncEvents(baseURLString: "/")
+	var airportResource = APIAirportResource(baseURLString: "/")
+	var categoryResource = APICategoryResource(baseURLString: "/")
+	var eventResource = APIEventResource(baseURLString: "/")
 
 	var keychainObj = KeychainAccess()
 
@@ -53,17 +53,17 @@ class SyncView: UIViewController, UITextFieldDelegate {
 	}
 
 	func sync() {
-		airports = SyncAirports(baseURLString: baseURL)
-		categories = SyncCategories(baseURLString: baseURL)
-		events = SyncEvents(baseURLString: textBaseURL.text)
+		airportResource = APIAirportResource(baseURLString: baseURL)
+		categoryResource = APICategoryResource(baseURLString: baseURL)
+		eventResource = APIEventResource(baseURLString: textBaseURL.text)
 
 		var visitorObj = NetworkVisitor()
 
-		airports.accept(visitorObj)
+		airportResource.accept(visitorObj)
 		visitorObj = NetworkVisitor()
-		categories.accept(visitorObj)
+		categoryResource.accept(visitorObj)
 		visitorObj = NetworkVisitor()
-		events.accept(visitorObj)
+		eventResource.accept(visitorObj)
 	}
 
 	@IBAction func syncButton(sender: AnyObject) {

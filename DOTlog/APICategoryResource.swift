@@ -11,7 +11,7 @@ import UIKit
 import CoreData
 import Foundation
 
-class SyncCategories : NSObject, NSURLConnectionDelegate, SyncType {
+class APICategoryResource : NSObject, NSURLConnectionDelegate, APIResource {
 
 	private let categoryURI = "/dotlog/api/index.cfm/api/categories"
 	private let httpMethod = "GET"

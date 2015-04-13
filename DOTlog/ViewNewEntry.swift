@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import CoreData
 
-class NewEntryView: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class ViewNewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
 	let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 	let uninitializedString = "Must Run Sync"

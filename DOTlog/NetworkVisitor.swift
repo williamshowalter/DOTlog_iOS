@@ -15,15 +15,15 @@ class NetworkVisitor : NSObject, NSURLConnectionDelegate {
 	private var webData = NSMutableData ()
 	private var URLObj = NSURL()
 	private var keychainObj = KeychainAccess()
-	private var _syncObj : SyncType?
+	private var _APIObj : APIResource?
 
 	private let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
 	let apiAlert = UIAlertController(title: "Contact IT", message: "Error: DOTlog API Unexpected Data from Webserver. Error must be resolved with IT before sync.", preferredStyle: .Alert)
 
-	func visit (syncObj : SyncType){
-		_syncObj = syncObj
-		URLObj = NSURL(string: syncObj.getAPIAddressString())!
+	func visit (APIObj : APIResource){
+		_APIObj = APIObj
+		URLObj = NSURL(string: _APIObj!.getAPIAddressString())!
 		self.requestData()
 	}
 
@@ -49,7 +49,7 @@ class NetworkVisitor : NSObject, NSURLConnectionDelegate {
 	}
 
 	func connectionDidFinishLoading(connection : NSURLConnection){
-		_syncObj!.syncJSON(webData)
+		_APIObj!.syncJSON(webData)
 	}
 
 	func connection(connection: NSURLConnection, didFailWithError error: NSError){
@@ -62,8 +62,8 @@ class NetworkVisitor : NSObject, NSURLConnectionDelegate {
 
 	func requestData() {
 		let request = NSMutableURLRequest (URL: URLObj)
-		request.HTTPMethod = _syncObj!.getMethod()
-		request.HTTPBody = _syncObj!.getBody()
+		request.HTTPMethod = _APIObj!.getMethod()
+		request.HTTPBody = _APIObj!.getBody()
 		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 		request.addValue("application/json", forHTTPHeaderField: "Accept")
 

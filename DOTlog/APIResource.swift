@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol SyncType {
+protocol APIResource {
 	func accept (visitor : NetworkVisitor)
 	func getAPIAddressString() -> String
 	func syncJSON(webData : NSMutableData)
