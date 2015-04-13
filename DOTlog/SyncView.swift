@@ -32,9 +32,20 @@ class SyncView: UIViewController, UITextFieldDelegate {
 		super.viewDidLoad()
 
 		textBaseURL.text = baseURL
-		textUsername.text = keychainObj.getUsername()
+		if let username = keychainObj.getUsername(){
+			textUsername.text = username;
+		}
+		else {
+			textUsername.text = "";
+		}
+
 		textPassword.secureTextEntry = true;
-		textPassword.text = keychainObj.getPassword()
+		if let password = keychainObj.getPassword(){
+			textPassword.text = password;
+		}
+		else {
+			textPassword.text = "";
+		}
 	}
 
 	func sync() {
