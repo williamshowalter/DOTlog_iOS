@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import CoreData
 
-class EntryList: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class EntryListView: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
 	@IBOutlet weak var entryTableView: UITableView!
 

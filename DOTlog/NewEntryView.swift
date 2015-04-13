@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import CoreData
 
-class NewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class NewEntryView: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
 	let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 	var categories : [String] = []

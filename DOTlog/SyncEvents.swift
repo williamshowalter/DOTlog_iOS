@@ -32,8 +32,8 @@ class SyncEvents : NSObject, NSURLConnectionDelegate {
 			challenge.sender.cancelAuthenticationChallenge(challenge)
 		}
 		else {
-			let credential = NSURLCredential (user: keychainObj.getUsername(),
-				password: keychainObj.getPassword(),
+			let credential = NSURLCredential (user: keychainObj.getUsername()!,
+				password: keychainObj.getPassword()!,
 				persistence: NSURLCredentialPersistence.ForSession)
 			challenge.sender.useCredential(credential, forAuthenticationChallenge: challenge)
 		}

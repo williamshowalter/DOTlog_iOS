@@ -8,7 +8,7 @@
         <!--Sync-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="DOTlog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="SyncView" customModule="DOTlog" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -85,7 +85,7 @@
         <!--New Log Entry-->
         <scene sceneID="9lE-BY-j7f">
             <objects>
-                <viewController title="New Log Entry" id="SwT-sV-AaR" customClass="NewEntry" customModule="DOTlog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="New Log Entry" id="SwT-sV-AaR" customClass="NewEntryView" customModule="DOTlog" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="216-UA-v5J"/>
                         <viewControllerLayoutGuide type="bottom" id="yeV-h8-PMA"/>
@@ -276,7 +276,7 @@
         <!--Entry List-->
         <scene sceneID="0g1-Rc-PE1">
             <objects>
-                <viewController title="Entry List" id="txP-f5-9KX" customClass="EntryList" customModule="DOTlog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Entry List" id="txP-f5-9KX" customClass="EntryListView" customModule="DOTlog" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="WrS-Cz-gba"/>
                         <viewControllerLayoutGuide type="bottom" id="u4A-EB-q6K"/>

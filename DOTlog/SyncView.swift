@@ -10,7 +10,7 @@
 import UIKit
 import CoreData
 
-class ViewController: UIViewController, UITextFieldDelegate {
+class SyncView: UIViewController, UITextFieldDelegate {
 
 	@IBOutlet weak var textBaseURL: UITextField!
 	@IBOutlet weak var textUsername: UITextField!
@@ -32,9 +32,9 @@ class ViewController: UIViewController, UITextFieldDelegate {
 		super.viewDidLoad()
 
 		textBaseURL.text = baseURL
-		//textUsername.text = keychainObj.getUsername()
+		textUsername.text = keychainObj.getUsername()
 		textPassword.secureTextEntry = true;
-		//textPassword.text = keychainObj.getPassword()
+		textPassword.text = keychainObj.getPassword()
 	}
 
 	func sync() {
