@@ -21,8 +21,6 @@
 		3D7A5AA31ABA2BDA00CB5871 /* ViewEntryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7A5AA21ABA2BDA00CB5871 /* ViewEntryList.swift */; };
 		3D7A5AA61ABA2D6500CB5871 /* ViewNewEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7A5AA51ABA2D6500CB5871 /* ViewNewEntry.swift */; };
 		3D8A9B631AD5F17E00DFB734 /* KeychainAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D8A9B621AD5F17E00DFB734 /* KeychainAccess.swift */; };
-		3D93C51E1AD74BBA003506C7 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D93C51B1AD74BBA003506C7 /* Info.plist */; };
-		3D93C51F1AD74BBA003506C7 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D93C51D1AD74BBA003506C7 /* SwiftyJSON.swift */; };
 		3D981C261AD5EFB400505945 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D981C251AD5EFB400505945 /* Security.framework */; };
 		3DDE98601AA2736500378DEE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDE985F1AA2736500378DEE /* AppDelegate.swift */; };
 		3DDE98631AA2736500378DEE /* DOTlog.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3DDE98611AA2736500378DEE /* DOTlog.xcdatamodeld */; };
@@ -54,9 +52,6 @@
 		3D7A5AA21ABA2BDA00CB5871 /* ViewEntryList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewEntryList.swift; sourceTree = "<group>"; };
 		3D7A5AA51ABA2D6500CB5871 /* ViewNewEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewNewEntry.swift; sourceTree = "<group>"; };
 		3D8A9B621AD5F17E00DFB734 /* KeychainAccess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainAccess.swift; sourceTree = "<group>"; };
-		3D93C51B1AD74BBA003506C7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3D93C51C1AD74BBA003506C7 /* SwiftyJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwiftyJSON.h; sourceTree = "<group>"; };
-		3D93C51D1AD74BBA003506C7 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		3D981C251AD5EFB400505945 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		3DDE985A1AA2736500378DEE /* DOTlog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DOTlog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DDE985E1AA2736500378DEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -89,21 +84,9 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3D93C51A1AD74BBA003506C7 /* SwiftyJSON */ = {
-			isa = PBXGroup;
-			children = (
-				3D93C51B1AD74BBA003506C7 /* Info.plist */,
-				3D93C51C1AD74BBA003506C7 /* SwiftyJSON.h */,
-				3D93C51D1AD74BBA003506C7 /* SwiftyJSON.swift */,
-			);
-			name = SwiftyJSON;
-			path = SwiftyJSON/Source;
-			sourceTree = "<group>";
-		};
 		3D981C271AD5EFC500505945 /* Included Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				3D93C51A1AD74BBA003506C7 /* SwiftyJSON */,
 				3D981C251AD5EFB400505945 /* Security.framework */,
 			);
 			name = "Included Frameworks and Libraries";
@@ -257,7 +240,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D93C51E1AD74BBA003506C7 /* Info.plist in Resources */,
 				3DDE98681AA2736500378DEE /* Main.storyboard in Resources */,
 				3DDE986D1AA2736500378DEE /* LaunchScreen.xib in Resources */,
 				3DDE986A1AA2736500378DEE /* Images.xcassets in Resources */,
@@ -290,7 +272,6 @@
 				3DDE98601AA2736500378DEE /* AppDelegate.swift in Sources */,
 				3D8A9B631AD5F17E00DFB734 /* KeychainAccess.swift in Sources */,
 				3D0B5D981AD201410053C0FF /* EventEntry.swift in Sources */,
-				3D93C51F1AD74BBA003506C7 /* SwiftyJSON.swift in Sources */,
 				3D7A5AA61ABA2D6500CB5871 /* ViewNewEntry.swift in Sources */,
 				3D0C498F1ADB7AA100F91E3C /* NetworkVisitor.swift in Sources */,
 			);
