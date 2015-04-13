@@ -100,18 +100,8 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <action selector="editCategories:" destination="SwT-sV-AaR" eventType="editingDidBegin" id="Wgz-HG-3Rk"/>
+                                    <action selector="editCategory:" destination="SwT-sV-AaR" eventType="editingDidBegin" id="OHA-xa-ujC"/>
                                     <outlet property="delegate" destination="SwT-sV-AaR" id="bZe-RT-hOl"/>
-                                </connections>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="meG-cb-Eb1">
-                                <rect key="frame" x="115" y="90" width="97" height="30"/>
-                                <accessibility key="accessibilityConfiguration" hint=""/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="editAirport:" destination="SwT-sV-AaR" eventType="editingDidBegin" id="pzW-Pc-lNG"/>
-                                    <outlet property="delegate" destination="SwT-sV-AaR" id="WMj-iV-jeD"/>
                                 </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f8K-oL-qBz">
@@ -207,6 +197,16 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="meG-cb-Eb1">
+                                <rect key="frame" x="115" y="90" width="97" height="30"/>
+                                <accessibility key="accessibilityConfiguration" hint=""/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="editAirport:" destination="SwT-sV-AaR" eventType="editingDidBegin" id="pzW-Pc-lNG"/>
+                                    <outlet property="delegate" destination="SwT-sV-AaR" id="WMj-iV-jeD"/>
+                                </connections>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>

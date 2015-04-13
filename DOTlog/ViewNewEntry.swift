@@ -214,11 +214,13 @@ class ViewNewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
 		}
 	}
 
-	@IBAction func editCategories(sender: UITextField) {
+	@IBAction func editCategory(sender: UITextField) {
+		pickerCategories.reloadAllComponents()
 		sender.inputView = pickerCategories
 	}
 
 	@IBAction func editAirport(sender: UITextField) {
+		pickerAirports.reloadAllComponents()
 		sender.inputView = pickerAirports;
 	}
 
