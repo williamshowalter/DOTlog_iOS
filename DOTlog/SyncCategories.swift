@@ -11,79 +11,52 @@ import UIKit
 import CoreData
 import Foundation
 
-class SyncCategories : NSObject, NSURLConnectionDelegate {
+class SyncCategories : NSObject, NSURLConnectionDelegate, SyncType {
 
-	var finishedLoading : Bool = false
-
-	private var webData = NSMutableData ()
-	private var URLString = String()
-	private var URLObj = NSURL()
-	private var apiURI = "/dotlog/api/index.cfm/api/categories"   // CATEGORY SPECIFIC LINE
-
-	private var keychainObj = KeychainAccess()
-
+	private let categoryURI = "/dotlog/api/index.cfm/api/categories"
+	private let httpMethod = "GET"
 	private let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
+	private var APIAddressString = String()
+
 	init (baseURLString base: String){
-		URLString = base + apiURI
-		URLObj = NSURL(string: URLString)!
+		APIAddressString = base + categoryURI
 	}
 
-	func connection(connection: NSURLConnection, willSendRequestForAuthenticationChallenge challenge: NSURLAuthenticationChallenge){
-		if (challenge.previousFailureCount != 0){
-			// Previous failures
-			challenge.sender.cancelAuthenticationChallenge(challenge)
-		}
-		else {
-			let credential = NSURLCredential (user: keychainObj.getUsername()!,
-				password: keychainObj.getPassword()!,
-				persistence: NSURLCredentialPersistence.ForSession)
-			challenge.sender.useCredential(credential, forAuthenticationChallenge: challenge)
-		}
-
+	func accept(visitor : NetworkVisitor){
+		visitor.visit(self)
 	}
 
-	func connection(connection: NSURLConnection, didReceiveData data: NSData){
-		webData.appendData(data)
+	func getMethod() -> String{
+		return httpMethod
 	}
 
-	func connection(connection: NSURLConnection, didReceiveResponse response: NSURLResponse){
-		webData = NSMutableData ()
+	func getAPIAddressString() -> String {
+		return APIAddressString
 	}
 
-	func connectionDidFinishLoading(connection : NSURLConnection){
-		finishedLoading = true
-		syncJSON()
+	func getBody() -> NSData {
+		return NSData() // No sending data for Categories
 	}
 
-	func connection(connection: NSURLConnection, didFailWithError error: NSError){
-		println("Connection Error in Sync")
-	}
-
-	func connectionShouldUseCredentialStorage(connection: NSURLConnection) -> Bool {
-		return false
-	}
-
-	func requestData() {
-		finishedLoading = false
-		let request = NSMutableURLRequest (URL: URLObj)
-		request.HTTPMethod = "GET"
-		let initRequest = NSURLConnection(request: request, delegate:self, startImmediately:true)!
-	}
-
-	private func syncJSON() {
+	func syncJSON(webData : NSMutableData) {
 		let data = JSON(data: webData)
-		var newEntries : [String] = []
-		for (index,entry) in data["CATEGORIES"]{   // CATEGORY SPECIFIC LINE
-			newEntries.append(entry["NAME"].string!)  // CATEGORY SPECIFIC LINE
+		var newEvents : [String] = []
+		for (index,entry) in data["CATEGORIES"]{
+			if let eventText = entry["CATEGORY_TITLE"].string {
+				newEvents.append(eventText)
+			}
+			else {
+				//self.presentViewController(apiAlert, animated: true, completion:nil) // CATEGORY SPECIFIC LINE
+			}
 		}
 
 		deleteOld()
 
-		for entry in newEntries {
-			let entityDescription = NSEntityDescription.entityForName("CategoryEntry", inManagedObjectContext: managedObjectContext!)   // CATEGORY SPECIFIC LINE
-			let newEntry = CategoryEntry(entity: entityDescription!, insertIntoManagedObjectContext: managedObjectContext)  // CATEGORY SPECIFIC LINE
-			newEntry.category_title = entry   // CATEGORY SPECIFIC LINE
+		for event in newEvents {
+			let entityDescription = NSEntityDescription.entityForName("CategoryEntry", inManagedObjectContext: managedObjectContext!)
+			let newEvent = CategoryEntry(entity: entityDescription!, insertIntoManagedObjectContext: managedObjectContext)
+			newEvent.category_title = event
 			var error: NSError?
 
 			managedObjectContext?.save(&error)
@@ -91,8 +64,8 @@ class SyncCategories : NSObject, NSURLConnectionDelegate {
 	}
 
 	private func deleteOld() {
-		let fetch = NSFetchRequest (entityName:"CategoryEntry")  // CATEGORY SPECIFIC LINE
-		let entries = managedObjectContext!.executeFetchRequest(fetch, error:nil) as! [CategoryEntry]  // CATEGORY SPECIFIC LINE
+		let fetch = NSFetchRequest (entityName:"CategoryEntry")
+		let entries = managedObjectContext!.executeFetchRequest(fetch, error:nil) as! [CategoryEntry]
 		for entry in entries {
 			managedObjectContext?.deleteObject(entry)
 		}

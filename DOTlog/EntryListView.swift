@@ -16,7 +16,7 @@ class EntryListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
 
 	let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
-	var logEntries = [EventEntry]()
+	var eventEntries = [EventEntry]()
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -37,12 +37,12 @@ class EntryListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
 
 	// Functions for UITableViewDataSources
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return logEntries.count;
+		return eventEntries.count;
 	}
 
 	func fetchLogs(){
 		let logsFetch = NSFetchRequest (entityName:"EventEntry")
-		logEntries = managedObjectContext!.executeFetchRequest(logsFetch, error:nil) as! [EventEntry]
+		eventEntries = managedObjectContext!.executeFetchRequest(logsFetch, error:nil) as! [EventEntry]
 	}
 
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -52,18 +52,18 @@ class EntryListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
 			newCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "EventEntry")
 		}
 
-		let logEntry = logEntries[indexPath.row]
-		newCell!.detailTextLabel!.text = logEntry.faa_code + " - " + logEntry.category_title + " - " + logEntry.event_description
+		let eventEntry = eventEntries[indexPath.row]
+		newCell!.detailTextLabel!.text = eventEntry.faa_code + " - " + eventEntry.category_title + " - " + eventEntry.event_text
 		return newCell!
 	}
 
 	func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
 		if editingStyle == UITableViewCellEditingStyle.Delete {
 
-			let entryToDelete = logEntries[indexPath.row]
+			let entryToDelete = eventEntries[indexPath.row]
 			managedObjectContext?.deleteObject(entryToDelete)
 
-			logEntries.removeAtIndex(indexPath.row)
+			eventEntries.removeAtIndex(indexPath.row)
 			tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
 		}
 	}

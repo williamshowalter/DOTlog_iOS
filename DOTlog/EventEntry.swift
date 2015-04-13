@@ -14,7 +14,7 @@ class EventEntry: NSManagedObject {
     @NSManaged var faa_code: String
     @NSManaged var category_title: String
     @NSManaged var event_time: NSDate
-    @NSManaged var event_description: String
+    @NSManaged var event_text: String
     @NSManaged var in_weekly_report: NSNumber
 
 }

@@ -12,6 +12,10 @@ import CoreData
 
 class SyncView: UIViewController, UITextFieldDelegate {
 
+
+	let apiAlert = UIAlertController(title: "Contact IT", message: "Error: DOTlog API Unexpected Data from Webserver. Error must be resolved with IT before sync.", preferredStyle: .Alert)
+
+
 	@IBOutlet weak var textBaseURL: UITextField!
 	@IBOutlet weak var textUsername: UITextField!
 	@IBOutlet weak var textPassword: UITextField!
@@ -53,9 +57,13 @@ class SyncView: UIViewController, UITextFieldDelegate {
 		categories = SyncCategories(baseURLString: baseURL)
 		events = SyncEvents(baseURLString: textBaseURL.text)
 
-		airports.requestData()
-		categories.requestData()
-		events.sendData()
+		var visitorObj = NetworkVisitor()
+
+		airports.accept(visitorObj)
+		visitorObj = NetworkVisitor()
+		categories.accept(visitorObj)
+		visitorObj = NetworkVisitor()
+		events.accept(visitorObj)
 	}
 
 	@IBAction func syncButton(sender: AnyObject) {

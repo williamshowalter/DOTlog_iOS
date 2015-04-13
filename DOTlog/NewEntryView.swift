@@ -13,9 +13,9 @@ import CoreData
 class NewEntryView: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
 	let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-	let uninitializedString = "Please run initial sync"
-	let airportcategoryAlert = UIAlertController(title: "Please Sync", message: "Please sync for updated airport & category lists", preferredStyle: .Alert)
-	let notextMessage = UIAlertController(title: "No event text", message: "Please enter an event description", preferredStyle: .Alert)
+	let uninitializedString = "Must Run Sync"
+	let airportcategoryAlert = UIAlertController(title: "Must Run Sync", message: "Please sync for updated airport & category lists", preferredStyle: .Alert)
+	let notextMessage = UIAlertController(title: "No Event Text", message: "Please enter an event description", preferredStyle: .Alert)
 
 	var categories : [String] = []
 	var airports : [String] = []
@@ -157,7 +157,7 @@ class NewEntryView: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
 
 			event.faa_code = textAirport.text
 			event.category_title = textCategory.text
-			event.event_description = textEvent.text
+			event.event_text = textEvent.text
 			event.in_weekly_report = in_weekly_report.on
 
 			var dateFormatter:NSDateFormatter = NSDateFormatter()

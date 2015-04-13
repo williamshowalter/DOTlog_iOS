@@ -10,52 +10,41 @@ import UIKit
 import CoreData
 import Foundation
 
-class SyncEvents : NSObject, NSURLConnectionDelegate {
+class SyncEvents : NSObject, NSURLConnectionDelegate, SyncType {
 
-	private var webData = NSMutableData ()
-	private var URLString = String()
-	private var URLObj = NSURL()
-	private var apiURI = "/dotlog/api/index.cfm/api/events"   // EVENT SPECIFIC LINE
-
-	private var keychainObj = KeychainAccess()
+	private let apiURI = "/dotlog/api/index.cfm/api/events"
+	private let httpMethod = "PUT"
+	private var APIAddressString = String()
 
 	private let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
 	init (baseURLString base: String){
-		URLString = base + apiURI
-		URLObj = NSURL(string: URLString)!
+		APIAddressString = base + apiURI
 	}
 
-	func connection(connection: NSURLConnection, willSendRequestForAuthenticationChallenge challenge: NSURLAuthenticationChallenge){
-		if (challenge.previousFailureCount != 0){
-			// Previous failures
-			challenge.sender.cancelAuthenticationChallenge(challenge)
-		}
-		else {
-			let credential = NSURLCredential (user: keychainObj.getUsername()!,
-				password: keychainObj.getPassword()!,
-				persistence: NSURLCredentialPersistence.ForSession)
-			challenge.sender.useCredential(credential, forAuthenticationChallenge: challenge)
-		}
+	func accept(visitor : NetworkVisitor){
+		visitor.visit(self)
 	}
 
-	func sendData() {
+	func getMethod() -> String{
+		return httpMethod
+	}
+
+	func getAPIAddressString() -> String {
+		return APIAddressString
+	}
+
+	func getBody() -> NSData {
 		let events = eventJSONBuilder()
 
 		var options = NSJSONWritingOptions.PrettyPrinted
 		var jsonData : NSData = NSJSONSerialization.dataWithJSONObject(events, options: options, error: nil)!
 
-		//jsonData = NSString(data: data, encoding: NSUTF8StringEncoding)!   example string conversion for verifying
+		return jsonData
+	}
 
-		let requestObj = NSMutableURLRequest (URL: URLObj)
-		requestObj.HTTPMethod = "PUT"
-		requestObj.HTTPBody = jsonData
-		requestObj.addValue("application/json", forHTTPHeaderField: "Content-Type")
-		requestObj.addValue("application/json", forHTTPHeaderField: "Accept")
-
-		if let initRequest = NSURLConnection(request: requestObj, delegate:self, startImmediately:true) {
-			deleteOld()
-		}
+	func syncJSON(webData: NSMutableData) {
+		deleteOld()
 	}
 
 	func eventJSONBuilder() -> Dictionary<String,AnyObject> {
@@ -68,7 +57,7 @@ class SyncEvents : NSObject, NSURLConnectionDelegate {
 			dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
 			let tempDate = dateFormatter.stringFromDate(entry.event_time)
 
-			let temp : [String: AnyObject] = ["airport_code":entry.faa_code,"category_title":entry.category_title, "in_weekly_report":entry.in_weekly_report.boolValue,"event_text":entry.event_description,	"event_time":tempDate]
+			let temp : [String: AnyObject] = ["FAA_CODE":entry.faa_code,"CATEGORY_TITLE":entry.category_title, "IN_WEEKLY_REPORT":entry.in_weekly_report.boolValue,"EVENT_TEXT":entry.event_text,	"EVENT_TIME":tempDate]
 
 			events.append(temp)
 		}
@@ -76,8 +65,8 @@ class SyncEvents : NSObject, NSURLConnectionDelegate {
 	}
 
 	private func deleteOld() {
-		let fetch = NSFetchRequest (entityName:"EventEntry")   // LOG SPECIFIC LINE
-		let entries = managedObjectContext!.executeFetchRequest(fetch, error:nil) as! [EventEntry]  // LOG SPECIFIC LINE
+		let fetch = NSFetchRequest (entityName:"EventEntry")
+		let entries = managedObjectContext!.executeFetchRequest(fetch, error:nil) as! [EventEntry]
 		for entry in entries {
 			managedObjectContext?.deleteObject(entry)
 		}

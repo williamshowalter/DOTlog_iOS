@@ -8,7 +8,7 @@
     </entity>
     <entity name="EventEntry" representedClassName="DOTlog.EventEntry" syncable="YES">
         <attribute name="category_title" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="event_description" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="event_text" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="event_time" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="faa_code" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="in_weekly_report" optional="YES" attributeType="Boolean" syncable="YES"/>

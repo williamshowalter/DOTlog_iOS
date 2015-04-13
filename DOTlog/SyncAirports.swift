@@ -10,79 +10,49 @@ import UIKit
 import CoreData
 import Foundation
 
-class SyncAirports : NSObject, NSURLConnectionDelegate {
+class SyncAirports : NSObject, NSURLConnectionDelegate, SyncType {
 
-	var finishedLoading : Bool = false
-
-	private var webData = NSMutableData ()
-	private var URLString = String()
-	private var URLObj = NSURL()
-	private var apiURI = "/dotlog/api/index.cfm/api/airports"   // AIRPORT SPECIFIC LINE
-
-	private var keychainObj = KeychainAccess()
+	private let apiURI = "/dotlog/api/index.cfm/api/airports"
+	private let httpMethod = "GET"
+	private var APIAddressString = String()
 
 	private let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
 	init (baseURLString base: String){
-		URLString = base + apiURI
-		URLObj = NSURL(string: URLString)!
+		APIAddressString = base + apiURI
 	}
 
-	func connection(connection: NSURLConnection, willSendRequestForAuthenticationChallenge challenge: NSURLAuthenticationChallenge){
-		if (challenge.previousFailureCount != 0){
-			// Previous failures
-			challenge.sender.cancelAuthenticationChallenge(challenge)
-		}
-		else {
-			let credential = NSURLCredential (user: keychainObj.getUsername()!,
-				password: keychainObj.getPassword()!,
-				persistence: NSURLCredentialPersistence.ForSession)
-			challenge.sender.useCredential(credential, forAuthenticationChallenge: challenge)
-		}
-
+	func accept(visitor : NetworkVisitor){
+		visitor.visit(self)
 	}
 
-	func connection(connection: NSURLConnection, didReceiveData data: NSData){
-		webData.appendData(data)
+	func getMethod() -> String{
+		return httpMethod
 	}
 
-	func connection(connection: NSURLConnection, didReceiveResponse response: NSURLResponse){
-		webData = NSMutableData ()
+	func getAPIAddressString() -> String {
+		return APIAddressString
 	}
 
-	func connectionDidFinishLoading(connection : NSURLConnection){
-		finishedLoading = true
-		syncJSON()
+	func getBody() -> NSData {
+		return NSData() // No sending data for Airports
 	}
 
-	func connection(connection: NSURLConnection, didFailWithError error: NSError){
-		println("Connection Error in Sync")
-	}
-
-	func connectionShouldUseCredentialStorage(connection: NSURLConnection) -> Bool {
-		return false
-	}
-
-	func requestData() {
-		finishedLoading = false
-		let request = NSMutableURLRequest (URL: URLObj)
-		request.HTTPMethod = "GET"
-		let initRequest = NSURLConnection(request: request, delegate:self, startImmediately:true)!
-	}
-
-	private func syncJSON() {
+	func syncJSON(webData : NSMutableData) {
 		let data = JSON(data: webData)
 		var newEntries : [String] = []
-		for (index,entry) in data["AIRPORTS"]{    // AIRPORT SPECIFIC LINE
-			newEntries.append(entry["FAA_CODE"].string!)  // AIRPORT SPECIFIC LINE
+		for (index,entry) in data["AIRPORTS"]{
+			newEntries.append(entry["FAA_CODE"].string!)
 		}
 
-		deleteOld()
+		if newEntries.count != 0{
+			deleteOld()
+		}
 
 		for entry in newEntries {
-			let entityDescription = NSEntityDescription.entityForName("AirportEntry", inManagedObjectContext: managedObjectContext!)   // AIRPORT SPECIFIC LINE
-			let newEntry = AirportEntry(entity: entityDescription!, insertIntoManagedObjectContext: managedObjectContext)  // AIRPORT SPECIFIC LINE
-			newEntry.faa_code = entry   // AIRPORT SPECIFIC LINE
+			let entityDescription = NSEntityDescription.entityForName("AirportEntry", inManagedObjectContext: managedObjectContext!)
+			let newEntry = AirportEntry(entity: entityDescription!, insertIntoManagedObjectContext: managedObjectContext)
+			newEntry.faa_code = entry
 			var error: NSError?
 
 			managedObjectContext?.save(&error)
@@ -90,9 +60,8 @@ class SyncAirports : NSObject, NSURLConnectionDelegate {
 	}
 
 	private func deleteOld() {
-		let fetch = NSFetchRequest (entityName:"AirportEntry")   // AIRPORT SPECIFIC LINE
-		let entries = managedObjectContext!.executeFetchRequest(fetch, error:nil) as! [AirportEntry]  // AIRPORT SPECIFIC LINE
-
+		let fetch = NSFetchRequest (entityName:"AirportEntry")
+		let entries = managedObjectContext!.executeFetchRequest(fetch, error:nil) as! [AirportEntry]
 		for entry in entries {
 			managedObjectContext?.deleteObject(entry)
 		}
