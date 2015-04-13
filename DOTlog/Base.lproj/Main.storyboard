@@ -165,7 +165,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="saveLogEntry:" destination="SwT-sV-AaR" eventType="touchUpInside" id="0gu-hP-Wrk"/>
+                                    <action selector="saveEventEntry:" destination="SwT-sV-AaR" eventType="touchUpInside" id="GfF-K9-SqP"/>
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dZD-sU-1L3">

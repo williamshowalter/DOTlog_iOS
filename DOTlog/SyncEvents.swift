@@ -60,8 +60,8 @@ class SyncEvents : NSObject, NSURLConnectionDelegate {
 
 	func eventJSONBuilder() -> Dictionary<String,AnyObject> {
 		var events : [Dictionary<String, AnyObject>] = []
-		let fetchEvents = NSFetchRequest (entityName:"LogEntry")
-		let eventEntries = managedObjectContext!.executeFetchRequest(fetchEvents, error:nil) as! [LogEntry]
+		let fetchEvents = NSFetchRequest (entityName:"EventEntry")
+		let eventEntries = managedObjectContext!.executeFetchRequest(fetchEvents, error:nil) as! [EventEntry]
 
 		for entry in eventEntries {
 			var dateFormatter = NSDateFormatter()
@@ -76,8 +76,8 @@ class SyncEvents : NSObject, NSURLConnectionDelegate {
 	}
 
 	private func deleteOld() {
-		let fetch = NSFetchRequest (entityName:"LogEntry")   // LOG SPECIFIC LINE
-		let entries = managedObjectContext!.executeFetchRequest(fetch, error:nil) as! [LogEntry]  // LOG SPECIFIC LINE
+		let fetch = NSFetchRequest (entityName:"EventEntry")   // LOG SPECIFIC LINE
+		let entries = managedObjectContext!.executeFetchRequest(fetch, error:nil) as! [EventEntry]  // LOG SPECIFIC LINE
 		for entry in entries {
 			managedObjectContext?.deleteObject(entry)
 		}

@@ -16,7 +16,7 @@ class EntryListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
 
 	let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
-	var logEntries = [LogEntry]()
+	var logEntries = [EventEntry]()
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -41,15 +41,15 @@ class EntryListView: UIViewController, UITableViewDelegate, UITableViewDataSourc
 	}
 
 	func fetchLogs(){
-		let logsFetch = NSFetchRequest (entityName:"LogEntry")
-		logEntries = managedObjectContext!.executeFetchRequest(logsFetch, error:nil) as! [LogEntry]
+		let logsFetch = NSFetchRequest (entityName:"EventEntry")
+		logEntries = managedObjectContext!.executeFetchRequest(logsFetch, error:nil) as! [EventEntry]
 	}
 
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		var newCell : UITableViewCell? = tableView.dequeueReusableCellWithIdentifier("LogEntry") as? UITableViewCell
+		var newCell : UITableViewCell? = tableView.dequeueReusableCellWithIdentifier("EventEntry") as? UITableViewCell
 
 		if newCell == nil {
-			newCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "LogEntry")
+			newCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "EventEntry")
 		}
 
 		let logEntry = logEntries[indexPath.row]

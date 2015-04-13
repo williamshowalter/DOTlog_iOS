@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-class LogEntry: NSManagedObject {
+class EventEntry: NSManagedObject {
 
     @NSManaged var faa_code: String
     @NSManaged var category_title: String

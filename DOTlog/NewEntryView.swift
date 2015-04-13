@@ -13,6 +13,10 @@ import CoreData
 class NewEntryView: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
 	let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+	let uninitializedString = "Please run initial sync"
+	let airportcategoryAlert = UIAlertController(title: "Please Sync", message: "Please sync for updated airport & category lists", preferredStyle: .Alert)
+	let notextMessage = UIAlertController(title: "No event text", message: "Please enter an event description", preferredStyle: .Alert)
+
 	var categories : [String] = []
 	var airports : [String] = []
 
@@ -59,7 +63,27 @@ class NewEntryView: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
 
 	override func viewWillAppear(animated: Bool){
 		super.viewWillAppear(animated)
+		resetPage()
+	}
 
+	override func viewDidLoad() {
+		super.viewDidLoad()
+
+		self.airportcategoryAlert.addAction(UIAlertAction(title: "Okay",
+			style: UIAlertActionStyle.Default,
+			handler: {(alert: UIAlertAction!) in}))
+		self.notextMessage.addAction(UIAlertAction(title: "Okay",
+			style: UIAlertActionStyle.Default,
+			handler: {(alert: UIAlertAction!) in}))
+
+		pickerCategories.delegate = self
+		pickerAirports.delegate = self
+
+		in_weekly_report.transform = CGAffineTransformMakeScale (0.75,0.75)
+
+	}
+
+	func resetPage() {
 		let airportFetch = NSFetchRequest (entityName:"AirportEntry")
 		if let airportResults = managedObjectContext!.executeFetchRequest(airportFetch, error:nil) as? [AirportEntry]{
 			airports = Array<String>() // Clear old array
@@ -90,19 +114,15 @@ class NewEntryView: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
 		// Initialize if no airports -- temporary until syncing is finished.
 		if airports.count == 0
 		{
-			airports = ["Please run initial sync"]
+			airports = [uninitializedString]
 			textAirport.text = airports[0]
 		}
 		// Initialize if no categories -- temporary until syncing is finished
 		if categories.count == 0
 		{
-			categories = ["Please run initial sync"]
+			categories = [uninitializedString]
 			textCategory.text = categories[0]
 		}
-	}
-
-	override func viewDidLoad() {
-		super.viewDidLoad()
 
 		var todaysDate:NSDate = NSDate()
 		var dateFormatter:NSDateFormatter = NSDateFormatter()
@@ -112,44 +132,50 @@ class NewEntryView: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
 		dateFormatter.dateFormat = "MMM dd yyyy"
 		textEventDate.text = dateFormatter.stringFromDate(todaysDate)
 
-		pickerCategories.delegate = self
-		pickerAirports.delegate = self
-
 		in_weekly_report.on = false
 
-		in_weekly_report.transform = CGAffineTransformMakeScale (0.75,0.75)
-
+		textEvent.text = ""
 	}
 
-	@IBAction func saveLogEntry(sender: AnyObject) {
-		let entityDescription =
-		NSEntityDescription.entityForName("LogEntry",
-			inManagedObjectContext: managedObjectContext!)
+	@IBAction func saveEventEntry(sender: AnyObject) {
 
-		let logEntry = LogEntry(entity: entityDescription!,
-			insertIntoManagedObjectContext: managedObjectContext)
+		if textCategory.text == uninitializedString || textAirport.text == uninitializedString
+		{
+			self.presentViewController(airportcategoryAlert, animated: true, completion:nil)
+		}
 
-		logEntry.faa_code = textAirport.text
-		logEntry.category_title = textCategory.text
-		logEntry.event_description = textEvent.text
-		logEntry.in_weekly_report = in_weekly_report.on
+		else if textEvent.text == "" {
+			self.presentViewController(notextMessage, animated:true, completion:nil)
+		}
+		else {
+			let entityDescription =
+			NSEntityDescription.entityForName("EventEntry",
+				inManagedObjectContext: managedObjectContext!)
 
-		var dateFormatter:NSDateFormatter = NSDateFormatter()
-		dateFormatter.dateFormat = "MMM dd yyyy hh:mm a"
-		var tempDate:String = textEventDate.text + " " + textEventTime.text
+			let event = EventEntry(entity: entityDescription!,
+				insertIntoManagedObjectContext: managedObjectContext)
 
-		logEntry.event_time = dateFormatter.dateFromString (tempDate)!
+			event.faa_code = textAirport.text
+			event.category_title = textCategory.text
+			event.event_description = textEvent.text
+			event.in_weekly_report = in_weekly_report.on
 
-		var error: NSError?
+			var dateFormatter:NSDateFormatter = NSDateFormatter()
+			dateFormatter.dateFormat = "MMM dd yyyy hh:mm a"
+			var tempDate:String = textEventDate.text + " " + textEventTime.text
 
-		managedObjectContext?.save(&error)
+			event.event_time = dateFormatter.dateFromString (tempDate)!
 
-		if let err = error {
-			labelStatus.text = err.localizedFailureReason;
-		} else {
-			labelStatus.text = "Log Entry Saved"
-			self.textEvent.text = ""
-			self.viewDidLoad()
+			var error: NSError?
+			
+			managedObjectContext?.save(&error)
+
+			if let err = error {
+				labelStatus.text = err.localizedFailureReason;
+			} else {
+				labelStatus.text = "Event Saved"
+				resetPage()
+			}
 		}
 		
 	}

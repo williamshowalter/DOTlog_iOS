@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6751" systemVersion="14C1514" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7549" systemVersion="14D131" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="AirportEntry" representedClassName="DOTlog.AirportEntry" syncable="YES">
         <attribute name="faa_code" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="CategoryEntry" representedClassName="DOTlog.CategoryEntry" syncable="YES">
         <attribute name="category_title" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="LogEntry" representedClassName="DOTlog.LogEntry" syncable="YES">
+    <entity name="EventEntry" representedClassName="DOTlog.EventEntry" syncable="YES">
         <attribute name="category_title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="event_description" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="event_time" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="faa_code" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="in_weekly_report" optional="YES" attributeType="Boolean" syncable="YES"/>
     </entity>
-    <entity name="StoredData" representedClassName="DOTLOG.StoredData" syncable="YES">
+    <entity name="SyncURLEntry" representedClassName="DOTLOG.StoredData" syncable="YES">
         <attribute name="urlString" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="AirportEntry" positionX="-45" positionY="36" width="128" height="58"/>
-        <element name="CategoryEntry" positionX="-54" positionY="27" width="128" height="58"/>
-        <element name="LogEntry" positionX="-54" positionY="-9" width="128" height="120"/>
-        <element name="StoredData" positionX="-45" positionY="27" width="128" height="60"/>
+        <element name="AirportEntry" positionX="81" positionY="-123" width="128" height="60"/>
+        <element name="CategoryEntry" positionX="-126" positionY="-36" width="128" height="58"/>
+        <element name="EventEntry" positionX="79" positionY="-27" width="128" height="120"/>
+        <element name="SyncURLEntry" positionX="-182" positionY="-126" width="128" height="60"/>
     </elements>
 </model>

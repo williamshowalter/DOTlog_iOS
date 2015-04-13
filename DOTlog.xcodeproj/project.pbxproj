@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3D0B5D981AD201410053C0FF /* LogEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B5D971AD201410053C0FF /* LogEntry.swift */; };
-		3D0B5D991AD201410053C0FF /* LogEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B5D971AD201410053C0FF /* LogEntry.swift */; };
+		3D0B5D981AD201410053C0FF /* EventEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B5D971AD201410053C0FF /* EventEntry.swift */; };
+		3D0B5D991AD201410053C0FF /* EventEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B5D971AD201410053C0FF /* EventEntry.swift */; };
 		3D0B5D9E1AD2050B0053C0FF /* CategoryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B5D9D1AD2050B0053C0FF /* CategoryEntry.swift */; };
 		3D0B5D9F1AD2050B0053C0FF /* CategoryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B5D9D1AD2050B0053C0FF /* CategoryEntry.swift */; };
 		3D0B5DA11AD2050B0053C0FF /* AirportEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B5DA01AD2050B0053C0FF /* AirportEntry.swift */; };
@@ -41,7 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3D0B5D971AD201410053C0FF /* LogEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogEntry.swift; sourceTree = "<group>"; };
+		3D0B5D971AD201410053C0FF /* EventEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventEntry.swift; sourceTree = "<group>"; };
 		3D0B5D9D1AD2050B0053C0FF /* CategoryEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryEntry.swift; sourceTree = "<group>"; };
 		3D0B5DA01AD2050B0053C0FF /* AirportEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AirportEntry.swift; sourceTree = "<group>"; };
 		3D6322E21AD5E38500617DEC /* SyncAirports.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncAirports.swift; sourceTree = "<group>"; };
@@ -134,7 +134,7 @@
 				3DDE98611AA2736500378DEE /* DOTlog.xcdatamodeld */,
 				3D0B5DA01AD2050B0053C0FF /* AirportEntry.swift */,
 				3D0B5D9D1AD2050B0053C0FF /* CategoryEntry.swift */,
-				3D0B5D971AD201410053C0FF /* LogEntry.swift */,
+				3D0B5D971AD201410053C0FF /* EventEntry.swift */,
 				3DDE985D1AA2736500378DEE /* Supporting Files */,
 				3D7A5AA21ABA2BDA00CB5871 /* EntryListView.swift */,
 				3D7A5AA51ABA2D6500CB5871 /* NewEntryView.swift */,
@@ -282,7 +282,7 @@
 				3D6322E51AD5E3B800617DEC /* SyncCategories.swift in Sources */,
 				3DDE98601AA2736500378DEE /* AppDelegate.swift in Sources */,
 				3D8A9B631AD5F17E00DFB734 /* KeychainAccess.swift in Sources */,
-				3D0B5D981AD201410053C0FF /* LogEntry.swift in Sources */,
+				3D0B5D981AD201410053C0FF /* EventEntry.swift in Sources */,
 				3D93C51F1AD74BBA003506C7 /* SwiftyJSON.swift in Sources */,
 				3D7A5AA61ABA2D6500CB5871 /* NewEntryView.swift in Sources */,
 			);
@@ -293,7 +293,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D0B5DA21AD2050B0053C0FF /* AirportEntry.swift in Sources */,
-				3D0B5D991AD201410053C0FF /* LogEntry.swift in Sources */,
+				3D0B5D991AD201410053C0FF /* EventEntry.swift in Sources */,
 				3D0B5D9F1AD2050B0053C0FF /* CategoryEntry.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
