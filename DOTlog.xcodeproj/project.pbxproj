@@ -143,12 +143,12 @@
 				3D7A5AA21ABA2BDA00CB5871 /* ViewEntryList.swift */,
 				3D7A5AA51ABA2D6500CB5871 /* ViewNewEntry.swift */,
 				3DDE98641AA2736500378DEE /* ViewSync.swift */,
+				3D0C49911ADB7DE000F91E3C /* APIResource.swift */,
 				3D6322E21AD5E38500617DEC /* APIAirportResource.swift */,
 				3D6322E41AD5E3B800617DEC /* APICategoryResource.swift */,
 				3D6322E61AD5E3D400617DEC /* APIEventResource.swift */,
-				3D8A9B621AD5F17E00DFB734 /* KeychainAccess.swift */,
 				3D0C498E1ADB7AA100F91E3C /* NetworkVisitor.swift */,
-				3D0C49911ADB7DE000F91E3C /* APIResource.swift */,
+				3D8A9B621AD5F17E00DFB734 /* KeychainAccess.swift */,
 			);
 			path = DOTlog;
 			sourceTree = "<group>";

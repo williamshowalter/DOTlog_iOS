@@ -123,15 +123,6 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Airport:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="48t-IT-9KE">
-                                <rect key="frame" x="16" y="94" width="91" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="91" id="aZh-aw-i9I"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Event Date:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZMx-1s-OSd">
                                 <rect key="frame" x="16" y="58" width="91" height="20.5"/>
                                 <constraints>
@@ -178,7 +169,7 @@
                                 </connections>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event Time:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tFy-DN-n3t">
-                                <rect key="frame" x="16" y="24" width="91" height="20.5"/>
+                                <rect key="frame" x="16" y="24" width="91" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="91" id="sdF-Xy-iYg"/>
                                 </constraints>
@@ -198,15 +189,24 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Description:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sOW-9g-Foh">
-                                <rect key="frame" x="18" y="159" width="93" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Event Summary:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sOW-9g-Foh">
+                                <rect key="frame" x="18" y="159" width="126" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iPg-gT-JEf">
-                                <rect key="frame" x="535" y="157" width="41.5" height="25"/>
+                                <rect key="frame" x="535" y="157" width="51" height="31"/>
                             </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Airport:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="48t-IT-9KE">
+                                <rect key="frame" x="16" y="94" width="91" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="91" id="aZh-aw-i9I"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -260,13 +260,13 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="New Entry" id="8lt-5D-ZRv"/>
                     <connections>
+                        <outlet property="UIFieldAirport" destination="meG-cb-Eb1" id="aXl-xm-rXw"/>
+                        <outlet property="UIFieldCategory" destination="EEY-wG-DUi" id="stW-p2-hfm"/>
+                        <outlet property="UIFieldDate" destination="qvC-fF-88k" id="j0W-Kj-Z0o"/>
+                        <outlet property="UIFieldEvent" destination="dZD-sU-1L3" id="bkV-9x-rs6"/>
+                        <outlet property="UIFieldTime" destination="nK7-aV-D09" id="se7-05-cHz"/>
                         <outlet property="in_weekly_report" destination="iPg-gT-JEf" id="5VN-oR-msT"/>
                         <outlet property="labelStatus" destination="2Ap-OQ-Di1" id="60t-TR-sh6"/>
-                        <outlet property="textAirport" destination="meG-cb-Eb1" id="VLg-A7-oBw"/>
-                        <outlet property="textCategory" destination="EEY-wG-DUi" id="87T-xk-eiY"/>
-                        <outlet property="textEvent" destination="dZD-sU-1L3" id="ysZ-MZ-RCW"/>
-                        <outlet property="textEventDate" destination="qvC-fF-88k" id="FmG-J0-2Qa"/>
-                        <outlet property="textEventTime" destination="nK7-aV-D09" id="6Fa-Dv-HWn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Eg5-gV-fg5" userLabel="First Responder" sceneMemberID="firstResponder"/>

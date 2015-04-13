@@ -35,14 +35,14 @@ class ViewEntryList: UIViewController, UITableViewDelegate, UITableViewDataSourc
 		// Dispose of any resources that can be recreated.
 	}
 
-	// Functions for UITableViewDataSources
-	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return eventEntries.count;
-	}
-
 	func fetchLogs(){
 		let logsFetch = NSFetchRequest (entityName:"EventEntry")
 		eventEntries = managedObjectContext!.executeFetchRequest(logsFetch, error:nil) as! [EventEntry]
+	}
+
+	// Functions for UITableViewDataSources
+	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return eventEntries.count;
 	}
 
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

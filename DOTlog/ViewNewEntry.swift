@@ -12,10 +12,10 @@ import CoreData
 
 class ViewNewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
-	let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 	let uninitializedString = "Must Run Sync"
-	let airportcategoryAlert = UIAlertController(title: "Must Run Sync", message: "Please sync for updated airport & category lists", preferredStyle: .Alert)
-	let notextMessage = UIAlertController(title: "No Event Text", message: "Please enter an event description", preferredStyle: .Alert)
+	let notSyncedAlert = UIAlertController(title: "Must Run Sync", message: "Please sync for airport & category lists", preferredStyle: .Alert)
+	let noEventSummaryAlert = UIAlertController(title: "No Event Summary", message: "Please enter an event summary", preferredStyle: .Alert)
+	let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
 	var categories : [String] = []
 	var airports : [String] = []
@@ -23,11 +23,11 @@ class ViewNewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
 	@IBOutlet var pickerCategories: UIPickerView! = UIPickerView()
 	@IBOutlet var pickerAirports: UIPickerView! = UIPickerView()
 
-	@IBOutlet weak var textCategory: UITextField!
-	@IBOutlet weak var textEvent: UITextView!
-	@IBOutlet weak var textEventTime: UITextField!
-	@IBOutlet weak var textEventDate: UITextField!
-	@IBOutlet weak var textAirport: UITextField!
+	@IBOutlet weak var UIFieldCategory: UITextField!
+	@IBOutlet weak var UIFieldEvent: UITextView!
+	@IBOutlet weak var UIFieldTime: UITextField!
+	@IBOutlet weak var UIFieldDate: UITextField!
+	@IBOutlet weak var UIFieldAirport: UITextField!
 
 	@IBOutlet weak var in_weekly_report: UISwitch!
 
@@ -52,13 +52,13 @@ class ViewNewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
 	func handleDatePickerDate(sender: UIDatePicker) {
 		var dateFormatter = NSDateFormatter()
 		dateFormatter.dateFormat = "MMM dd yyyy"
-		textEventDate.text = dateFormatter.stringFromDate(sender.date)
+		UIFieldDate.text = dateFormatter.stringFromDate(sender.date)
 	}
 
 	func handleDatePickerTime(sender: UIDatePicker) {
 		var dateFormatter = NSDateFormatter()
 		dateFormatter.dateFormat = "hh:mm a"
-		textEventTime.text = dateFormatter.stringFromDate(sender.date)
+		UIFieldTime.text = dateFormatter.stringFromDate(sender.date)
 	}
 
 	override func viewWillAppear(animated: Bool){
@@ -69,10 +69,10 @@ class ViewNewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		self.airportcategoryAlert.addAction(UIAlertAction(title: "Okay",
+		self.notSyncedAlert.addAction(UIAlertAction(title: "Okay",
 			style: UIAlertActionStyle.Default,
 			handler: {(alert: UIAlertAction!) in}))
-		self.notextMessage.addAction(UIAlertAction(title: "Okay",
+		self.noEventSummaryAlert.addAction(UIAlertAction(title: "Okay",
 			style: UIAlertActionStyle.Default,
 			handler: {(alert: UIAlertAction!) in}))
 
@@ -103,50 +103,50 @@ class ViewNewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
 		// Initialize if no airports -- temporary until syncing is finished.
 		if airports.count != 0
 		{
-			textAirport.text = airports[0]
+			UIFieldAirport.text = airports[0]
 		}
 		// Initialize if no categories -- temporary until syncing is finished
 		if categories.count != 0
 		{
-			textCategory.text = categories[0]
+			UIFieldCategory.text = categories[0]
 		}
 
-		// Initialize if no airports -- temporary until syncing is finished.
+		// Initialize if no airports
 		if airports.count == 0
 		{
 			airports = [uninitializedString]
-			textAirport.text = airports[0]
+			UIFieldAirport.text = airports[0]
 		}
-		// Initialize if no categories -- temporary until syncing is finished
+		// Initialize if no categories
 		if categories.count == 0
 		{
 			categories = [uninitializedString]
-			textCategory.text = categories[0]
+			UIFieldCategory.text = categories[0]
 		}
 
 		var todaysDate:NSDate = NSDate()
 		var dateFormatter:NSDateFormatter = NSDateFormatter()
 		dateFormatter.dateFormat = "hh:mm a"
-		textEventTime.text = dateFormatter.stringFromDate(todaysDate)
+		UIFieldTime.text = dateFormatter.stringFromDate(todaysDate)
 
 		dateFormatter.dateFormat = "MMM dd yyyy"
-		textEventDate.text = dateFormatter.stringFromDate(todaysDate)
+		UIFieldDate.text = dateFormatter.stringFromDate(todaysDate)
 
 		in_weekly_report.on = false
 
-		textEvent.text = ""
+		UIFieldEvent.text = ""
 	}
 
 	@IBAction func saveEventEntry(sender: AnyObject) {
 
-		if textCategory.text == uninitializedString || textAirport.text == uninitializedString
-		{
-			self.presentViewController(airportcategoryAlert, animated: true, completion:nil)
+		if UIFieldCategory.text == uninitializedString || UIFieldAirport.text == uninitializedString {
+			self.presentViewController(notSyncedAlert, animated: true, completion:nil)
 		}
 
-		else if textEvent.text == "" {
-			self.presentViewController(notextMessage, animated:true, completion:nil)
+		else if UIFieldEvent.text == "" {
+			self.presentViewController(noEventSummaryAlert, animated:true, completion:nil)
 		}
+
 		else {
 			let entityDescription =
 			NSEntityDescription.entityForName("EventEntry",
@@ -155,14 +155,14 @@ class ViewNewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
 			let event = EventEntry(entity: entityDescription!,
 				insertIntoManagedObjectContext: managedObjectContext)
 
-			event.faa_code = textAirport.text
-			event.category_title = textCategory.text
-			event.event_text = textEvent.text
+			event.faa_code = UIFieldAirport.text
+			event.category_title = UIFieldCategory.text
+			event.event_text = UIFieldEvent.text
 			event.in_weekly_report = in_weekly_report.on
 
 			var dateFormatter:NSDateFormatter = NSDateFormatter()
 			dateFormatter.dateFormat = "MMM dd yyyy hh:mm a"
-			var tempDate:String = textEventDate.text + " " + textEventTime.text
+			var tempDate:String = UIFieldDate.text + " " + UIFieldDate.text
 
 			event.event_time = dateFormatter.dateFromString (tempDate)!
 
@@ -195,12 +195,10 @@ class ViewNewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
 		return true;
 	}
 
-	// returns the number of 'columns' to display.
 	func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int{
 		return 1
 	}
 
-	// returns the # of rows in each component..
 	func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
 		if (pickerView == pickerCategories){
 			return categories.count
@@ -218,16 +216,16 @@ class ViewNewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
 		else if (pickerView == pickerAirports && airports.count != 0){
 			return airports[row];
 		}
-		return "Please run sync"
+		return uninitializedString
 	}
 
 	func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
 	{
 		if (pickerView == pickerCategories && categories.count != 0){
-			textCategory.text = categories[row]
+			UIFieldCategory.text = categories[row]
 		}
 		else if (pickerView == pickerAirports && airports.count != 0){
-			textAirport.text = airports[row];
+			UIFieldAirport.text = airports[row];
 		}
 	}
 
