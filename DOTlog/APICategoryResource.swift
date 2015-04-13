@@ -6,12 +6,11 @@
 //  Copyright (c) 2015 UAF CS Capstone 2015. All rights reserved.
 //
 
-
 import UIKit
 import CoreData
 import Foundation
 
-class APICategoryResource : NSObject, NSURLConnectionDelegate, APIResource {
+class APICategoryResource : APIResource {
 
 	private let categoryURI = "/dotlog/api/index.cfm/api/categories"
 	private let httpMethod = "GET"
@@ -39,24 +38,26 @@ class APICategoryResource : NSObject, NSURLConnectionDelegate, APIResource {
 		return NSData() // No sending data for Categories
 	}
 
-	func syncJSON(webData : NSMutableData) {
+	func refreshLocalResource(webData: NSMutableData) {
 		let data = JSON(data: webData)
-		var newEvents : [String] = []
+		var newCategories : [String] = []
 		for (index,entry) in data["CATEGORIES"]{
 			if let eventText = entry["CATEGORY_TITLE"].string {
-				newEvents.append(eventText)
+				newCategories.append(eventText)
 			}
 			else {
 				//self.presentViewController(apiAlert, animated: true, completion:nil) // CATEGORY SPECIFIC LINE
 			}
 		}
 
-		deleteOld()
+		if newCategories.count != 0 {
+			deleteOld()
+		}
 
-		for event in newEvents {
+		for category in newCategories {
 			let entityDescription = NSEntityDescription.entityForName("CategoryEntry", inManagedObjectContext: managedObjectContext!)
-			let newEvent = CategoryEntry(entity: entityDescription!, insertIntoManagedObjectContext: managedObjectContext)
-			newEvent.category_title = event
+			let newCategoryEntry = CategoryEntry(entity: entityDescription!, insertIntoManagedObjectContext: managedObjectContext)
+			newCategoryEntry.category_title = category
 			var error: NSError?
 
 			managedObjectContext?.save(&error)

@@ -12,50 +12,46 @@ import CoreData
 
 class ViewSync: UIViewController, UITextFieldDelegate {
 
-
-	let apiAlert = UIAlertController(title: "Contact IT", message: "Error: DOTlog API Unexpected Data from Webserver. Error must be resolved with IT before sync.", preferredStyle: .Alert)
-
-
-	@IBOutlet weak var textBaseURL: UITextField!
-	@IBOutlet weak var textUsername: UITextField!
-	@IBOutlet weak var textPassword: UITextField!
-
+	let APIAlert = UIAlertController(title: "Contact IT", message: "Error: DOTlog API Unexpected Data from Webserver. Error must be resolved with IT before sync.", preferredStyle: .Alert)
 	let managedObjectContext =
-		(UIApplication.sharedApplication().delegate
-				as! AppDelegate).managedObjectContext
+	(UIApplication.sharedApplication().delegate
+		as! AppDelegate).managedObjectContext
+	let defaultBaseURL : String = "http://dotlog.uafcsc.com"
 
-	var baseURL : String = "http://dotlog.uafcsc.com"
+	@IBOutlet weak var UIFieldBaseURL: UITextField!
+	@IBOutlet weak var UIFieldUsername: UITextField!
+	@IBOutlet weak var UIFieldPassword: UITextField!
+
+	var keychainObj = KeychainAccess()
 
 	var airportResource = APIAirportResource(baseURLString: "/")
 	var categoryResource = APICategoryResource(baseURLString: "/")
 	var eventResource = APIEventResource(baseURLString: "/")
 
-	var keychainObj = KeychainAccess()
-
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		textBaseURL.text = baseURL
+		UIFieldBaseURL.text = defaultBaseURL
 		if let username = keychainObj.getUsername(){
-			textUsername.text = username;
+			UIFieldUsername.text = username;
 		}
 		else {
-			textUsername.text = "";
+			UIFieldUsername.text = "";
 		}
 
-		textPassword.secureTextEntry = true;
+		UIFieldPassword.secureTextEntry = true;
 		if let password = keychainObj.getPassword(){
-			textPassword.text = password;
+			UIFieldPassword.text = password;
 		}
 		else {
-			textPassword.text = "";
+			UIFieldPassword.text = "";
 		}
 	}
 
-	func sync() {
-		airportResource = APIAirportResource(baseURLString: baseURL)
-		categoryResource = APICategoryResource(baseURLString: baseURL)
-		eventResource = APIEventResource(baseURLString: textBaseURL.text)
+	func syncResources() {
+		airportResource = APIAirportResource(baseURLString: UIFieldBaseURL.text)
+		categoryResource = APICategoryResource(baseURLString: UIFieldBaseURL.text)
+		eventResource = APIEventResource(baseURLString: UIFieldBaseURL.text)
 
 		var visitorObj = NetworkVisitor()
 
@@ -67,9 +63,8 @@ class ViewSync: UIViewController, UITextFieldDelegate {
 	}
 
 	@IBAction func syncButton(sender: AnyObject) {
-		keychainObj.setUsernamePassword(textUsername.text, pass: textPassword.text)
-		baseURL = textBaseURL.text
-		sync()
+		keychainObj.setUsernamePassword(UIFieldUsername.text, pass: UIFieldPassword.text)
+		syncResources()
 	}
 
 	override func didReceiveMemoryWarning() {

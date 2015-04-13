@@ -12,19 +12,21 @@ import Foundation
 
 class NetworkVisitor : NSObject, NSURLConnectionDelegate {
 
+	// This class is an implementation of the visitor design pattern
+	// This allows all the API requests to share a common network interface
+	// http://en.wikipedia.org/wiki/Visitor_pattern
+
 	private var webData = NSMutableData ()
 	private var URLObj = NSURL()
 	private var keychainObj = KeychainAccess()
-	private var _APIObj : APIResource?
+	private var APIClient : APIResource?
 
 	private let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
-	let apiAlert = UIAlertController(title: "Contact IT", message: "Error: DOTlog API Unexpected Data from Webserver. Error must be resolved with IT before sync.", preferredStyle: .Alert)
-
 	func visit (APIObj : APIResource){
-		_APIObj = APIObj
-		URLObj = NSURL(string: _APIObj!.getAPIAddressString())!
-		self.requestData()
+		APIClient = APIObj
+		URLObj = NSURL(string: APIClient!.getAPIAddressString())!
+		self.resourceRequest()
 	}
 
 	func connection(connection: NSURLConnection, willSendRequestForAuthenticationChallenge challenge: NSURLAuthenticationChallenge){
@@ -49,7 +51,7 @@ class NetworkVisitor : NSObject, NSURLConnectionDelegate {
 	}
 
 	func connectionDidFinishLoading(connection : NSURLConnection){
-		_APIObj!.syncJSON(webData)
+		APIClient!.refreshLocalResource(webData)
 	}
 
 	func connection(connection: NSURLConnection, didFailWithError error: NSError){
@@ -60,10 +62,10 @@ class NetworkVisitor : NSObject, NSURLConnectionDelegate {
 		return false
 	}
 
-	func requestData() {
+	func resourceRequest() {
 		let request = NSMutableURLRequest (URL: URLObj)
-		request.HTTPMethod = _APIObj!.getMethod()
-		request.HTTPBody = _APIObj!.getBody()
+		request.HTTPMethod = APIClient!.getMethod()
+		request.HTTPBody = APIClient!.getBody()
 		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 		request.addValue("application/json", forHTTPHeaderField: "Accept")
 

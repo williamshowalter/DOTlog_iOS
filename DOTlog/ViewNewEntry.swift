@@ -22,43 +22,43 @@ class ViewNewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
 
 	@IBOutlet var pickerCategories: UIPickerView! = UIPickerView()
 	@IBOutlet var pickerAirports: UIPickerView! = UIPickerView()
+	var pickerDate  : UIDatePicker! = UIDatePicker()
+	var pickerTime  : UIDatePicker! = UIDatePicker()
 
 	@IBOutlet weak var UIFieldCategory: UITextField!
-	@IBOutlet weak var UIFieldEvent: UITextView!
+	@IBOutlet weak var UIFieldSummary: UITextView!
 	@IBOutlet weak var UIFieldTime: UITextField!
 	@IBOutlet weak var UIFieldDate: UITextField!
 	@IBOutlet weak var UIFieldAirport: UITextField!
 
-	@IBOutlet weak var in_weekly_report: UISwitch!
+	@IBOutlet weak var UISwitchInWeeklyReport: UISwitch!
 
-	@IBOutlet weak var labelStatus: UILabel!
+	@IBOutlet weak var submissionStatus: UILabel!
 	
-	
-	@IBAction func editEventTime(sender: UITextField) {
-		var datePickerView  : UIDatePicker = UIDatePicker()
-		datePickerView.datePickerMode = UIDatePickerMode.Time
-		sender.inputView = datePickerView
-		datePickerView.addTarget(self, action: Selector("handleDatePickerTime:"), forControlEvents: UIControlEvents.ValueChanged)
-	}
 
 	@IBAction func editEventDate(sender: UITextField) {
-		var datePickerView  : UIDatePicker = UIDatePicker()
-		datePickerView.datePickerMode = UIDatePickerMode.Date
-		sender.inputView = datePickerView
-		datePickerView.addTarget(self, action: Selector("handleDatePickerDate:"), forControlEvents: UIControlEvents.ValueChanged)
+		pickerDate.datePickerMode = UIDatePickerMode.Date
+		sender.inputView = pickerDate
+		pickerDate.addTarget(self, action: Selector("setEventDate:"), forControlEvents: UIControlEvents.ValueChanged)
+	}
+
+	@IBAction func editEventTime(sender: UITextField) {
+		pickerTime.datePickerMode = UIDatePickerMode.Time
+		sender.inputView = pickerTime
+		pickerTime.addTarget(self, action: Selector("setEventTime:"), forControlEvents: UIControlEvents.ValueChanged)
 	}
 
 
-	func handleDatePickerDate(sender: UIDatePicker) {
-		var dateFormatter = NSDateFormatter()
-		dateFormatter.dateFormat = "MMM dd yyyy"
-		UIFieldDate.text = dateFormatter.stringFromDate(sender.date)
+	func setEventDate(sender: UIDatePicker) {
+		var monthDayYearFormatter = NSDateFormatter()
+		monthDayYearFormatter.dateFormat = "MMM dd yyyy"
+		UIFieldDate.text = monthDayYearFormatter.stringFromDate(sender.date)
 	}
 
-	func handleDatePickerTime(sender: UIDatePicker) {
-		var dateFormatter = NSDateFormatter()
-		dateFormatter.dateFormat = "hh:mm a"
-		UIFieldTime.text = dateFormatter.stringFromDate(sender.date)
+	func setEventTime(sender: UIDatePicker) {
+		var timeFormatter = NSDateFormatter()
+		timeFormatter.dateFormat = "hh:mm a"
+		UIFieldTime.text = timeFormatter.stringFromDate(sender.date)
 	}
 
 	override func viewWillAppear(animated: Bool){
@@ -69,17 +69,17 @@ class ViewNewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		self.notSyncedAlert.addAction(UIAlertAction(title: "Okay",
+		self.notSyncedAlert.addAction(UIAlertAction(title: "Dismiss",
 			style: UIAlertActionStyle.Default,
 			handler: {(alert: UIAlertAction!) in}))
-		self.noEventSummaryAlert.addAction(UIAlertAction(title: "Okay",
+		self.noEventSummaryAlert.addAction(UIAlertAction(title: "Dismiss",
 			style: UIAlertActionStyle.Default,
 			handler: {(alert: UIAlertAction!) in}))
 
 		pickerCategories.delegate = self
 		pickerAirports.delegate = self
 
-		in_weekly_report.transform = CGAffineTransformMakeScale (0.75,0.75)
+		UISwitchInWeeklyReport.transform = CGAffineTransformMakeScale (0.75,0.75)
 
 	}
 
@@ -100,50 +100,35 @@ class ViewNewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
 			}
 		}
 
-		// Initialize if no airports -- temporary until syncing is finished.
-		if airports.count != 0
-		{
-			UIFieldAirport.text = airports[0]
-		}
-		// Initialize if no categories -- temporary until syncing is finished
-		if categories.count != 0
-		{
-			UIFieldCategory.text = categories[0]
-		}
-
-		// Initialize if no airports
-		if airports.count == 0
-		{
+		if airports.count == 0 {
 			airports = [uninitializedString]
-			UIFieldAirport.text = airports[0]
 		}
-		// Initialize if no categories
-		if categories.count == 0
-		{
+
+		if categories.count == 0 {
 			categories = [uninitializedString]
-			UIFieldCategory.text = categories[0]
 		}
 
-		var todaysDate:NSDate = NSDate()
-		var dateFormatter:NSDateFormatter = NSDateFormatter()
-		dateFormatter.dateFormat = "hh:mm a"
-		UIFieldTime.text = dateFormatter.stringFromDate(todaysDate)
+		UIFieldAirport.text = airports[0]
+		UIFieldCategory.text = categories[0]
 
-		dateFormatter.dateFormat = "MMM dd yyyy"
-		UIFieldDate.text = dateFormatter.stringFromDate(todaysDate)
+		pickerDate.date = NSDate()
+		pickerTime.date = NSDate()
 
-		in_weekly_report.on = false
+		setEventDate(pickerDate)
+		setEventTime(pickerTime)
 
-		UIFieldEvent.text = ""
+		UISwitchInWeeklyReport.on = false
+
+		UIFieldSummary.text = ""
 	}
 
-	@IBAction func saveEventEntry(sender: AnyObject) {
+	@IBAction func saveEvent(sender: AnyObject) {
 
 		if UIFieldCategory.text == uninitializedString || UIFieldAirport.text == uninitializedString {
 			self.presentViewController(notSyncedAlert, animated: true, completion:nil)
 		}
 
-		else if UIFieldEvent.text == "" {
+		else if UIFieldSummary.text == "" {
 			self.presentViewController(noEventSummaryAlert, animated:true, completion:nil)
 		}
 
@@ -157,12 +142,12 @@ class ViewNewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
 
 			event.faa_code = UIFieldAirport.text
 			event.category_title = UIFieldCategory.text
-			event.event_text = UIFieldEvent.text
-			event.in_weekly_report = in_weekly_report.on
+			event.event_text = UIFieldSummary.text
+			event.in_weekly_report = UISwitchInWeeklyReport.on
 
 			var dateFormatter:NSDateFormatter = NSDateFormatter()
 			dateFormatter.dateFormat = "MMM dd yyyy hh:mm a"
-			var tempDate:String = UIFieldDate.text + " " + UIFieldDate.text
+			var tempDate:String = UIFieldDate.text + " " + UIFieldTime.text
 
 			event.event_time = dateFormatter.dateFromString (tempDate)!
 
@@ -171,9 +156,9 @@ class ViewNewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
 			managedObjectContext?.save(&error)
 
 			if let err = error {
-				labelStatus.text = err.localizedFailureReason;
+				submissionStatus.text = err.localizedFailureReason;
 			} else {
-				labelStatus.text = "Event Saved"
+				submissionStatus.text = "Event Saved"
 				resetPage()
 			}
 		}

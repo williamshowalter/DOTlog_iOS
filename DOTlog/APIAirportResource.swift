@@ -10,16 +10,16 @@ import UIKit
 import CoreData
 import Foundation
 
-class APIAirportResource : NSObject, NSURLConnectionDelegate, APIResource {
+class APIAirportResource : APIResource {
 
-	private let apiURI = "/dotlog/api/index.cfm/api/airports"
+	private let airportURI = "/dotlog/api/index.cfm/api/airports"
 	private let httpMethod = "GET"
-	private var APIAddressString = String()
-
 	private let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
+	private var APIAddressString = String()
+
 	init (baseURLString base: String){
-		APIAddressString = base + apiURI
+		APIAddressString = base + airportURI
 	}
 
 	func accept(visitor : NetworkVisitor){
@@ -38,21 +38,26 @@ class APIAirportResource : NSObject, NSURLConnectionDelegate, APIResource {
 		return NSData() // No sending data for Airports
 	}
 
-	func syncJSON(webData : NSMutableData) {
+	func refreshLocalResource(webData: NSMutableData) {
 		let data = JSON(data: webData)
-		var newEntries : [String] = []
+		var newAirports : [String] = []
 		for (index,entry) in data["AIRPORTS"]{
-			newEntries.append(entry["FAA_CODE"].string!)
+			if let eventText = entry["FAA_CODE"].string {
+				newAirports.append(eventText)
+			}
+			else {
+				//self.presentViewController(apiAlert, animated: true, completion:nil) // CATEGORY SPECIFIC LINE
+			}
 		}
 
-		if newEntries.count != 0{
+		if newAirports.count != 0 {
 			deleteOld()
 		}
 
-		for entry in newEntries {
+		for airport in newAirports {
 			let entityDescription = NSEntityDescription.entityForName("AirportEntry", inManagedObjectContext: managedObjectContext!)
-			let newEntry = AirportEntry(entity: entityDescription!, insertIntoManagedObjectContext: managedObjectContext)
-			newEntry.faa_code = entry
+			let newAirportEntry = CategoryEntry(entity: entityDescription!, insertIntoManagedObjectContext: managedObjectContext)
+			newAirportEntry.category_title = airport
 			var error: NSError?
 
 			managedObjectContext?.save(&error)

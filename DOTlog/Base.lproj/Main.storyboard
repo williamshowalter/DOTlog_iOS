@@ -73,6 +73,9 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Sync" id="IXa-zo-vUq"/>
                     <connections>
+                        <outlet property="UIFieldBaseURL" destination="LDv-of-DWg" id="Aty-RE-G7p"/>
+                        <outlet property="UIFieldPassword" destination="zed-QN-EX3" id="HAf-Jt-qPN"/>
+                        <outlet property="UIFieldUsername" destination="Wv0-OH-xBp" id="rkU-6e-3kE"/>
                         <outlet property="textBaseURL" destination="LDv-of-DWg" id="VH3-Kx-Oyn"/>
                         <outlet property="textPassword" destination="zed-QN-EX3" id="Ehq-ci-axJ"/>
                         <outlet property="textUsername" destination="Wv0-OH-xBp" id="wrm-fU-ZS7"/>
@@ -156,7 +159,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="saveEventEntry:" destination="SwT-sV-AaR" eventType="touchUpInside" id="GfF-K9-SqP"/>
+                                    <action selector="saveEvent:" destination="SwT-sV-AaR" eventType="touchUpInside" id="BVO-QA-fKm"/>
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dZD-sU-1L3">
@@ -263,10 +266,10 @@
                         <outlet property="UIFieldAirport" destination="meG-cb-Eb1" id="aXl-xm-rXw"/>
                         <outlet property="UIFieldCategory" destination="EEY-wG-DUi" id="stW-p2-hfm"/>
                         <outlet property="UIFieldDate" destination="qvC-fF-88k" id="j0W-Kj-Z0o"/>
-                        <outlet property="UIFieldEvent" destination="dZD-sU-1L3" id="bkV-9x-rs6"/>
+                        <outlet property="UIFieldSummary" destination="dZD-sU-1L3" id="ro3-X3-pbu"/>
                         <outlet property="UIFieldTime" destination="nK7-aV-D09" id="se7-05-cHz"/>
-                        <outlet property="in_weekly_report" destination="iPg-gT-JEf" id="5VN-oR-msT"/>
-                        <outlet property="labelStatus" destination="2Ap-OQ-Di1" id="60t-TR-sh6"/>
+                        <outlet property="UISwitchInWeeklyReport" destination="iPg-gT-JEf" id="vAH-I9-JkH"/>
+                        <outlet property="submissionStatus" destination="2Ap-OQ-Di1" id="oD4-Jk-U2g"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Eg5-gV-fg5" userLabel="First Responder" sceneMemberID="firstResponder"/>

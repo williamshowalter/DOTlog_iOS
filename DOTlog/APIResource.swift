@@ -8,10 +8,14 @@
 
 import Foundation
 
+// This is an abstract base class for clients in the visitor design pattern
+// used in the NetworkVisitor class
+// http://en.wikipedia.org/wiki/Visitor_pattern
+
 protocol APIResource {
 	func accept (visitor : NetworkVisitor)
 	func getAPIAddressString() -> String
-	func syncJSON(webData : NSMutableData)
+	func refreshLocalResource(webData : NSMutableData)
 	func getMethod () -> String
 	func getBody () -> NSData
 }

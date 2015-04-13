@@ -10,16 +10,16 @@ import UIKit
 import CoreData
 import Foundation
 
-class APIEventResource : NSObject, NSURLConnectionDelegate, APIResource {
+class APIEventResource : APIResource {
 
-	private let apiURI = "/dotlog/api/index.cfm/api/events"
+	private let eventURI = "/dotlog/api/index.cfm/api/events"
 	private let httpMethod = "PUT"
-	private var APIAddressString = String()
-
 	private let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
+	private var APIAddressString = String()
+
 	init (baseURLString base: String){
-		APIAddressString = base + apiURI
+		APIAddressString = base + eventURI
 	}
 
 	func accept(visitor : NetworkVisitor){
@@ -38,12 +38,10 @@ class APIEventResource : NSObject, NSURLConnectionDelegate, APIResource {
 		let events = eventJSONBuilder()
 
 		var options = NSJSONWritingOptions.PrettyPrinted
-		var jsonData : NSData = NSJSONSerialization.dataWithJSONObject(events, options: options, error: nil)!
-
-		return jsonData
+		return NSJSONSerialization.dataWithJSONObject(events, options: options, error: nil)!
 	}
 
-	func syncJSON(webData: NSMutableData) {
+	func refreshLocalResource(webData: NSMutableData) {
 		deleteOld()
 	}
 
@@ -53,15 +51,16 @@ class APIEventResource : NSObject, NSURLConnectionDelegate, APIResource {
 		let eventEntries = managedObjectContext!.executeFetchRequest(fetchEvents, error:nil) as! [EventEntry]
 
 		for entry in eventEntries {
-			var dateFormatter = NSDateFormatter()
-			dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-			let tempDate = dateFormatter.stringFromDate(entry.event_time)
+			var eventDateFormatter = NSDateFormatter()
+			eventDateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+			let tempDate = eventDateFormatter.stringFromDate(entry.event_time)
 
-			let temp : [String: AnyObject] = ["FAA_CODE":entry.faa_code,"CATEGORY_TITLE":entry.category_title, "IN_WEEKLY_REPORT":entry.in_weekly_report.boolValue,"EVENT_TEXT":entry.event_text,	"EVENT_TIME":tempDate]
+			let nextEvent : [String: AnyObject] = ["FAA_CODE":entry.faa_code,"CATEGORY_TITLE":entry.category_title, "IN_WEEKLY_REPORT": entry.in_weekly_report.boolValue, "EVENT_TEXT":entry.event_text, "EVENT_TIME":tempDate]
 
-			events.append(temp)
+			events.append(nextEvent)
 		}
-		return ["events":events]
+
+		return ["EVENTS":events]
 	}
 
 	private func deleteOld() {
