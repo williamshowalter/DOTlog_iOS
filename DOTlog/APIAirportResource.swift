@@ -56,8 +56,8 @@ class APIAirportResource : APIResource {
 
 		for airport in newAirports {
 			let entityDescription = NSEntityDescription.entityForName("AirportEntry", inManagedObjectContext: managedObjectContext!)
-			let newAirportEntry = CategoryEntry(entity: entityDescription!, insertIntoManagedObjectContext: managedObjectContext)
-			newAirportEntry.category_title = airport
+			let newAirportEntry = AirportEntry(entity: entityDescription!, insertIntoManagedObjectContext: managedObjectContext)
+			newAirportEntry.faa_code = airport
 			var error: NSError?
 
 			managedObjectContext?.save(&error)

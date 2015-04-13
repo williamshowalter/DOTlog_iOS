@@ -76,9 +76,6 @@
                         <outlet property="UIFieldBaseURL" destination="LDv-of-DWg" id="Aty-RE-G7p"/>
                         <outlet property="UIFieldPassword" destination="zed-QN-EX3" id="HAf-Jt-qPN"/>
                         <outlet property="UIFieldUsername" destination="Wv0-OH-xBp" id="rkU-6e-3kE"/>
-                        <outlet property="textBaseURL" destination="LDv-of-DWg" id="VH3-Kx-Oyn"/>
-                        <outlet property="textPassword" destination="zed-QN-EX3" id="Ehq-ci-axJ"/>
-                        <outlet property="textUsername" destination="Wv0-OH-xBp" id="wrm-fU-ZS7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

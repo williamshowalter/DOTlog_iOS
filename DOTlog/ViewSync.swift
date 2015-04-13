@@ -16,7 +16,7 @@ class ViewSync: UIViewController, UITextFieldDelegate {
 	let managedObjectContext =
 	(UIApplication.sharedApplication().delegate
 		as! AppDelegate).managedObjectContext
-	let defaultBaseURL : String = "http://dotlog.uafcsc.com"
+	let defaultBaseURL : String = "http://dev.dotlog.uafcsc.com"
 
 	@IBOutlet weak var UIFieldBaseURL: UITextField!
 	@IBOutlet weak var UIFieldUsername: UITextField!
