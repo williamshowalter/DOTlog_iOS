@@ -18,4 +18,5 @@ protocol APIResource {
 	func refreshLocalResource(webData : NSMutableData)
 	func getMethod () -> String
 	func getBody () -> NSData
+	func getResourceIdentifier () -> String
 }

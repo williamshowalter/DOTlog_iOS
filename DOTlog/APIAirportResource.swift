@@ -38,6 +38,10 @@ class APIAirportResource : APIResource {
 		return NSData() // No sending data for Airports
 	}
 
+	func getResourceIdentifier () -> String {
+		return airportURI
+	}
+
 	func refreshLocalResource(webData: NSMutableData) {
 		let data = JSON(data: webData)
 		var newAirports : [String] = []

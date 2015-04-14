@@ -38,6 +38,11 @@ class APICategoryResource : APIResource {
 		return NSData() // No sending data for Categories
 	}
 
+	func getResourceIdentifier () -> String {
+		return categoryURI
+	}
+
+
 	func refreshLocalResource(webData: NSMutableData) {
 		let data = JSON(data: webData)
 		var newCategories : [String] = []

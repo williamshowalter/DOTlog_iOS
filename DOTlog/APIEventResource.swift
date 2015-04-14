@@ -41,6 +41,10 @@ class APIEventResource : APIResource {
 		return NSJSONSerialization.dataWithJSONObject(events, options: options, error: nil)!
 	}
 
+	func getResourceIdentifier () -> String {
+		return eventURI
+	}
+
 	func refreshLocalResource(webData: NSMutableData) {
 		deleteOld()
 	}
