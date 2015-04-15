@@ -42,16 +42,18 @@ class APICategoryResource : APIResource {
 		return categoryURI
 	}
 
-
-	func refreshLocalResource(webData: NSMutableData) {
+	func refreshLocalResource(webData: NSMutableData)  -> NSError? {
 		let data = JSON(data: webData)
+		var error: NSError?
+
 		var newCategories : [String] = []
 		for (index,entry) in data["CATEGORIES"]{
 			if let eventText = entry["CATEGORY_TITLE"].string {
 				newCategories.append(eventText)
 			}
 			else {
-				//self.presentViewController(apiAlert, animated: true, completion:nil) // CATEGORY SPECIFIC LINE
+				error = NSError()
+				return error
 			}
 		}
 
@@ -63,10 +65,11 @@ class APICategoryResource : APIResource {
 			let entityDescription = NSEntityDescription.entityForName("CategoryEntry", inManagedObjectContext: managedObjectContext!)
 			let newCategoryEntry = CategoryEntry(entity: entityDescription!, insertIntoManagedObjectContext: managedObjectContext)
 			newCategoryEntry.category_title = category
-			var error: NSError?
 
 			managedObjectContext?.save(&error)
 		}
+
+		return error
 	}
 
 	private func deleteOld() {

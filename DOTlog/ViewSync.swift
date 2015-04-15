@@ -10,13 +10,12 @@
 import UIKit
 import CoreData
 
-class ViewSync: UIViewController, UITextFieldDelegate {
+class ViewSync: UIViewController, UITextFieldDelegate, ErrorObserver {
 
-	let APIAlert = UIAlertController(title: "Contact IT", message: "Error: DOTlog API Unexpected Data from Webserver. Error must be resolved with IT before sync.", preferredStyle: .Alert)
 	let managedObjectContext =
 	(UIApplication.sharedApplication().delegate
 		as! AppDelegate).managedObjectContext
-	let defaultBaseURL : String = "http://dev.dotlog.uafcsc.com"
+	let defaultBaseURL : String = "http://dotlog.uafcsc.com"
 
 	@IBOutlet weak var UIFieldBaseURL: UITextField!
 	@IBOutlet weak var UIFieldUsername: UITextField!
@@ -54,12 +53,28 @@ class ViewSync: UIViewController, UITextFieldDelegate {
 		eventResource = APIEventResource(baseURLString: UIFieldBaseURL.text)
 
 		var visitorObj = NetworkVisitor()
-
+		visitorObj.registerObserver(self)
 		airportResource.accept(visitorObj)
+
 		visitorObj = NetworkVisitor()
+		visitorObj.registerObserver(self)
 		categoryResource.accept(visitorObj)
+
 		visitorObj = NetworkVisitor()
+		visitorObj.registerObserver(self)
 		eventResource.accept(visitorObj)
+	}
+
+	func notify (error : NSError) {
+		// CLEANUP
+		let APIAlert = UIAlertController(title: "Contact IT", message: "Error: DOTlog API Unexpected Data from Webserver. Error must be resolved with IT before sync.", preferredStyle: UIAlertControllerStyle.Alert)
+		let APIAlertDetail = UIAlertController(title: "Details", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
+
+		APIAlert.addAction(UIAlertAction(title: "Details", style: UIAlertActionStyle.Default, handler:{ (ACTION :UIAlertAction!)in self.presentViewController(APIAlertDetail, animated: true, completion: nil)}))
+		APIAlert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler:{ (ACTION :UIAlertAction!)in }))
+		APIAlertDetail.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler:{ (ACTION :UIAlertAction!)in }))
+
+		self.presentViewController(APIAlert, animated: true, completion: nil)
 	}
 
 	@IBAction func syncButton(sender: AnyObject) {

@@ -42,15 +42,18 @@ class APIAirportResource : APIResource {
 		return airportURI
 	}
 
-	func refreshLocalResource(webData: NSMutableData) {
+	func refreshLocalResource(webData: NSMutableData) -> NSError? {
 		let data = JSON(data: webData)
+		var error: NSError?
+
 		var newAirports : [String] = []
 		for (index,entry) in data["AIRPORTS"]{
 			if let eventText = entry["FAA_CODE"].string {
 				newAirports.append(eventText)
 			}
 			else {
-				//self.presentViewController(apiAlert, animated: true, completion:nil) // CATEGORY SPECIFIC LINE
+				let badData = NSError()
+				return badData
 			}
 		}
 
@@ -62,10 +65,11 @@ class APIAirportResource : APIResource {
 			let entityDescription = NSEntityDescription.entityForName("AirportEntry", inManagedObjectContext: managedObjectContext!)
 			let newAirportEntry = AirportEntry(entity: entityDescription!, insertIntoManagedObjectContext: managedObjectContext)
 			newAirportEntry.faa_code = airport
-			var error: NSError?
 
 			managedObjectContext?.save(&error)
 		}
+
+		return error
 	}
 
 	private func deleteOld() {

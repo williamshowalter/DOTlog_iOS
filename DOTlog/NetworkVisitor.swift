@@ -16,10 +16,15 @@ class NetworkVisitor : NSObject, NSURLConnectionDelegate {
 	// This allows all the API requests to share a common network interface
 	// http://en.wikipedia.org/wiki/Visitor_pattern
 
+	// This class is the subject of the ErrorObserver class from the Observer design pattern
+	// This allows the class to have UIViews registered to it which it can report errors to
+	// throught he observer's notify(NSError) function
+
 	private var webData = NSMutableData ()
 	private var URLObj = NSURL()
 	private var keychainObj = KeychainAccess()
 	private var APIClient : APIResource?
+	private var observer : ErrorObserver?
 
 	private let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
@@ -27,6 +32,15 @@ class NetworkVisitor : NSObject, NSURLConnectionDelegate {
 		APIClient = APIObj
 		URLObj = NSURL(string: APIClient!.getAPIAddressString())!
 		self.resourceRequest()
+	}
+
+	func registerObserver (newObserver : ErrorObserver) {
+		observer = newObserver
+	}
+
+	func unregisterObserver (oldObserver : ErrorObserver) {
+		// tests reference equality with NSObject casts for === operator
+		observer = nil
 	}
 
 	func connection(connection: NSURLConnection, willSendRequestForAuthenticationChallenge challenge: NSURLAuthenticationChallenge){
@@ -50,12 +64,16 @@ class NetworkVisitor : NSObject, NSURLConnectionDelegate {
 		webData = NSMutableData ()
 	}
 
-	func connectionDidFinishLoading(connection : NSURLConnection){
-		APIClient!.refreshLocalResource(webData)
+	func connectionDidFinishLoading(connection : NSURLConnection) {
+		if let error = APIClient!.refreshLocalResource(webData) {
+			println("Caught error")
+			// HANDLE ERROR BETTER
+		}
 	}
 
 	func connection(connection: NSURLConnection, didFailWithError error: NSError){
-		println("Connection Error in Sync")
+		observer!.notify(error)
+		self.unregisterObserver(observer!)
 	}
 
 	func connectionShouldUseCredentialStorage(connection: NSURLConnection) -> Bool {
@@ -70,6 +88,7 @@ class NetworkVisitor : NSObject, NSURLConnectionDelegate {
 		request.addValue("application/json", forHTTPHeaderField: "Accept")
 
 		let initRequest = NSURLConnection(request: request, delegate:self, startImmediately:true)!
+		// HANDLE ERROR BETTER
 	}
 
 }

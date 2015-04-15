@@ -45,8 +45,12 @@ class APIEventResource : APIResource {
 		return eventURI
 	}
 
-	func refreshLocalResource(webData: NSMutableData) {
+	func refreshLocalResource(webData: NSMutableData) -> NSError? {
+		var error: NSError?
+
 		deleteOld()
+		
+		return error
 	}
 
 	func eventJSONBuilder() -> Dictionary<String,AnyObject> {
