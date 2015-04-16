@@ -26,6 +26,10 @@ class ViewSync: UIViewController, UITextFieldDelegate, ErrorObserver {
 	@IBOutlet weak var UIFieldUsername: UITextField!
 	@IBOutlet weak var UIFieldPassword: UITextField!
 
+	@IBOutlet weak var UISyncIndicator: UIActivityIndicatorView!
+
+	@IBOutlet weak var UISwitchRememberMe: UISwitch!
+
 	var keychainObj = KeychainAccess()
 
 	var airportResource = APIAirportResource(baseURLString: "/")
@@ -34,6 +38,10 @@ class ViewSync: UIViewController, UITextFieldDelegate, ErrorObserver {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+
+		UISwitchRememberMe.on = false
+		UISyncIndicator.stopAnimating()
+		UISyncIndicator.hidesWhenStopped = true
 
 		UIFieldBaseURL.text = defaultBaseURL
 		// Populates URL, then replaces with remembered if present
@@ -47,6 +55,9 @@ class ViewSync: UIViewController, UITextFieldDelegate, ErrorObserver {
 
 		if let username = keychainObj.getUsername(){
 			UIFieldUsername.text = username;
+			if username != "" {
+				UISwitchRememberMe.on = true
+			}
 		}
 		else {
 			UIFieldUsername.text = "";
@@ -55,6 +66,9 @@ class ViewSync: UIViewController, UITextFieldDelegate, ErrorObserver {
 		UIFieldPassword.secureTextEntry = true;
 		if let password = keychainObj.getPassword(){
 			UIFieldPassword.text = password;
+			if password != "" {
+				UISwitchRememberMe.on = true
+			}
 		}
 		else {
 			UIFieldPassword.text = "";
@@ -63,12 +77,7 @@ class ViewSync: UIViewController, UITextFieldDelegate, ErrorObserver {
 	}
 
 	func saveURL () {
-		// Delete old
-		let fetch = NSFetchRequest (entityName:"SyncURLEntry")
-		let entries = managedObjectContext!.executeFetchRequest(fetch, error:nil) as! [SyncURLEntry]
-		for entry in entries {
-			managedObjectContext?.deleteObject(entry)
-		}
+		deleteOldURL()
 
 		// Create new
 		let entityDescription =
@@ -90,6 +99,15 @@ class ViewSync: UIViewController, UITextFieldDelegate, ErrorObserver {
 			// eh
 		}
 
+	}
+
+	func deleteOldURL () {
+		// Delete old
+		let fetch = NSFetchRequest (entityName:"SyncURLEntry")
+		let entries = managedObjectContext!.executeFetchRequest(fetch, error:nil) as! [SyncURLEntry]
+		for entry in entries {
+			managedObjectContext?.deleteObject(entry)
+		}
 	}
 
 	func syncResources() {
@@ -122,10 +140,21 @@ class ViewSync: UIViewController, UITextFieldDelegate, ErrorObserver {
 		self.presentViewController(APIAlert, animated: true, completion: nil)
 	}
 
-	@IBAction func syncButton(sender: AnyObject) {
+	func saveCreds () {
 		keychainObj.setUsernamePassword(UIFieldUsername.text, pass: UIFieldPassword.text)
-		saveURL()
-		syncResources()
+	}
+
+	@IBAction func syncButton(sender: AnyObject) {
+		saveURL ()
+		saveCreds ()
+		syncResources ()
+	}
+
+	@IBAction func touchUIButtonForgetMe(sender: AnyObject) {
+		UIFieldUsername.text = nil
+		UIFieldPassword.text = nil
+		saveCreds()
+		UISwitchRememberMe.on = false
 	}
 
 	override func didReceiveMemoryWarning() {
