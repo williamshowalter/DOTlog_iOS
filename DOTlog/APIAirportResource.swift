@@ -43,30 +43,38 @@ class APIAirportResource : APIResource {
 	}
 
 	func refreshLocalResource(webData: NSMutableData) -> NSError? {
-		let data = JSON(data: webData)
 		var error: NSError?
+		let errorinfo = ["NSLocalizedDescriptionKey":"Bad data received for from airport resource \(getAPIAddressString())"]
 
-		var newAirports : [String] = []
-		for (index,entry) in data["AIRPORTS"]{
-			if let eventText = entry["FAA_CODE"].string {
-				newAirports.append(eventText)
+		let data = JSON(data: webData, error: &error)["AIRPORTS"]
+
+		if data.error == nil {
+			var newAirports : [String] = []
+
+			for (index,entry) in data {
+				if let eventText = entry["FAA_CODE"].string {
+					newAirports.append(eventText)
+				}
+				else {
+					error = NSError (domain: "API Airport", code: 10, userInfo: errorinfo)
+					return error
+				}
 			}
-			else {
-				let badData = NSError()
-				return badData
+
+			if newAirports.count != 0 {
+				deleteOld()
+			}
+
+			for airport in newAirports {
+				let entityDescription = NSEntityDescription.entityForName("AirportEntry", inManagedObjectContext: managedObjectContext!)
+				let newAirportEntry = AirportEntry(entity: entityDescription!, insertIntoManagedObjectContext: managedObjectContext)
+				newAirportEntry.faa_code = airport
+
+				managedObjectContext?.save(&error)
 			}
 		}
-
-		if newAirports.count != 0 {
-			deleteOld()
-		}
-
-		for airport in newAirports {
-			let entityDescription = NSEntityDescription.entityForName("AirportEntry", inManagedObjectContext: managedObjectContext!)
-			let newAirportEntry = AirportEntry(entity: entityDescription!, insertIntoManagedObjectContext: managedObjectContext)
-			newAirportEntry.faa_code = airport
-
-			managedObjectContext?.save(&error)
+		else {
+			error = NSError (domain: "API Airport", code: 11, userInfo: errorinfo)
 		}
 
 		return error

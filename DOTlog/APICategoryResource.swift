@@ -43,30 +43,37 @@ class APICategoryResource : APIResource {
 	}
 
 	func refreshLocalResource(webData: NSMutableData)  -> NSError? {
-		let data = JSON(data: webData)
 		var error: NSError?
+		let errorinfo = ["NSLocalizedDescriptionKey":"Bad data received for from category resource \(getAPIAddressString())"]
 
-		var newCategories : [String] = []
-		for (index,entry) in data["CATEGORIES"]{
-			if let eventText = entry["CATEGORY_TITLE"].string {
-				newCategories.append(eventText)
+		let data = JSON(data: webData)["CATEGORIES"]
+
+		if data.error == nil {
+			var newCategories : [String] = []
+			for (index,entry) in data{
+				if let eventText = entry["CATEGORY_TITLE"].string {
+					newCategories.append(eventText)
+				}
+				else {
+					error = NSError (domain: "API Category", code: 10, userInfo: errorinfo)
+					return error
+				}
 			}
-			else {
-				error = NSError()
-				return error
+
+			if newCategories.count != 0 {
+				deleteOld()
+			}
+
+			for category in newCategories {
+				let entityDescription = NSEntityDescription.entityForName("CategoryEntry", inManagedObjectContext: managedObjectContext!)
+				let newCategoryEntry = CategoryEntry(entity: entityDescription!, insertIntoManagedObjectContext: managedObjectContext)
+				newCategoryEntry.category_title = category
+
+				managedObjectContext?.save(&error)
 			}
 		}
-
-		if newCategories.count != 0 {
-			deleteOld()
-		}
-
-		for category in newCategories {
-			let entityDescription = NSEntityDescription.entityForName("CategoryEntry", inManagedObjectContext: managedObjectContext!)
-			let newCategoryEntry = CategoryEntry(entity: entityDescription!, insertIntoManagedObjectContext: managedObjectContext)
-			newCategoryEntry.category_title = category
-
-			managedObjectContext?.save(&error)
+		else {
+			error = NSError (domain: "API Category", code: 11, userInfo: errorinfo)
 		}
 
 		return error

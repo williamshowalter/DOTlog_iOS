@@ -66,12 +66,12 @@ class ViewSync: UIViewController, UITextFieldDelegate, ErrorObserver {
 	}
 
 	func notify (error : NSError) {
-		// CLEANUP
-		let APIAlert = UIAlertController(title: "Contact IT", message: "Error: DOTlog API Unexpected Data from Webserver. Error must be resolved with IT before sync.", preferredStyle: UIAlertControllerStyle.Alert)
-		let APIAlertDetail = UIAlertController(title: "Details", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
+		let APIAlert = UIAlertController(title: "Contact IT", message: "Error: DOTlog API - Unexpected Data from Webserver. Error must be resolved with IT before sync.", preferredStyle: UIAlertControllerStyle.Alert)
 
-		APIAlert.addAction(UIAlertAction(title: "Details", style: UIAlertActionStyle.Default, handler:{ (ACTION :UIAlertAction!)in self.presentViewController(APIAlertDetail, animated: true, completion: nil)}))
+		let APIAlertDetail = UIAlertController(title: "Error Details", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
+
 		APIAlert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler:{ (ACTION :UIAlertAction!)in }))
+		APIAlert.addAction(UIAlertAction(title: "Details", style: UIAlertActionStyle.Default, handler:{ (ACTION :UIAlertAction!)in self.presentViewController(APIAlertDetail, animated: true, completion: nil)}))
 		APIAlertDetail.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler:{ (ACTION :UIAlertAction!)in }))
 
 		self.presentViewController(APIAlert, animated: true, completion: nil)

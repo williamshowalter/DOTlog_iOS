@@ -39,7 +39,6 @@ class NetworkVisitor : NSObject, NSURLConnectionDelegate {
 	}
 
 	func unregisterObserver (oldObserver : ErrorObserver) {
-		// tests reference equality with NSObject casts for === operator
 		observer = nil
 	}
 
@@ -66,14 +65,12 @@ class NetworkVisitor : NSObject, NSURLConnectionDelegate {
 
 	func connectionDidFinishLoading(connection : NSURLConnection) {
 		if let error = APIClient!.refreshLocalResource(webData) {
-			println("Caught error")
-			// HANDLE ERROR BETTER
+			observer!.notify(error)
 		}
 	}
 
 	func connection(connection: NSURLConnection, didFailWithError error: NSError){
 		observer!.notify(error)
-		self.unregisterObserver(observer!)
 	}
 
 	func connectionShouldUseCredentialStorage(connection: NSURLConnection) -> Bool {
@@ -88,7 +85,6 @@ class NetworkVisitor : NSObject, NSURLConnectionDelegate {
 		request.addValue("application/json", forHTTPHeaderField: "Accept")
 
 		let initRequest = NSURLConnection(request: request, delegate:self, startImmediately:true)!
-		// HANDLE ERROR BETTER
 	}
 
 }
