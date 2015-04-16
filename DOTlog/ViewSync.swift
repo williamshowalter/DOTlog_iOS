@@ -12,6 +12,11 @@ import CoreData
 
 class ViewSync: UIViewController, UITextFieldDelegate, ErrorObserver {
 
+	// This class is an ErrorObserver from the Observer design pattern
+	// This allows the class to have subjects to keep references to the observer
+	// and notify this viewcontroller with errors through the notify(NSError) function.
+	// http://en.wikipedia.org/wiki/Observer_pattern
+
 	let managedObjectContext =
 	(UIApplication.sharedApplication().delegate
 		as! AppDelegate).managedObjectContext

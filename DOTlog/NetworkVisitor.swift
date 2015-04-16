@@ -18,7 +18,8 @@ class NetworkVisitor : NSObject, NSURLConnectionDelegate {
 
 	// This class is the subject of the ErrorObserver class from the Observer design pattern
 	// This allows the class to have UIViews registered to it which it can report errors to
-	// throught he observer's notify(NSError) function
+	// throught he observer's notify(NSError) function.
+	// http://en.wikipedia.org/wiki/Observer_pattern
 
 	private var webData = NSMutableData ()
 	private var URLObj = NSURL()
@@ -66,15 +67,14 @@ class NetworkVisitor : NSObject, NSURLConnectionDelegate {
 	}
 
 	func connectionDidFinishLoading(connection : NSURLConnection) {
-		let statusCode = httpResponse!.statusCode
-		if statusCode == 200 {
+		if httpResponse!.statusCode == 200 {
 			if let error = APIClient!.refreshLocalResource(webData) {
 				observer!.notify(error)
 			}
 		}
 		else {
-			let errorinfo = ["NSLocalizedDescriptionKey":"HTTP response code: \(statusCode) unexpected from \(APIClient!.getResourceIdentifier())"]
-			let	error = NSError (domain: "Bad HTTP Response", code: statusCode, userInfo: errorinfo)
+			let errorinfo = ["NSLocalizedDescriptionKey":"HTTP response code: \(httpResponse!.statusCode) unexpected from \(APIClient!.getResourceIdentifier())"]
+			let	error = NSError (domain: "Bad HTTP Response", code: httpResponse!.statusCode, userInfo: errorinfo)
 			observer!.notify(error)
 		}
 	}
