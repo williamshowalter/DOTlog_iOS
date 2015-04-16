@@ -25,6 +25,7 @@ class NetworkVisitor : NSObject, NSURLConnectionDelegate {
 	private var keychainObj = KeychainAccess()
 	private var APIClient : APIResource?
 	private var observer : ErrorObserver?
+	private var httpResponse : NSHTTPURLResponse?
 
 	private let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
@@ -61,10 +62,19 @@ class NetworkVisitor : NSObject, NSURLConnectionDelegate {
 
 	func connection(connection: NSURLConnection, didReceiveResponse response: NSURLResponse){
 		webData = NSMutableData ()
+		httpResponse = response as? NSHTTPURLResponse
 	}
 
 	func connectionDidFinishLoading(connection : NSURLConnection) {
-		if let error = APIClient!.refreshLocalResource(webData) {
+		let statusCode = httpResponse!.statusCode
+		if statusCode == 200 {
+			if let error = APIClient!.refreshLocalResource(webData) {
+				observer!.notify(error)
+			}
+		}
+		else {
+			let errorinfo = ["NSLocalizedDescriptionKey":"HTTP response code: \(statusCode) unexpected from \(APIClient!.getResourceIdentifier())"]
+			let	error = NSError (domain: "Bad HTTP Response", code: statusCode, userInfo: errorinfo)
 			observer!.notify(error)
 		}
 	}
@@ -79,6 +89,7 @@ class NetworkVisitor : NSObject, NSURLConnectionDelegate {
 
 	func resourceRequest() {
 		let request = NSMutableURLRequest (URL: URLObj)
+
 		request.HTTPMethod = APIClient!.getMethod()
 		request.HTTPBody = APIClient!.getBody()
 		request.addValue("application/json", forHTTPHeaderField: "Content-Type")

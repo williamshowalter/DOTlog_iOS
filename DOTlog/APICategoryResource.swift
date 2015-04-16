@@ -34,8 +34,8 @@ class APICategoryResource : APIResource {
 		return APIAddressString
 	}
 
-	func getBody() -> NSData {
-		return NSData() // No sending data for Categories
+	func getBody() -> NSData? {
+		return nil // No sending data for Categories
 	}
 
 	func getResourceIdentifier () -> String {

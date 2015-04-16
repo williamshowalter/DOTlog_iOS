@@ -34,7 +34,7 @@ class APIEventResource : APIResource {
 		return APIAddressString
 	}
 
-	func getBody() -> NSData {
+	func getBody() -> NSData? {
 		let events = eventJSONBuilder()
 
 		var options = NSJSONWritingOptions.PrettyPrinted
