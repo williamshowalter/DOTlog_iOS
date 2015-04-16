@@ -13,7 +13,7 @@
         <attribute name="faa_code" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="in_weekly_report" optional="YES" attributeType="Boolean" syncable="YES"/>
     </entity>
-    <entity name="SyncURLEntry" representedClassName="DOTLOG.StoredData" syncable="YES">
+    <entity name="SyncURLEntry" representedClassName="DOTlog.SyncURLEntry" syncable="YES">
         <attribute name="urlString" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>

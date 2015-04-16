@@ -36,6 +36,15 @@ class ViewSync: UIViewController, UITextFieldDelegate, ErrorObserver {
 		super.viewDidLoad()
 
 		UIFieldBaseURL.text = defaultBaseURL
+		// Populates URL, then replaces with remembered if present
+		let URLFetch = NSFetchRequest (entityName:"SyncURLEntry")
+		if let URLs = managedObjectContext!.executeFetchRequest(URLFetch, error:nil) as? [SyncURLEntry] {
+			if URLs.count != 0 {
+				UIFieldBaseURL.text = URLs[0].urlString
+				println("asignment \(URLs[0].urlString)")
+			}
+		}
+
 		if let username = keychainObj.getUsername(){
 			UIFieldUsername.text = username;
 		}
@@ -50,6 +59,37 @@ class ViewSync: UIViewController, UITextFieldDelegate, ErrorObserver {
 		else {
 			UIFieldPassword.text = "";
 		}
+
+	}
+
+	func saveURL () {
+		// Delete old
+		let fetch = NSFetchRequest (entityName:"SyncURLEntry")
+		let entries = managedObjectContext!.executeFetchRequest(fetch, error:nil) as! [SyncURLEntry]
+		for entry in entries {
+			managedObjectContext?.deleteObject(entry)
+		}
+
+		// Create new
+		let entityDescription =
+		NSEntityDescription.entityForName("SyncURLEntry",
+			inManagedObjectContext: managedObjectContext!)
+
+		let url = SyncURLEntry(entity: entityDescription!,
+			insertIntoManagedObjectContext: managedObjectContext)
+
+		url.urlString = UIFieldBaseURL.text
+
+		var error: NSError?
+
+		managedObjectContext?.save(&error)
+
+		if let err = error {
+			// eh
+		} else {
+			// eh
+		}
+
 	}
 
 	func syncResources() {
@@ -84,6 +124,7 @@ class ViewSync: UIViewController, UITextFieldDelegate, ErrorObserver {
 
 	@IBAction func syncButton(sender: AnyObject) {
 		keychainObj.setUsernamePassword(UIFieldUsername.text, pass: UIFieldPassword.text)
+		saveURL()
 		syncResources()
 	}
 
