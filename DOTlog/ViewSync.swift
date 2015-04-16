@@ -49,7 +49,6 @@ class ViewSync: UIViewController, UITextFieldDelegate, ErrorObserver {
 		if let URLs = managedObjectContext!.executeFetchRequest(URLFetch, error:nil) as? [SyncURLEntry] {
 			if URLs.count != 0 {
 				UIFieldBaseURL.text = URLs[0].urlString
-				println("asignment \(URLs[0].urlString)")
 			}
 		}
 
@@ -116,14 +115,17 @@ class ViewSync: UIViewController, UITextFieldDelegate, ErrorObserver {
 		eventResource = APIEventResource(baseURLString: UIFieldBaseURL.text)
 
 		var visitorObj = NetworkVisitor()
+		visitorObj.setCreds(UIFieldUsername.text, pass: UIFieldPassword.text)
 		visitorObj.registerObserver(self)
 		airportResource.accept(visitorObj)
 
 		visitorObj = NetworkVisitor()
+		visitorObj.setCreds(UIFieldUsername.text, pass: UIFieldPassword.text)
 		visitorObj.registerObserver(self)
 		categoryResource.accept(visitorObj)
 
 		visitorObj = NetworkVisitor()
+		visitorObj.setCreds(UIFieldUsername.text, pass: UIFieldPassword.text)
 		visitorObj.registerObserver(self)
 		eventResource.accept(visitorObj)
 	}
@@ -144,16 +146,23 @@ class ViewSync: UIViewController, UITextFieldDelegate, ErrorObserver {
 		keychainObj.setUsernamePassword(UIFieldUsername.text, pass: UIFieldPassword.text)
 	}
 
+	func forgetCreds () {
+		UIFieldUsername.text = nil
+		UIFieldPassword.text = nil
+		saveCreds()
+	}
+
 	@IBAction func syncButton(sender: AnyObject) {
+		println("Sync button")
 		saveURL ()
-		saveCreds ()
+		if UISwitchRememberMe.on {
+			saveCreds ()
+		}
 		syncResources ()
 	}
 
 	@IBAction func touchUIButtonForgetMe(sender: AnyObject) {
-		UIFieldUsername.text = nil
-		UIFieldPassword.text = nil
-		saveCreds()
+		forgetCreds()
 		UISwitchRememberMe.on = false
 	}
 

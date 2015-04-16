@@ -28,6 +28,9 @@ class NetworkVisitor : NSObject, NSURLConnectionDelegate {
 	private var observer : ErrorObserver?
 	private var httpResponse : NSHTTPURLResponse?
 
+	private var username : String?
+	private var password : String?
+
 	private let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
 	func visit (APIObj : APIResource){
@@ -44,15 +47,20 @@ class NetworkVisitor : NSObject, NSURLConnectionDelegate {
 		observer = nil
 	}
 
+	func setCreds (user : String, pass : String) {
+		username = user
+		password = pass
+	}
+
 	func connection(connection: NSURLConnection, willSendRequestForAuthenticationChallenge challenge: NSURLAuthenticationChallenge){
 		if (challenge.previousFailureCount != 0){
 			// Previous failures
 			challenge.sender.cancelAuthenticationChallenge(challenge)
 		}
 		else {
-			let credential = NSURLCredential (user: keychainObj.getUsername()!,
-				password: keychainObj.getPassword()!,
-				persistence: NSURLCredentialPersistence.ForSession)
+			let credential = NSURLCredential (user: username!,
+				password: password!,
+				persistence: NSURLCredentialPersistence.None)
 			challenge.sender.useCredential(credential, forAuthenticationChallenge: challenge)
 		}
 	}
@@ -88,6 +96,7 @@ class NetworkVisitor : NSObject, NSURLConnectionDelegate {
 	}
 
 	func resourceRequest() {
+		println("Network visitor")
 		let request = NSMutableURLRequest (URL: URLObj)
 
 		request.HTTPMethod = APIClient!.getMethod()
