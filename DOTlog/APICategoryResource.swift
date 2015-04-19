@@ -55,7 +55,7 @@ class APICategoryResource : APIResource {
 					newCategories.append(eventText)
 				}
 				else {
-					error = NSError (domain: "API Category", code: 10, userInfo: errorinfo)
+					error = NSError (domain: "API Category", code: 20, userInfo: errorinfo)
 					return error
 				}
 			}
@@ -73,7 +73,7 @@ class APICategoryResource : APIResource {
 			}
 		}
 		else {
-			error = NSError (domain: "API Category", code: 11, userInfo: errorinfo)
+			error = NSError (domain: "API Category", code: 21, userInfo: errorinfo)
 		}
 
 		return error

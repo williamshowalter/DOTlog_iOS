@@ -35,6 +35,7 @@ class ViewSync: UIViewController, UITextFieldDelegate, ErrorObserver {
 	var airportResource = APIAirportResource(baseURLString: "/")
 	var categoryResource = APICategoryResource(baseURLString: "/")
 	var eventResource = APIEventResource(baseURLString: "/")
+	var errorReceivedSinceLastSync = false
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -110,6 +111,8 @@ class ViewSync: UIViewController, UITextFieldDelegate, ErrorObserver {
 	}
 
 	func syncResources() {
+		errorReceivedSinceLastSync = false
+
 		airportResource = APIAirportResource(baseURLString: UIFieldBaseURL.text)
 		categoryResource = APICategoryResource(baseURLString: UIFieldBaseURL.text)
 		eventResource = APIEventResource(baseURLString: UIFieldBaseURL.text)
@@ -131,15 +134,43 @@ class ViewSync: UIViewController, UITextFieldDelegate, ErrorObserver {
 	}
 
 	func notify (error : NSError) {
-		let APIAlert = UIAlertController(title: "Contact IT", message: "Error: DOTlog API - Unexpected Data from Webserver. Error must be resolved with IT before sync.", preferredStyle: UIAlertControllerStyle.Alert)
 
-		let APIAlertDetail = UIAlertController(title: "Error Details", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.Alert)
+		if !errorReceivedSinceLastSync {
+			errorReceivedSinceLastSync = true
 
-		APIAlert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler:{ (ACTION :UIAlertAction!)in }))
-		APIAlert.addAction(UIAlertAction(title: "Details", style: UIAlertActionStyle.Default, handler:{ (ACTION :UIAlertAction!)in self.presentViewController(APIAlertDetail, animated: true, completion: nil)}))
-		APIAlertDetail.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler:{ (ACTION :UIAlertAction!)in }))
+			let code = error.code
 
-		self.presentViewController(APIAlert, animated: true, completion: nil)
+			var errorMessage = "Contact Regional Aviation Office."
+			var errorDetailMessage = error.localizedDescription
+			var errorTitle = "Error"
+			var errorDetailTitle = "Error Code: \(code)"
+
+			if let detailMessage : [NSObject : AnyObject] = error.userInfo {
+				if let errorDetailMessageText = detailMessage["NSLocalizedDescriptionKey"] as? String {
+					errorDetailMessage = "\(errorDetailMessageText)"
+				}
+			}
+
+			if code == 401 {
+				errorTitle = error.domain
+				errorMessage = ""
+			}
+
+			if code == -1003 {
+				errorTitle = "Bad URL" // Needs to match page wording
+				errorMessage = "Please check Website URL"
+			}
+
+			let errorAlert = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: UIAlertControllerStyle.Alert)
+
+			let errorAlertDetail = UIAlertController(title: errorDetailTitle, message: errorDetailMessage as String, preferredStyle: UIAlertControllerStyle.Alert)
+
+			errorAlert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler:{ (ACTION :UIAlertAction!)in }))
+			errorAlert.addAction(UIAlertAction(title: "Details", style: UIAlertActionStyle.Default, handler:{ (ACTION :UIAlertAction!)in self.presentViewController(errorAlertDetail, animated: true, completion: nil)}))
+			errorAlertDetail.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler:{ (ACTION :UIAlertAction!)in }))
+
+			self.presentViewController(errorAlert, animated: true, completion: nil)
+		}
 	}
 
 	func saveCreds () {

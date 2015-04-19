@@ -10,10 +10,14 @@ import Foundation
 import UIKit
 import CoreData
 
+let SUMMARYCHARLIMIT : Int = 4000
+
 class ViewNewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+
 
 	let uninitializedString = "Must Run Sync"
 	let notSyncedAlert = UIAlertController(title: "Must Run Sync", message: "Please sync for airport & category lists", preferredStyle: .Alert)
+	let categoryNotSelectedAlert = UIAlertController(title: "No Category", message: "Please select a category", preferredStyle: .Alert)
 	let noEventSummaryAlert = UIAlertController(title: "No Event Summary", message: "Please enter an event summary", preferredStyle: .Alert)
 	let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
@@ -75,6 +79,9 @@ class ViewNewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
 		self.noEventSummaryAlert.addAction(UIAlertAction(title: "Dismiss",
 			style: UIAlertActionStyle.Default,
 			handler: {(alert: UIAlertAction!) in}))
+		self.categoryNotSelectedAlert.addAction(UIAlertAction(title: "Dismiss",
+			style: UIAlertActionStyle.Default,
+			handler: {(alert: UIAlertAction!) in}))
 
 		pickerCategories.delegate = self
 		pickerAirports.delegate = self
@@ -109,7 +116,7 @@ class ViewNewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
 		}
 
 		UIFieldAirport.text = airports[0]
-		UIFieldCategory.text = categories[0]
+		UIFieldCategory.text = ""
 
 		pickerDate.date = NSDate()
 		pickerTime.date = NSDate()
@@ -128,8 +135,22 @@ class ViewNewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
 			self.presentViewController(notSyncedAlert, animated: true, completion:nil)
 		}
 
+		else if UIFieldCategory.text == "" {
+			self.presentViewController(categoryNotSelectedAlert, animated: true, completion:nil)
+		}
+
 		else if UIFieldSummary.text == "" {
 			self.presentViewController(noEventSummaryAlert, animated:true, completion:nil)
+		}
+
+		else if count(UIFieldSummary.text) > SUMMARYCHARLIMIT {
+			let summaryLengthAlert = UIAlertController(title: "Character Limit Exceeded", message: "Maximum Characters: \(String(SUMMARYCHARLIMIT))\nCurrent Characters: \(String(count(UIFieldSummary.text)))", preferredStyle: .Alert)
+
+			summaryLengthAlert.addAction(UIAlertAction(title: "Dismiss",
+				style: UIAlertActionStyle.Default,
+				handler: {(alert: UIAlertAction!) in}))
+
+			self.presentViewController(summaryLengthAlert, animated:true, completion:nil)
 		}
 
 		else {

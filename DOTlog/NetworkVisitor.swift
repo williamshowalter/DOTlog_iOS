@@ -55,12 +55,18 @@ class NetworkVisitor : NSObject, NSURLConnectionDelegate {
 	func connection(connection: NSURLConnection, willSendRequestForAuthenticationChallenge challenge: NSURLAuthenticationChallenge){
 		if (challenge.previousFailureCount != 0){
 			// Previous failures
+
+			let	error = NSError (domain: "Incorrect Username or Password", code: 401, userInfo : ["NSLocalizedDescriptionKey":"Login Failed"])
+
+			observer!.notify(error)
+
 			challenge.sender.cancelAuthenticationChallenge(challenge)
 		}
 		else {
-			let credential = NSURLCredential (user: username!,
+			var credential = NSURLCredential (user: username!,
 				password: password!,
 				persistence: NSURLCredentialPersistence.None)
+			println(credential)
 			challenge.sender.useCredential(credential, forAuthenticationChallenge: challenge)
 		}
 	}
