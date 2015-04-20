@@ -200,6 +200,9 @@ class ViewNewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
 		textField.resignFirstResponder();
 		return true;
 	}
+	@IBAction func hideKeyboardInScrollView(sender: AnyObject) {
+		self.view.endEditing(true);
+	}
 
 	func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int{
 		return 1
