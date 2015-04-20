@@ -10,6 +10,8 @@
 import UIKit
 import CoreData
 
+let defaultBaseURL : String = "http://dotlog.uafcsc.com"
+
 class ViewSync: UIViewController, UITextFieldDelegate, ErrorObserver {
 
 	// This class is an ErrorObserver from the Observer design pattern
@@ -20,7 +22,6 @@ class ViewSync: UIViewController, UITextFieldDelegate, ErrorObserver {
 	let managedObjectContext =
 	(UIApplication.sharedApplication().delegate
 		as! AppDelegate).managedObjectContext
-	let defaultBaseURL : String = "http://dotlog.uafcsc.com"
 
 	@IBOutlet weak var UIFieldBaseURL: UITextField!
 	@IBOutlet weak var UIFieldUsername: UITextField!
@@ -112,6 +113,7 @@ class ViewSync: UIViewController, UITextFieldDelegate, ErrorObserver {
 
 	func syncResources() {
 		errorReceivedSinceLastSync = false
+		UISyncIndicator.startAnimating()
 
 		airportResource = APIAirportResource(baseURLString: UIFieldBaseURL.text)
 		categoryResource = APICategoryResource(baseURLString: UIFieldBaseURL.text)
@@ -136,6 +138,7 @@ class ViewSync: UIViewController, UITextFieldDelegate, ErrorObserver {
 	func notify (error : NSError) {
 
 		if !errorReceivedSinceLastSync {
+			UISyncIndicator.stopAnimating()
 			errorReceivedSinceLastSync = true
 
 			let code = error.code
@@ -171,6 +174,18 @@ class ViewSync: UIViewController, UITextFieldDelegate, ErrorObserver {
 
 			self.presentViewController(errorAlert, animated: true, completion: nil)
 		}
+
+		UISyncIndicator.stopAnimating()
+	}
+
+	@IBAction func saveCredsButton(sender: AnyObject) {
+		if UISwitchRememberMe.on {
+			saveCreds()
+			saveURL()
+		}
+		else {
+			forgetCreds()
+		}
 	}
 
 	func saveCreds () {
@@ -181,6 +196,10 @@ class ViewSync: UIViewController, UITextFieldDelegate, ErrorObserver {
 		UIFieldUsername.text = nil
 		UIFieldPassword.text = nil
 		saveCreds()
+	}
+
+	func notifyFinishSuccess() {
+		self.UISyncIndicator.stopAnimating()
 	}
 
 	@IBAction func syncButton(sender: AnyObject) {
@@ -210,8 +229,6 @@ class ViewSync: UIViewController, UITextFieldDelegate, ErrorObserver {
 		textField.resignFirstResponder();
 		return true;
 	}
-
-	@IBOutlet weak var webView: UIWebView!
 
 }
 

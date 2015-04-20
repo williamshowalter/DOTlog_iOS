@@ -14,4 +14,5 @@ import Foundation
 
 protocol ErrorObserver {
 	func notify (error : NSError)
+	func notifyFinishSuccess ()
 }

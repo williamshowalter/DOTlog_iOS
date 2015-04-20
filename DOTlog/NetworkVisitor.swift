@@ -84,6 +84,9 @@ class NetworkVisitor : NSObject, NSURLConnectionDelegate {
 			if let error = APIClient!.refreshLocalResource(webData) {
 				observer!.notify(error)
 			}
+			else {
+				observer!.notifyFinishSuccess()
+			}
 		}
 		else {
 			let errorinfo = ["NSLocalizedDescriptionKey":"HTTP response code: \(httpResponse!.statusCode) unexpected from \(APIClient!.getResourceIdentifier())"]

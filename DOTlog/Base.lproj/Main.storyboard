@@ -6,12 +6,12 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Table View Controller-->
+        <!--Add Event-->
         <scene sceneID="2B6-Vu-yyQ">
             <objects>
-                <tableViewController id="AAj-fc-vBz" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="cI7-6d-jeJ">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
+                <tableViewController storyboardIdentifier="ViewAddEvent" id="AAj-fc-vBz" customClass="ViewAddEvent" customModule="DOTlog" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" canCancelContentTouches="NO" keyboardDismissMode="onDrag" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="cI7-6d-jeJ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
@@ -22,27 +22,27 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rWt-U3-UtB" id="xpd-td-atv">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="time" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nK7-aV-D09">
-                                                    <rect key="frame" x="65" y="7" width="527" height="30"/>
-                                                    <gestureRecognizers/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                    <connections>
-                                                        <action selector="editEventTime:" destination="SwT-sV-AaR" eventType="editingDidBegin" id="O7y-SP-Agb"/>
-                                                        <outlet property="delegate" destination="SwT-sV-AaR" id="1cH-IZ-Ope"/>
-                                                    </connections>
-                                                </textField>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XOT-ZP-UHR">
                                                     <rect key="frame" x="8" y="10" width="38" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="time" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nK7-aV-D09">
+                                                    <rect key="frame" x="65" y="7" width="527" height="30"/>
+                                                    <gestureRecognizers/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="editEventTime:" destination="AAj-fc-vBz" eventType="editingDidBegin" id="AVl-pi-7U5"/>
+                                                        <outlet property="delegate" destination="AAj-fc-vBz" id="ruT-Se-u7J"/>
+                                                    </connections>
+                                                </textField>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottomMargin" secondItem="nK7-aV-D09" secondAttribute="bottom" constant="-2" id="Aof-UQ-Uij"/>
                                                 <constraint firstItem="nK7-aV-D09" firstAttribute="top" secondItem="xpd-td-atv" secondAttribute="topMargin" constant="-1" id="BUT-9w-Hyq"/>
-                                                <constraint firstItem="nK7-aV-D09" firstAttribute="centerX" secondItem="xpd-td-atv" secondAttribute="centerX" id="QJW-wR-fDf"/>
+                                                <constraint firstItem="nK7-aV-D09" firstAttribute="centerX" secondItem="xpd-td-atv" secondAttribute="centerX" constant="28.5" id="QJW-wR-fDf"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="nK7-aV-D09" secondAttribute="trailing" id="nzr-d5-Ox3"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="nK7-aV-D09" secondAttribute="trailing" constant="-7" id="pEu-Wg-rH6"/>
                                             </constraints>
@@ -58,15 +58,15 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Xm1-UK-1fS" id="R18-QH-YVs">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="airport" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="meG-cb-Eb1">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="airport" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="meG-cb-Eb1">
                                                     <rect key="frame" x="68" y="7" width="524" height="30"/>
                                                     <accessibility key="accessibilityConfiguration" hint=""/>
                                                     <gestureRecognizers/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
-                                                        <action selector="editAirport:" destination="SwT-sV-AaR" eventType="editingDidBegin" id="pzW-Pc-lNG"/>
-                                                        <outlet property="delegate" destination="SwT-sV-AaR" id="WMj-iV-jeD"/>
+                                                        <action selector="editAirport:" destination="AAj-fc-vBz" eventType="editingDidBegin" id="9QI-8O-tYv"/>
+                                                        <outlet property="delegate" destination="AAj-fc-vBz" id="PVg-mq-tuu"/>
                                                     </connections>
                                                 </textField>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Airport" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W8o-qT-Rqg">
@@ -77,7 +77,7 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="meG-cb-Eb1" firstAttribute="centerX" secondItem="R18-QH-YVs" secondAttribute="centerX" id="8o7-NF-wqW"/>
+                                                <constraint firstItem="meG-cb-Eb1" firstAttribute="centerX" secondItem="R18-QH-YVs" secondAttribute="centerX" constant="30" id="8o7-NF-wqW"/>
                                                 <constraint firstItem="meG-cb-Eb1" firstAttribute="top" secondItem="R18-QH-YVs" secondAttribute="topMargin" constant="-1" id="CGK-71-kUR"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="meG-cb-Eb1" secondAttribute="trailing" id="Smr-vz-442"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="meG-cb-Eb1" secondAttribute="bottom" constant="-2" id="aVv-Lr-K6h"/>
@@ -101,19 +101,19 @@
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="category" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EEY-wG-DUi">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="category" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EEY-wG-DUi">
                                                     <rect key="frame" x="87" y="8" width="505" height="30"/>
                                                     <accessibility key="accessibilityConfiguration" hint=""/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
-                                                        <action selector="editCategory:" destination="SwT-sV-AaR" eventType="editingDidBegin" id="OHA-xa-ujC"/>
-                                                        <outlet property="delegate" destination="SwT-sV-AaR" id="bZe-RT-hOl"/>
+                                                        <action selector="editCategory:" destination="AAj-fc-vBz" eventType="editingDidBegin" id="uXr-qq-mpE"/>
+                                                        <outlet property="delegate" destination="AAj-fc-vBz" id="gc9-he-5BW"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="EEY-wG-DUi" firstAttribute="centerX" secondItem="3TQ-lT-bdo" secondAttribute="centerX" id="7g6-zN-qUn"/>
+                                                <constraint firstItem="EEY-wG-DUi" firstAttribute="centerX" secondItem="3TQ-lT-bdo" secondAttribute="centerX" constant="39.5" id="7g6-zN-qUn"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="EEY-wG-DUi" secondAttribute="trailing" constant="-7" id="Jr2-3F-oLY"/>
                                                 <constraint firstItem="EEY-wG-DUi" firstAttribute="top" secondItem="3TQ-lT-bdo" secondAttribute="topMargin" id="e9P-4C-uKe"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="EEY-wG-DUi" secondAttribute="trailing" id="mmm-SS-WBJ"/>
@@ -153,19 +153,18 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Summary" id="Nju-cQ-jab">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="132" id="2VN-xd-ee4">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="88" id="2VN-xd-ee4">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2VN-xd-ee4" id="63g-3I-O5c">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="dZD-sU-1L3">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" keyboardDismissMode="onDrag" translatesAutoresizingMaskIntoConstraints="NO" id="dZD-sU-1L3">
                                                     <rect key="frame" x="8" y="10" width="584" height="111"/>
-                                                    <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                     <connections>
-                                                        <outlet property="delegate" destination="SwT-sV-AaR" id="HUW-ES-HUW"/>
+                                                        <outlet property="delegate" destination="AAj-fc-vBz" id="AUv-in-rqc"/>
                                                     </connections>
                                                 </textView>
                                             </subviews>
@@ -186,10 +185,30 @@
                         </connections>
                     </tableView>
                     <extendedEdge key="edgesForExtendedLayout" top="YES"/>
+                    <navigationItem key="navigationItem" title="Add Event" id="ss7-Ue-LHk">
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="save" id="uaI-Oz-4IE">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="saveEvent:" destination="AAj-fc-vBz" id="mQd-bb-2e2"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="UIFieldAirport" destination="meG-cb-Eb1" id="3hV-Ab-riK"/>
+                        <outlet property="UIFieldCategory" destination="EEY-wG-DUi" id="gQS-j3-uuL"/>
+                        <outlet property="UIFieldSummary" destination="dZD-sU-1L3" id="Rwp-z2-N7D"/>
+                        <outlet property="UIFieldTime" destination="nK7-aV-D09" id="QJH-2e-Lv5"/>
+                        <outlet property="UISwitchInWeeklyReport" destination="iPg-gT-JEf" id="1m4-f3-jSU"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g39-U8-FG2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="4gf-TW-Dcg">
+                    <connections>
+                        <action selector="hideKeyboardOnClick:" destination="AAj-fc-vBz" id="cJD-tS-tfp"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="876" y="1086.5"/>
+            <point key="canvasLocation" x="168" y="1087"/>
         </scene>
         <!--Account Settings-->
         <scene sceneID="tne-QT-ifu">
@@ -294,6 +313,9 @@
                     <navigationItem key="navigationItem" title="Account Settings" id="c3r-93-0Dv">
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="save" id="yEd-Sd-Dks">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="saveCredsButton:" destination="BYZ-38-t0r" id="wqZ-JN-XEL"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -313,7 +335,7 @@
             <objects>
                 <navigationController id="DVL-Uh-KJo" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="Account Settings" image="gear-7.png" selectedImage="gear-7.png" id="gSV-4R-bm9"/>
+                    <tabBarItem key="tabBarItem" title="Account Settings" image="settings.png" selectedImage="settings.png" id="gSV-4R-bm9"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="pb0-ay-Xxs">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -334,71 +356,19 @@
         <!--New Log Entry-->
         <scene sceneID="9lE-BY-j7f">
             <objects>
-                <viewController title="New Log Entry" id="SwT-sV-AaR" customClass="ViewNewEntry" customModule="DOTlog" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="216-UA-v5J"/>
-                        <viewControllerLayoutGuide type="bottom" id="yeV-h8-PMA"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="rig-Sx-2uY">
-                        <rect key="frame" x="0.0" y="64" width="600" height="487"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E94-5n-CeC">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
-                                <subviews>
-                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="66g-WC-GIk">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
-                                        <connections>
-                                            <segue destination="AAj-fc-vBz" kind="embed" id="EdS-jg-FwA"/>
-                                        </connections>
-                                    </containerView>
-                                </subviews>
-                                <gestureRecognizers/>
-                                <constraints>
-                                    <constraint firstItem="66g-WC-GIk" firstAttribute="centerX" secondItem="E94-5n-CeC" secondAttribute="centerX" id="9rv-5Q-DEf"/>
-                                    <constraint firstItem="66g-WC-GIk" firstAttribute="centerY" secondItem="E94-5n-CeC" secondAttribute="centerY" id="MrH-GP-yp4"/>
-                                    <constraint firstItem="66g-WC-GIk" firstAttribute="leading" secondItem="E94-5n-CeC" secondAttribute="leading" id="R7N-aK-NkH"/>
-                                    <constraint firstItem="66g-WC-GIk" firstAttribute="top" secondItem="E94-5n-CeC" secondAttribute="top" id="S3j-GT-n3E"/>
-                                    <constraint firstAttribute="bottom" secondItem="66g-WC-GIk" secondAttribute="bottom" id="TgI-el-vHe"/>
-                                    <constraint firstAttribute="trailing" secondItem="66g-WC-GIk" secondAttribute="trailing" id="Urj-A4-uY5"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="delegate" destination="SwT-sV-AaR" id="xLM-ow-IWr"/>
-                                    <outletCollection property="gestureRecognizers" destination="Yo4-8a-NZf" appends="YES" id="dpM-Bh-784"/>
-                                </connections>
-                            </scrollView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <gestureRecognizers/>
-                        <constraints>
-                            <constraint firstItem="E94-5n-CeC" firstAttribute="top" secondItem="216-UA-v5J" secondAttribute="bottom" id="2CT-5g-Gt3"/>
-                            <constraint firstAttribute="trailing" secondItem="E94-5n-CeC" secondAttribute="trailing" id="4JU-xA-4Qr"/>
-                            <constraint firstItem="E94-5n-CeC" firstAttribute="bottom" secondItem="yeV-h8-PMA" secondAttribute="top" id="6Fw-ar-Low"/>
-                            <constraint firstItem="E94-5n-CeC" firstAttribute="leading" secondItem="rig-Sx-2uY" secondAttribute="leading" id="d7Q-6X-KM8"/>
-                        </constraints>
-                    </view>
-                    <extendedEdge key="edgesForExtendedLayout"/>
-                    <navigationItem key="navigationItem" title="Add Event" id="hbL-ac-5OO">
-                        <barButtonItem key="backBarButtonItem" systemItem="cancel" id="bGR-c8-5w2"/>
-                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="save" id="uaI-Oz-4IE"/>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="scrollView" destination="E94-5n-CeC" id="Z5R-Ne-pUz"/>
-                    </connections>
-                </viewController>
+                <tapGestureRecognizer id="Yo4-8a-NZf"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Eg5-gV-fg5" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="Yo4-8a-NZf">
-                    <connections>
-                        <action selector="hideKeyboardInScrollView:" destination="SwT-sV-AaR" id="lH6-oL-REX"/>
-                    </connections>
-                </tapGestureRecognizer>
+                <viewController title="New Log Entry" id="SwT-sV-AaR" customClass="ViewNewEntry" customModule="DOTlog" customModuleProvider="target" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" title="Add Event" id="hbL-ac-5OO"/>
+                </viewController>
             </objects>
-            <point key="canvasLocation" x="168" y="1087"/>
+            <point key="canvasLocation" x="816" y="1087"/>
         </scene>
-        <!--NavEntryView-->
+        <!--NavAddEvent-->
         <scene sceneID="Sow-eV-Rwp">
             <objects>
-                <navigationController title="NavEntryView" id="DAT-zN-81J" sceneMemberID="viewController">
+                <navigationController title="NavAddEvent" id="DAT-zN-81J" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="jrf-oV-i5Q">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -409,18 +379,18 @@
                         </textAttributes>
                     </navigationBar>
                     <connections>
-                        <segue destination="SwT-sV-AaR" kind="relationship" relationship="rootViewController" id="4cq-oz-BN2"/>
+                        <segue destination="AAj-fc-vBz" kind="relationship" relationship="rootViewController" id="4jd-Cz-JOs"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S3H-nP-KSv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-564" y="1087"/>
         </scene>
-        <!--NavEntryList-->
+        <!--NavEventList-->
         <scene sceneID="gai-Dh-gD3">
             <objects>
-                <navigationController title="NavEntryList" id="m69-gC-jMt" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Events" image="album-simple-7.png" selectedImage="album-simple-7.png" id="R81-3Z-vVE" userLabel="Entries"/>
+                <navigationController title="NavEventList" id="m69-gC-jMt" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Events" image="events.png" selectedImage="events.png" id="R81-3Z-vVE" userLabel="Entries"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="w0m-uf-jnj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -438,10 +408,10 @@
             </objects>
             <point key="canvasLocation" x="-564" y="325"/>
         </scene>
-        <!--Entry List-->
+        <!--Event List-->
         <scene sceneID="0g1-Rc-PE1">
             <objects>
-                <viewController title="Entry List" id="txP-f5-9KX" customClass="ViewEntryList" customModule="DOTlog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewEventList" title="Event List" id="txP-f5-9KX" customClass="ViewEventList" customModule="DOTlog" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="WrS-Cz-gba"/>
                         <viewControllerLayoutGuide type="bottom" id="u4A-EB-q6K"/>
@@ -484,10 +454,14 @@
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <navigationItem key="navigationItem" title="Event List" id="yAf-2i-Q70">
-                        <barButtonItem key="leftBarButtonItem" title="Sync" style="plain" id="z1J-4i-c7q"/>
+                        <barButtonItem key="leftBarButtonItem" title="Sync" style="plain" id="z1J-4i-c7q">
+                            <connections>
+                                <action selector="syncButton:" destination="txP-f5-9KX" id="U7Z-uh-GQy"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" systemItem="add" id="pYP-ij-xwV">
                             <connections>
-                                <segue destination="DAT-zN-81J" kind="show" id="Lal-a4-0mo"/>
+                                <action selector="addEventButton:" destination="txP-f5-9KX" id="wnX-jK-rP8"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -502,7 +476,7 @@
         <!--Tab Bar Outer View Controller-->
         <scene sceneID="2Gx-KW-ZgF">
             <objects>
-                <tabBarController title="Tab Bar Outer View Controller" id="m7E-W4-HML" customClass="TabBarViewController" customModule="DOTlog" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarViewController" title="Tab Bar Outer View Controller" id="m7E-W4-HML" customClass="TabBarViewController" customModule="DOTlog" customModuleProvider="target" sceneMemberID="viewController">
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="Y07-Bg-EZF">
@@ -522,7 +496,7 @@
     </scenes>
     <resources>
         <image name="DOTheader.png" width="885" height="89"/>
-        <image name="album-simple-7.png" width="30" height="30"/>
-        <image name="gear-7.png" width="30" height="30"/>
+        <image name="events.png" width="30" height="30"/>
+        <image name="settings.png" width="30" height="29"/>
     </resources>
 </document>

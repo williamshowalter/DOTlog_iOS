@@ -1,5 +1,5 @@
 //
-//  NewEntry.swift
+//  ViewAddEvent.swift
 //  DOTlog
 //
 //  Created by William Showalter on 15/03/18.
@@ -10,8 +10,9 @@ import Foundation
 import UIKit
 import CoreData
 
-class ViewNewEntry: UIViewController, UITextFieldDelegate, UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+let SUMMARYCHARLIMIT : Int = 4000
 
+class ViewAddEvent: UITableViewController, UITextFieldDelegate, UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
 	let uninitializedString = "Must Run Sync"
 	let notSyncedAlert = UIAlertController(title: "Must Run Sync", message: "Please sync for airport & category lists", preferredStyle: .Alert)
@@ -22,51 +23,26 @@ class ViewNewEntry: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
 	var categories : [String] = []
 	var airports : [String] = []
 
-	@IBOutlet weak var scrollView: UIScrollView!
-	
 	@IBOutlet var pickerCategories: UIPickerView! = UIPickerView()
 	@IBOutlet var pickerAirports: UIPickerView! = UIPickerView()
-	var pickerDate  : UIDatePicker! = UIDatePicker()
 	var pickerTime  : UIDatePicker! = UIDatePicker()
 
-	//	@IBOutlet weak var UIFieldCategory: UITextField!
-	//	@IBOutlet weak var UIFieldSummary: UITextView!
-	//	@IBOutlet weak var UIFieldTime: UITextField!
-	//	@IBOutlet weak var UIFieldDate: UITextField!
-	//	@IBOutlet weak var UIFieldAirport: UITextField!
+	@IBOutlet weak var UIFieldCategory: UITextField!
+	@IBOutlet weak var UIFieldSummary: UITextView!
+	@IBOutlet weak var UIFieldTime: UITextField!
+	@IBOutlet weak var UIFieldAirport: UITextField!
 
-		var UIFieldCategory: UITextField = UITextField()
-		var UIFieldSummary: UITextView = UITextView()
-		var UIFieldTime: UITextField = UITextField()
-		var UIFieldDate: UITextField = UITextField()
-		var UIFieldAirport: UITextField = UITextField()
-
-//	@IBOutlet weak var UISwitchInWeeklyReport: UISwitch!
-	var UISwitchInWeeklyReport: UISwitch = UISwitch()
-
-
-	@IBAction func editEventDate(sender: UITextField) {
-		pickerDate.datePickerMode = UIDatePickerMode.Date
-		sender.inputView = pickerDate
-		pickerDate.addTarget(self, action: Selector("setEventDate:"), forControlEvents: UIControlEvents.ValueChanged)
-	}
+	@IBOutlet weak var UISwitchInWeeklyReport: UISwitch!
 
 	@IBAction func editEventTime(sender: UITextField) {
-		pickerTime.datePickerMode = UIDatePickerMode.Time
+		pickerTime.datePickerMode = UIDatePickerMode.DateAndTime
 		sender.inputView = pickerTime
 		pickerTime.addTarget(self, action: Selector("setEventTime:"), forControlEvents: UIControlEvents.ValueChanged)
 	}
 
-
-	func setEventDate(sender: UIDatePicker) {
-		var monthDayYearFormatter = NSDateFormatter()
-		monthDayYearFormatter.dateFormat = "MMM dd yyyy"
-		UIFieldDate.text = monthDayYearFormatter.stringFromDate(sender.date)
-	}
-
 	func setEventTime(sender: UIDatePicker) {
 		var timeFormatter = NSDateFormatter()
-		timeFormatter.dateFormat = "hh:mm a"
+		timeFormatter.dateFormat = "MMM dd yyyy hh:mm a"
 		UIFieldTime.text = timeFormatter.stringFromDate(sender.date)
 	}
 
@@ -90,9 +66,6 @@ class ViewNewEntry: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
 
 		pickerCategories.delegate = self
 		pickerAirports.delegate = self
-
-		//UISwitchInWeeklyReport.transform = CGAffineTransformMakeScale (0.75,0.75)
-
 	}
 
 	func resetPage() {
@@ -123,10 +96,8 @@ class ViewNewEntry: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
 		UIFieldAirport.text = airports[0]
 		UIFieldCategory.text = ""
 
-		pickerDate.date = NSDate()
 		pickerTime.date = NSDate()
 
-		setEventDate(pickerDate)
 		setEventTime(pickerTime)
 
 		UISwitchInWeeklyReport.on = false
@@ -173,22 +144,23 @@ class ViewNewEntry: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
 
 			var dateFormatter:NSDateFormatter = NSDateFormatter()
 			dateFormatter.dateFormat = "MMM dd yyyy hh:mm a"
-			var tempDate:String = UIFieldDate.text + " " + UIFieldTime.text
+			var tempDate:String = UIFieldTime.text
 
 			event.event_time = dateFormatter.dateFromString (tempDate)!
 
 			var error: NSError?
-			
+
 			managedObjectContext?.save(&error)
 
 			if let err = error {
 				//submissionStatus.text = err.localizedFailureReason;
 			} else {
 				//submissionStatus.text = "Event Saved"
-				resetPage()
+				var vc = self.storyboard?.instantiateViewControllerWithIdentifier("TabBarViewController") as! TabBarViewController
+				self.presentViewController(vc, animated: true, completion: nil)
 			}
 		}
-		
+
 	}
 
 	override func didReceiveMemoryWarning() {
@@ -202,34 +174,23 @@ class ViewNewEntry: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
 	}
 	// Get rid of keyboard when hitting return
 	func textFieldShouldReturn(textField: UITextField) -> Bool {
-		textField.resignFirstResponder();
+	textField.resignFirstResponder();
 		return true;
 	}
-	@IBAction func hideKeyboardInScrollView(sender: AnyObject) {
+	@IBAction func hideKeyboardOnClick(sender: AnyObject) {
 		self.view.endEditing(true);
+
+		self.UIFieldAirport.resignFirstResponder()
+		self.UIFieldCategory.resignFirstResponder()
+		self.UIFieldSummary.resignFirstResponder()
+		self.UIFieldTime.resignFirstResponder()
+		println("hideKeyboard")
 	}
 
 	func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int{
 		return 1
 	}
 
-	// Resize scrollview when keyboard/pickers are out
-	func textFieldDidBeginEditing(textField: UITextField) {
-		self.scrollView.setContentOffset(CGPointMake(0, textField.frame.origin.y), animated: true)
-		self.viewDidLayoutSubviews()
-	}
-	func textFieldDidEndEditing(textField: UITextField) {
-		self.scrollView.setContentOffset(CGPointMake(0,0), animated: true)
-		self.viewDidLayoutSubviews()
-	}
-	func textViewDidBeginEditing(textView: UITextView) {
-		self.scrollView.setContentOffset(CGPointMake(0, textView.frame.origin.y), animated: true)
-		self.viewDidLayoutSubviews()
-	}
-	func textViewDidEndEditing(textView: UITextView) {
-		self.scrollView.setContentOffset(CGPointMake(0,0), animated: true)
-		self.viewDidLayoutSubviews()
-	}
 	func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
 		if (pickerView == pickerCategories){
 			return categories.count
@@ -269,5 +230,5 @@ class ViewNewEntry: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
 		pickerAirports.reloadAllComponents()
 		sender.inputView = pickerAirports;
 	}
-
+	
 }
