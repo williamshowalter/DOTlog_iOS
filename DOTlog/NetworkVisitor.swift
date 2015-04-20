@@ -66,7 +66,6 @@ class NetworkVisitor : NSObject, NSURLConnectionDelegate {
 			var credential = NSURLCredential (user: username!,
 				password: password!,
 				persistence: NSURLCredentialPersistence.None)
-			println(credential)
 			challenge.sender.useCredential(credential, forAuthenticationChallenge: challenge)
 		}
 	}
@@ -102,7 +101,6 @@ class NetworkVisitor : NSObject, NSURLConnectionDelegate {
 	}
 
 	func resourceRequest() {
-		println("Network visitor")
 		let request = NSMutableURLRequest (URL: URLObj)
 
 		request.HTTPMethod = APIClient!.getMethod()

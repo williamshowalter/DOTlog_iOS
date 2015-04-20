@@ -12,7 +12,7 @@ import CoreData
 
 let SUMMARYCHARLIMIT : Int = 4000
 
-class ViewNewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class ViewNewEntry: UIViewController, UITextFieldDelegate, UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
 
 	let uninitializedString = "Must Run Sync"
@@ -24,6 +24,8 @@ class ViewNewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
 	var categories : [String] = []
 	var airports : [String] = []
 
+	@IBOutlet weak var scrollView: UIScrollView!
+	
 	@IBOutlet var pickerCategories: UIPickerView! = UIPickerView()
 	@IBOutlet var pickerAirports: UIPickerView! = UIPickerView()
 	var pickerDate  : UIDatePicker! = UIDatePicker()
@@ -208,6 +210,23 @@ class ViewNewEntry: UIViewController, UITextFieldDelegate, UIPickerViewDelegate,
 		return 1
 	}
 
+	// Resize scrollview when keyboard/pickers are out
+	func textFieldDidBeginEditing(textField: UITextField) {
+		self.scrollView.setContentOffset(CGPointMake(0, textField.frame.origin.y), animated: true)
+		self.viewDidLayoutSubviews()
+	}
+	func textFieldDidEndEditing(textField: UITextField) {
+		self.scrollView.setContentOffset(CGPointMake(0,0), animated: true)
+		self.viewDidLayoutSubviews()
+	}
+	func textViewDidBeginEditing(textView: UITextView) {
+		self.scrollView.setContentOffset(CGPointMake(0, textView.frame.origin.y), animated: true)
+		self.viewDidLayoutSubviews()
+	}
+	func textViewDidEndEditing(textView: UITextView) {
+		self.scrollView.setContentOffset(CGPointMake(0,0), animated: true)
+		self.viewDidLayoutSubviews()
+	}
 	func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
 		if (pickerView == pickerCategories){
 			return categories.count

@@ -184,7 +184,6 @@ class ViewSync: UIViewController, UITextFieldDelegate, ErrorObserver {
 	}
 
 	@IBAction func syncButton(sender: AnyObject) {
-		println("Sync button")
 		saveURL ()
 		if UISwitchRememberMe.on {
 			saveCreds ()
