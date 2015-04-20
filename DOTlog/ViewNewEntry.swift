@@ -31,16 +31,21 @@ class ViewNewEntry: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
 	var pickerDate  : UIDatePicker! = UIDatePicker()
 	var pickerTime  : UIDatePicker! = UIDatePicker()
 
-	@IBOutlet weak var UIFieldCategory: UITextField!
-	@IBOutlet weak var UIFieldSummary: UITextView!
-	@IBOutlet weak var UIFieldTime: UITextField!
-	@IBOutlet weak var UIFieldDate: UITextField!
-	@IBOutlet weak var UIFieldAirport: UITextField!
+	//	@IBOutlet weak var UIFieldCategory: UITextField!
+	//	@IBOutlet weak var UIFieldSummary: UITextView!
+	//	@IBOutlet weak var UIFieldTime: UITextField!
+	//	@IBOutlet weak var UIFieldDate: UITextField!
+	//	@IBOutlet weak var UIFieldAirport: UITextField!
 
-	@IBOutlet weak var UISwitchInWeeklyReport: UISwitch!
+		var UIFieldCategory: UITextField = UITextField()
+		var UIFieldSummary: UITextView = UITextView()
+		var UIFieldTime: UITextField = UITextField()
+		var UIFieldDate: UITextField = UITextField()
+		var UIFieldAirport: UITextField = UITextField()
 
-	@IBOutlet weak var submissionStatus: UILabel!
-	
+//	@IBOutlet weak var UISwitchInWeeklyReport: UISwitch!
+	var UISwitchInWeeklyReport: UISwitch = UISwitch()
+
 
 	@IBAction func editEventDate(sender: UITextField) {
 		pickerDate.datePickerMode = UIDatePickerMode.Date
@@ -88,7 +93,7 @@ class ViewNewEntry: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
 		pickerCategories.delegate = self
 		pickerAirports.delegate = self
 
-		UISwitchInWeeklyReport.transform = CGAffineTransformMakeScale (0.75,0.75)
+		//UISwitchInWeeklyReport.transform = CGAffineTransformMakeScale (0.75,0.75)
 
 	}
 
@@ -179,9 +184,9 @@ class ViewNewEntry: UIViewController, UITextFieldDelegate, UITextViewDelegate, U
 			managedObjectContext?.save(&error)
 
 			if let err = error {
-				submissionStatus.text = err.localizedFailureReason;
+				//submissionStatus.text = err.localizedFailureReason;
 			} else {
-				submissionStatus.text = "Event Saved"
+				//submissionStatus.text = "Event Saved"
 				resetPage()
 			}
 		}
