@@ -12,23 +12,25 @@ import CoreData
 
 class ViewEventList: UIViewController, UITableViewDelegate, UITableViewDataSource, ErrorObserver {
 
+	// This class is an ErrorObserver from the Observer design pattern
+	// This allows the class to have subjects to keep references to the observer
+	// and notify this viewcontroller with errors through the notify(NSError) function.
+	// http://en.wikipedia.org/wiki/Observer_pattern
+
 	@IBOutlet weak var entryTableView: UITableView!
 
 	let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 	let notSyncedAlert = UIAlertController(title: "Run Initial Sync Before Adding Events", message: nil, preferredStyle: .Alert)
 	let noCredentialAlert = UIAlertController(title: "Set Credentials in Account Settings", message: nil, preferredStyle: .Alert)
+	let syncManagerObj = SyncManager()
 
-	var eventEntries = [EventEntry]()
-
-	var keychainObj = KeychainAccess()
-	var airportResource = APIAirportResource(baseURLString: "/")
-	var categoryResource = APICategoryResource(baseURLString: "/")
-	var eventResource = APIEventResource(baseURLString: "/")
 	var errorReceivedSinceLastSync = false
+	var eventEntries = [EventEntry]()
+	var keychainObj = KeychainAccess()
+
 	var username : String?
 	var password : String?
 	var baseURL : String?
-
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -66,12 +68,17 @@ class ViewEventList: UIViewController, UITableViewDelegate, UITableViewDataSourc
 
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		var newCell : UITableViewCell? = tableView.dequeueReusableCellWithIdentifier("EventEntry") as? UITableViewCell
+		println(newCell)
 
 		if newCell == nil {
 			newCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "EventEntry")
+			println("New cell initialized")
 		}
 
 		let eventEntry = eventEntries[indexPath.row]
+		println("FAA: \(eventEntry.faa_code)")
+		println("Cat: \(eventEntry.category_title)")
+		println("text: \(eventEntry.event_text)")
 		newCell!.detailTextLabel!.text = eventEntry.faa_code + " - " + eventEntry.category_title + " - " + eventEntry.event_text
 		return newCell!
 	}
@@ -109,7 +116,8 @@ class ViewEventList: UIViewController, UITableViewDelegate, UITableViewDataSourc
 		if airports.count == 0 || categories.count == 0 {
 			self.presentViewController(notSyncedAlert, animated: true, completion:nil)
 		}
-		else {			self.navigationController!.pushViewController(self.storyboard!.instantiateViewControllerWithIdentifier("ViewAddEvent") as! ViewAddEvent, animated: true)
+		else {
+			performSegueWithIdentifier("AddEventSegue", sender: self)
 		}
 	}
 
@@ -118,27 +126,10 @@ class ViewEventList: UIViewController, UITableViewDelegate, UITableViewDataSourc
 		fetchURLUsernamePass()
 
 		if username == "" || password == "" || baseURL == nil {
-			self.presentViewController(noCredentialAlert, animated: true, completion:nil)
+			performSegueWithIdentifier("SyncCredentials", sender: self)
 		}
 		else {
-			airportResource = APIAirportResource(baseURLString: baseURL!)
-			categoryResource = APICategoryResource(baseURLString: baseURL!)
-			eventResource = APIEventResource(baseURLString: baseURL!)
-
-			var visitorObj = NetworkVisitor()
-			visitorObj.setCreds(username!, pass: password!)
-			visitorObj.registerObserver(self)
-			airportResource.accept(visitorObj)
-
-			visitorObj = NetworkVisitor()
-			visitorObj.setCreds(username!, pass: password!)
-			visitorObj.registerObserver(self)
-			categoryResource.accept(visitorObj)
-
-			visitorObj = NetworkVisitor()
-			visitorObj.setCreds(username!, pass: password!)
-			visitorObj.registerObserver(self)
-			eventResource.accept(visitorObj)
+			syncManagerObj.runSync(username!, password: password!, baseURL: baseURL!, observer: self)
 		}
 	}
 
@@ -209,6 +200,11 @@ class ViewEventList: UIViewController, UITableViewDelegate, UITableViewDataSourc
 
 			self.presentViewController(errorAlert, animated: true, completion: nil)
 		}
+	}
+
+	// Returns to this view controller
+	@IBAction func ButtonCancelToEventList(segue: UIStoryboardSegue) {
+
 	}
 
 	func notifyFinishSuccess () {

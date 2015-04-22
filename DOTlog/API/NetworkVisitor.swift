@@ -89,7 +89,7 @@ class NetworkVisitor : NSObject, NSURLConnectionDelegate {
 			}
 		}
 		else {
-			let errorinfo = ["NSLocalizedDescriptionKey":"HTTP response code: \(httpResponse!.statusCode) unexpected from \(APIClient!.getResourceIdentifier())"]
+			let errorinfo = ["NSLocalizedDescriptionKey":"HTTP response code: \(httpResponse!.statusCode) unexpected from \(APIClient!.getAPIAddressString())"]
 			let	error = NSError (domain: "Bad HTTP Response", code: httpResponse!.statusCode, userInfo: errorinfo)
 			observer!.notify(error)
 		}

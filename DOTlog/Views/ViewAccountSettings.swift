@@ -12,12 +12,7 @@ import CoreData
 
 let defaultBaseURL : String = "http://dotlog.uafcsc.com"
 
-class ViewAccountSettings: UIViewController, UITextFieldDelegate, ErrorObserver {
-
-	// This class is an ErrorObserver from the Observer design pattern
-	// This allows the class to have subjects to keep references to the observer
-	// and notify this viewcontroller with errors through the notify(NSError) function.
-	// http://en.wikipedia.org/wiki/Observer_pattern
+class ViewAccountSettings: UITableViewController, UITextFieldDelegate {
 
 	let managedObjectContext =
 	(UIApplication.sharedApplication().delegate
@@ -36,56 +31,94 @@ class ViewAccountSettings: UIViewController, UITextFieldDelegate, ErrorObserver 
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+	}
 
-		UIFieldBaseURL.text = defaultBaseURL
+	override func viewWillAppear(animated: Bool){
 		// Populates URL, then replaces with remembered if present
+		populateURL()
+
+		if let username = keychainObj.getUsername(){
+		UIFieldUsername.text = username;
+		}
+		else {
+		UIFieldUsername.text = "";
+		}
+
+		if let password = keychainObj.getPassword(){
+		UIFieldPassword.text = password;
+		}
+		else {
+		UIFieldPassword.text = "";
+		}
+	}
+
+	func populateURL () {
+		UIFieldBaseURL.text = defaultBaseURL
 		let URLFetch = NSFetchRequest (entityName:"SyncURLEntry")
 		if let URLs = managedObjectContext!.executeFetchRequest(URLFetch, error:nil) as? [SyncURLEntry] {
 			if URLs.count != 0 {
 				UIFieldBaseURL.text = URLs[0].urlString
 			}
 		}
-
-		if let username = keychainObj.getUsername(){
-			UIFieldUsername.text = username;
-		}
-		else {
-			UIFieldUsername.text = "";
-		}
-
-		UIFieldPassword.secureTextEntry = true;
-		if let password = keychainObj.getPassword(){
-			UIFieldPassword.text = password;
-		}
-		else {
-			UIFieldPassword.text = "";
-		}
-
 	}
 
 	func saveURL () {
-		deleteOldURL()
-
-		// Create new
-		let entityDescription =
-		NSEntityDescription.entityForName("SyncURLEntry",
-			inManagedObjectContext: managedObjectContext!)
-
-		let url = SyncURLEntry(entity: entityDescription!,
-			insertIntoManagedObjectContext: managedObjectContext)
-
-		url.urlString = UIFieldBaseURL.text
-
 		var error: NSError?
+		var errorMessage : String = "Could not save URL - coredata save failure."
+		deleteOldURL()
+		var scheme : String = "https"
 
-		managedObjectContext?.save(&error)
+		if let baseURLUnstrippedTry = NSURLComponents(string: UIFieldBaseURL.text) {
+			var baseURLUnstripped = baseURLUnstrippedTry
+			if let baseURLScheme : String = baseURLUnstripped.scheme {
+				scheme = baseURLScheme
+				println("Unwrapped scheme")
+			}
 
-		if let err = error {
-			// eh
-		} else {
-			// eh
+			deleteOldURL()
+
+			if let urlHostWithOrWithoutBase = baseURLUnstripped.host {
+				println("Host unwrapped to \(urlHostWithOrWithoutBase)")
+			}
+			else {
+				if let baseURLUnstrippedWithScheme = NSURLComponents(string: scheme + "://" + UIFieldBaseURL.text) {
+					baseURLUnstripped = baseURLUnstrippedWithScheme
+				}
+			}
+
+
+			if let urlHost = baseURLUnstripped.host {
+				// Create new
+				let entityDescription =
+				NSEntityDescription.entityForName("SyncURLEntry",
+					inManagedObjectContext: managedObjectContext!)
+
+				let url = SyncURLEntry(entity: entityDescription!,
+					insertIntoManagedObjectContext: managedObjectContext)
+
+				url.urlString = scheme + "://" + urlHost
+				println("Saving string \(url.urlString)")
+				managedObjectContext?.save(&error)
+			}
+			else {
+				errorMessage = "Could not parse domain from \(UIFieldBaseURL.text)"
+				error = NSError (domain: "Cannot Save: Bad Address", code: 31, userInfo : ["NSLocalizedDescriptionKey":errorMessage])
+			}
+		}
+		else {
+			errorMessage = "No URL Address, cannot save."
+			error = NSError (domain: "Cannot Save: No Address", code: 30, userInfo : ["NSLocalizedDescriptionKey":errorMessage])
 		}
 
+		if let err = error {
+			let URLErrorAlert = UIAlertController(title: err.domain, message: errorMessage, preferredStyle: UIAlertControllerStyle.Alert)
+
+			URLErrorAlert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler:{ (ACTION :UIAlertAction!)in }))
+
+			presentViewController(URLErrorAlert, animated: true, completion: nil)
+		}
+
+		populateURL()
 	}
 
 	func deleteOldURL () {
@@ -97,72 +130,9 @@ class ViewAccountSettings: UIViewController, UITextFieldDelegate, ErrorObserver 
 		}
 	}
 
-	func syncResources() {
-		errorReceivedSinceLastSync = false
-
-		airportResource = APIAirportResource(baseURLString: UIFieldBaseURL.text)
-		categoryResource = APICategoryResource(baseURLString: UIFieldBaseURL.text)
-		eventResource = APIEventResource(baseURLString: UIFieldBaseURL.text)
-
-		var visitorObj = NetworkVisitor()
-		visitorObj.setCreds(UIFieldUsername.text, pass: UIFieldPassword.text)
-		visitorObj.registerObserver(self)
-		airportResource.accept(visitorObj)
-
-		visitorObj = NetworkVisitor()
-		visitorObj.setCreds(UIFieldUsername.text, pass: UIFieldPassword.text)
-		visitorObj.registerObserver(self)
-		categoryResource.accept(visitorObj)
-
-		visitorObj = NetworkVisitor()
-		visitorObj.setCreds(UIFieldUsername.text, pass: UIFieldPassword.text)
-		visitorObj.registerObserver(self)
-		eventResource.accept(visitorObj)
-	}
-
-	func notify (error : NSError) {
-
-		if !errorReceivedSinceLastSync {
-			errorReceivedSinceLastSync = true
-
-			let code = error.code
-
-			var errorMessage = "Contact Regional Aviation Office."
-			var errorDetailMessage = error.localizedDescription
-			var errorTitle = "Error"
-			var errorDetailTitle = "Error Code: \(code)"
-
-			if let detailMessage : [NSObject : AnyObject] = error.userInfo {
-				if let errorDetailMessageText = detailMessage["NSLocalizedDescriptionKey"] as? String {
-					errorDetailMessage = "\(errorDetailMessageText)"
-				}
-			}
-
-			if code == 401 {
-				errorTitle = error.domain
-				errorMessage = ""
-			}
-
-			if code == -1003 {
-				errorTitle = "Bad URL" // Needs to match page wording
-				errorMessage = "Please check Website URL"
-			}
-
-			let errorAlert = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: UIAlertControllerStyle.Alert)
-
-			let errorAlertDetail = UIAlertController(title: errorDetailTitle, message: errorDetailMessage as String, preferredStyle: UIAlertControllerStyle.Alert)
-
-			errorAlert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler:{ (ACTION :UIAlertAction!)in }))
-			errorAlert.addAction(UIAlertAction(title: "Details", style: UIAlertActionStyle.Default, handler:{ (ACTION :UIAlertAction!)in self.presentViewController(errorAlertDetail, animated: true, completion: nil)}))
-			errorAlertDetail.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler:{ (ACTION :UIAlertAction!)in }))
-
-			self.presentViewController(errorAlert, animated: true, completion: nil)
-		}
-
-	}
-
-	@IBAction func saveCredsButton(sender: AnyObject) {
+	@IBAction func ButtonSave(sender: AnyObject) {
 		saveCreds()
+		saveURL()
 	}
 
 	func saveCreds () {
@@ -175,26 +145,13 @@ class ViewAccountSettings: UIViewController, UITextFieldDelegate, ErrorObserver 
 		saveCreds()
 	}
 
-	func notifyFinishSuccess() {
-	}
-
-	@IBAction func touchUIButtonForgetMe(sender: AnyObject) {
+	@IBAction func ButtonLogout(sender: AnyObject) {
 		forgetCreds()
 	}
 
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
 		// Dispose of any resources that can be recreated.
-	}
-
-	// Get rid of the keyboard when touching outside
-	override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-		self.view.endEditing(true);
-	}
-	// Get rid of keyboard when hitting return
-	func textFieldShouldReturn(textField: UITextField) -> Bool {
-		textField.resignFirstResponder();
-		return true;
 	}
 
 }

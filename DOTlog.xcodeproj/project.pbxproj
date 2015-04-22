@@ -19,6 +19,7 @@
 		3D4152791AE4EADE001A9AFD /* ViewAddEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4152781AE4EADE001A9AFD /* ViewAddEvent.swift */; };
 		3D4152801AE50D9B001A9AFD /* events.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D41527E1AE50D9B001A9AFD /* events.png */; };
 		3D4152811AE50D9B001A9AFD /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D41527F1AE50D9B001A9AFD /* settings.png */; };
+		3D42DF2F1AE6F28E00A79198 /* ViewSyncCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D42DF2E1AE6F28E00A79198 /* ViewSyncCredentials.swift */; };
 		3D6322E31AD5E38500617DEC /* APIAirportResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6322E21AD5E38500617DEC /* APIAirportResource.swift */; };
 		3D6322E51AD5E3B800617DEC /* APICategoryResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6322E41AD5E3B800617DEC /* APICategoryResource.swift */; };
 		3D6322E71AD5E3D400617DEC /* APIEventResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6322E61AD5E3D400617DEC /* APIEventResource.swift */; };
@@ -27,6 +28,7 @@
 		3D9276181ADF7C9A007B1159 /* SyncURLEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9276171ADF7C9A007B1159 /* SyncURLEntry.swift */; };
 		3D94BB151AE4602A00E8DC9D /* DOTheader.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D94BB141AE4602A00E8DC9D /* DOTheader.png */; };
 		3D94BB181AE474FB00E8DC9D /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D94BB171AE474FB00E8DC9D /* TabBarViewController.swift */; };
+		3D96E63F1AE762790040B3E3 /* SyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D96E63E1AE762790040B3E3 /* SyncManager.swift */; };
 		3D981C261AD5EFB400505945 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D981C251AD5EFB400505945 /* Security.framework */; };
 		3DDE98601AA2736500378DEE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDE985F1AA2736500378DEE /* AppDelegate.swift */; };
 		3DDE98631AA2736500378DEE /* DOTlog.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3DDE98611AA2736500378DEE /* DOTlog.xcdatamodeld */; };
@@ -62,6 +64,7 @@
 		3D4152781AE4EADE001A9AFD /* ViewAddEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewAddEvent.swift; path = Views/ViewAddEvent.swift; sourceTree = "<group>"; };
 		3D41527E1AE50D9B001A9AFD /* events.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = events.png; path = "Support Files/Images/events.png"; sourceTree = "<group>"; };
 		3D41527F1AE50D9B001A9AFD /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = settings.png; path = "Support Files/Images/settings.png"; sourceTree = "<group>"; };
+		3D42DF2E1AE6F28E00A79198 /* ViewSyncCredentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewSyncCredentials.swift; path = Views/ViewSyncCredentials.swift; sourceTree = "<group>"; };
 		3D6322E21AD5E38500617DEC /* APIAirportResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APIAirportResource.swift; path = API/APIAirportResource.swift; sourceTree = "<group>"; };
 		3D6322E41AD5E3B800617DEC /* APICategoryResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APICategoryResource.swift; path = API/APICategoryResource.swift; sourceTree = "<group>"; };
 		3D6322E61AD5E3D400617DEC /* APIEventResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APIEventResource.swift; path = API/APIEventResource.swift; sourceTree = "<group>"; };
@@ -70,6 +73,7 @@
 		3D9276171ADF7C9A007B1159 /* SyncURLEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SyncURLEntry.swift; path = CoreDataAndKeychain/SyncURLEntry.swift; sourceTree = "<group>"; };
 		3D94BB141AE4602A00E8DC9D /* DOTheader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DOTheader.png; path = "Support Files/Images/DOTheader.png"; sourceTree = "<group>"; };
 		3D94BB171AE474FB00E8DC9D /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabBarViewController.swift; path = Views/TabBarViewController.swift; sourceTree = "<group>"; };
+		3D96E63E1AE762790040B3E3 /* SyncManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SyncManager.swift; path = API/SyncManager.swift; sourceTree = "<group>"; };
 		3D981C251AD5EFB400505945 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		3DDE985A1AA2736500378DEE /* DOTlog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DOTlog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DDE985E1AA2736500378DEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -203,6 +207,7 @@
 				3D6322E41AD5E3B800617DEC /* APICategoryResource.swift */,
 				3D6322E61AD5E3D400617DEC /* APIEventResource.swift */,
 				3D120A6A1ADDB1E400A31204 /* ErrorObserver.swift */,
+				3D96E63E1AE762790040B3E3 /* SyncManager.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -216,6 +221,7 @@
 				3D4152781AE4EADE001A9AFD /* ViewAddEvent.swift */,
 				3DDE98641AA2736500378DEE /* ViewAccountSettings.swift */,
 				3D94BB171AE474FB00E8DC9D /* TabBarViewController.swift */,
+				3D42DF2E1AE6F28E00A79198 /* ViewSyncCredentials.swift */,
 			);
 			name = "Views & Storyboards";
 			sourceTree = "<group>";
@@ -351,11 +357,13 @@
 				3D9276181ADF7C9A007B1159 /* SyncURLEntry.swift in Sources */,
 				3D0C49921ADB7DE000F91E3C /* APIResource.swift in Sources */,
 				3D6322E71AD5E3D400617DEC /* APIEventResource.swift in Sources */,
+				3D42DF2F1AE6F28E00A79198 /* ViewSyncCredentials.swift in Sources */,
 				3DDE98631AA2736500378DEE /* DOTlog.xcdatamodeld in Sources */,
 				3D0B5DA11AD2050B0053C0FF /* AirportEntry.swift in Sources */,
 				3D4152791AE4EADE001A9AFD /* ViewAddEvent.swift in Sources */,
 				3D6322E51AD5E3B800617DEC /* APICategoryResource.swift in Sources */,
 				3DDE98601AA2736500378DEE /* AppDelegate.swift in Sources */,
+				3D96E63F1AE762790040B3E3 /* SyncManager.swift in Sources */,
 				3D8A9B631AD5F17E00DFB734 /* KeychainAccess.swift in Sources */,
 				3D0B5D981AD201410053C0FF /* EventEntry.swift in Sources */,
 				3D0C498F1ADB7AA100F91E3C /* NetworkVisitor.swift in Sources */,
