@@ -130,6 +130,13 @@ class ViewAccountSettings: UITableViewController, UITextFieldDelegate {
 	@IBAction func ButtonSave(sender: AnyObject) {
 		saveCreds()
 		saveURL()
+
+		let CredsSavedAlert = UIAlertController(title: "Credentials Saved", message: nil, preferredStyle: UIAlertControllerStyle.Alert)
+
+		CredsSavedAlert.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default, handler:{ (ACTION :UIAlertAction!)in }))
+
+		presentViewController(CredsSavedAlert, animated: true, completion: nil)
+
 	}
 
 	func saveCreds () {

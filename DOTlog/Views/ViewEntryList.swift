@@ -164,9 +164,9 @@ class ViewEventList: UIViewController, UITableViewDelegate, UITableViewDataSourc
 
 			let code = error.code
 
-			var errorMessage = "Contact Regional Aviation Office."
+			var errorMessage = "Contact Regional Aviation Office If Problem Persists."
 			var errorDetailMessage = error.localizedDescription
-			var errorTitle = "Error"
+			var errorTitle = "Unable to Sync"
 			var errorDetailTitle = "Error Code: \(code)"
 
 			if let detailMessage : [NSObject : AnyObject] = error.userInfo {
