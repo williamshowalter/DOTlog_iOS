@@ -71,11 +71,14 @@ class APIEventResource : APIResource {
 		return ["EVENTS":events]
 	}
 
-	private func deleteOld() {
+	func deleteOld() {
 		let fetch = NSFetchRequest (entityName:"EventEntry")
 		let entries = managedObjectContext!.executeFetchRequest(fetch, error:nil) as! [EventEntry]
 		for entry in entries {
 			managedObjectContext?.deleteObject(entry)
 		}
+		
+		var error: NSError?
+		managedObjectContext?.save(&error)
 	}
 }

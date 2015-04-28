@@ -72,13 +72,11 @@ class ViewAccountSettings: UITableViewController, UITextFieldDelegate {
 			var baseURLUnstripped = baseURLUnstrippedTry
 			if let baseURLScheme : String = baseURLUnstripped.scheme {
 				scheme = baseURLScheme
-				println("Unwrapped scheme")
 			}
 
 			deleteOldURL()
 
 			if let urlHostWithOrWithoutBase = baseURLUnstripped.host {
-				println("Host unwrapped to \(urlHostWithOrWithoutBase)")
 			}
 			else {
 				if let baseURLUnstrippedWithScheme = NSURLComponents(string: scheme + "://" + UIFieldBaseURL.text) {
@@ -97,7 +95,6 @@ class ViewAccountSettings: UITableViewController, UITextFieldDelegate {
 					insertIntoManagedObjectContext: managedObjectContext)
 
 				url.urlString = scheme + "://" + urlHost
-				println("Saving string \(url.urlString)")
 				managedObjectContext?.save(&error)
 			}
 			else {
@@ -146,7 +143,41 @@ class ViewAccountSettings: UITableViewController, UITextFieldDelegate {
 	}
 
 	@IBAction func ButtonLogout(sender: AnyObject) {
-		forgetCreds()
+
+		let UnSyncedAlert = UIAlertController(title: "Unsynced Messages", message: "Sync or delete messages before logout", preferredStyle: UIAlertControllerStyle.Alert)
+
+		let LogoutAlert = UIAlertController(title: "Logout Will Exit DOTlog", message: "All data will be saved.", preferredStyle: UIAlertControllerStyle.Alert)
+
+		let tempEventChecker = APIEventResource(baseURLString: "/");
+
+		LogoutAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler:{ (ACTION :UIAlertAction!)in }))
+
+		UnSyncedAlert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler:{ (ACTION :UIAlertAction!)in }))
+
+		LogoutAlert.addAction(UIAlertAction(title: "Logout", style: UIAlertActionStyle.Default,
+			handler:
+				{ (ACTION :UIAlertAction!)in
+					self.forgetCreds(); exit(0);
+				}
+			))
+
+		UnSyncedAlert.addAction(UIAlertAction(title: "Delete Events", style: UIAlertActionStyle.Default,
+			handler:
+			{ (ACTION :UIAlertAction!)in
+				tempEventChecker.deleteOld();self.presentViewController(LogoutAlert, animated: true, completion: nil)
+			}
+		))
+
+		// Check for unsynced
+		let fetch = NSFetchRequest (entityName:"EventEntry")
+		let events = managedObjectContext!.executeFetchRequest(fetch, error:nil) as! [EventEntry]
+
+		if events.count != 0 {
+			presentViewController(UnSyncedAlert, animated: true, completion: nil)
+		}
+		else {
+			presentViewController(LogoutAlert, animated: true, completion: nil)
+		}
 	}
 
 	override func didReceiveMemoryWarning() {

@@ -184,7 +184,6 @@ class ViewAddEvent: UITableViewController, UITextFieldDelegate, UITextViewDelega
 		self.UIFieldCategory.resignFirstResponder()
 		self.UIFieldSummary.resignFirstResponder()
 		self.UIFieldTime.resignFirstResponder()
-		println("hideKeyboard")
 	}
 
 	func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int{

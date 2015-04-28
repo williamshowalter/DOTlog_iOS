@@ -68,17 +68,12 @@ class ViewEventList: UIViewController, UITableViewDelegate, UITableViewDataSourc
 
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		var newCell : UITableViewCell? = tableView.dequeueReusableCellWithIdentifier("EventEntry") as? UITableViewCell
-		println(newCell)
 
 		if newCell == nil {
 			newCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "EventEntry")
-			println("New cell initialized")
 		}
 
 		let eventEntry = eventEntries[indexPath.row]
-		println("FAA: \(eventEntry.faa_code)")
-		println("Cat: \(eventEntry.category_title)")
-		println("text: \(eventEntry.event_text)")
 		newCell!.detailTextLabel!.text = eventEntry.faa_code + " - " + eventEntry.category_title + " - " + eventEntry.event_text
 		return newCell!
 	}
