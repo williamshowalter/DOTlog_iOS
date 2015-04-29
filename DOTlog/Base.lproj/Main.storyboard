@@ -137,16 +137,16 @@
                                                     <rect key="frame" x="543" y="6" width="51" height="31"/>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Include In Weekly Report" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6w2-Om-47y">
-                                                    <rect key="frame" x="8" y="11" width="191" height="21"/>
+                                                    <rect key="frame" x="1" y="11" width="191" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="iPg-gT-JEf" firstAttribute="centerY" secondItem="r2p-9x-mRV" secondAttribute="centerY" id="64T-ID-bMr"/>
-                                                <constraint firstItem="6w2-Om-47y" firstAttribute="leading" secondItem="r2p-9x-mRV" secondAttribute="leadingMargin" id="d5n-Zu-Ufd"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="iPg-gT-JEf" secondAttribute="trailing" id="pzl-7O-TFz"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="iPg-gT-JEf" secondAttribute="trailing" id="30z-c9-w6I"/>
+                                                <constraint firstItem="6w2-Om-47y" firstAttribute="leading" secondItem="r2p-9x-mRV" secondAttribute="leadingMargin" constant="-7" id="PaR-ez-1bs"/>
+                                                <constraint firstItem="iPg-gT-JEf" firstAttribute="centerY" secondItem="r2p-9x-mRV" secondAttribute="centerY" id="VgI-N4-fci"/>
                                                 <constraint firstItem="6w2-Om-47y" firstAttribute="centerY" secondItem="iPg-gT-JEf" secondAttribute="centerY" id="ufT-Nn-PVu"/>
                                             </constraints>
                                         </tableViewCellContentView>

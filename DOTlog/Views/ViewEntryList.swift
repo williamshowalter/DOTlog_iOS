@@ -22,6 +22,7 @@ class ViewEventList: UIViewController, UITableViewDelegate, UITableViewDataSourc
 	let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 	let notSyncedAlert = UIAlertController(title: "Run Initial Sync Before Adding Events", message: nil, preferredStyle: .Alert)
 	let noCredentialAlert = UIAlertController(title: "Set Credentials in Account Settings", message: nil, preferredStyle: .Alert)
+	let syncSuccessAlert = UIAlertController(title: "Sync Completed Successfully", message: nil, preferredStyle: .Alert)
 	let syncManagerObj = SyncManager()
 
 	var errorReceivedSinceLastSync = false
@@ -41,6 +42,9 @@ class ViewEventList: UIViewController, UITableViewDelegate, UITableViewDataSourc
 			style: UIAlertActionStyle.Default,
 			handler: {(alert: UIAlertAction!) in}))
 		self.noCredentialAlert.addAction(UIAlertAction(title: "Dismiss",
+			style: UIAlertActionStyle.Default,
+			handler: {(alert: UIAlertAction!) in}))
+		self.syncSuccessAlert.addAction(UIAlertAction(title: "Okay",
 			style: UIAlertActionStyle.Default,
 			handler: {(alert: UIAlertAction!) in}))
 	}
@@ -159,6 +163,8 @@ class ViewEventList: UIViewController, UITableViewDelegate, UITableViewDataSourc
 
 	func notify (error : NSError) {
 
+		syncManagerObj.reduceActiveSyncCount()
+
 		if !errorReceivedSinceLastSync {
 			errorReceivedSinceLastSync = true
 
@@ -203,6 +209,12 @@ class ViewEventList: UIViewController, UITableViewDelegate, UITableViewDataSourc
 	}
 
 	func notifyFinishSuccess () {
+		syncManagerObj.reduceActiveSyncCount()
+
+		if (syncManagerObj.getActiveSyncCount() == 0 && !errorReceivedSinceLastSync) {
+			self.presentViewController(syncSuccessAlert, animated: true, completion: nil)
+		}
+
 		self.viewWillAppear(true)
 	}
 }

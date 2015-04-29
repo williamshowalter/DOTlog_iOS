@@ -17,6 +17,7 @@ class SyncManager {
 	var airportResource = APIAirportResource(baseURLString: "/")
 	var categoryResource = APICategoryResource(baseURLString: "/")
 	var eventResource = APIEventResource(baseURLString: "/")
+	var activeSyncCounter : Int = 0
 
 	func runSync(username: String, password: String, baseURL: String, observer : ErrorObserver) {
 		airportResource = APIAirportResource(baseURLString: baseURL)
@@ -26,17 +27,30 @@ class SyncManager {
 		var visitorObj = NetworkVisitor()
 		visitorObj.setCreds(username, pass: password)
 		visitorObj.registerObserver(observer)
+		activeSyncCounter++
 		airportResource.accept(visitorObj)
 
 		visitorObj = NetworkVisitor()
 		visitorObj.setCreds(username, pass: password)
 		visitorObj.registerObserver(observer)
+		activeSyncCounter++
 		categoryResource.accept(visitorObj)
 
 		visitorObj = NetworkVisitor()
 		visitorObj.setCreds(username, pass: password)
 		visitorObj.registerObserver(observer)
-		eventResource.accept(visitorObj)
+		//activeSyncCounter++
+		//eventResource.accept(visitorObj)
+	}
+
+	func getActiveSyncCount() -> Int {
+		return activeSyncCounter
+	}
+
+	func reduceActiveSyncCount() {
+		if activeSyncCounter != 0 {
+			--activeSyncCounter
+		}
 	}
 
 }
