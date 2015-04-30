@@ -32,6 +32,10 @@
 		3D981C261AD5EFB400505945 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D981C251AD5EFB400505945 /* Security.framework */; };
 		3DA2153F1AF1803F0021E7A8 /* ViewAddEventCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA2153E1AF1803F0021E7A8 /* ViewAddEventCategory.swift */; };
 		3DABD53D1AF195AE00A09200 /* ViewNavEventList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DABD53C1AF195AE00A09200 /* ViewNavEventList.swift */; };
+		3DABD53F1AF229EA00A09200 /* ViewAddEventRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DABD53E1AF229EA00A09200 /* ViewAddEventRegion.swift */; };
+		3DABD5411AF229FC00A09200 /* ViewAddEventDistrict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DABD5401AF229FC00A09200 /* ViewAddEventDistrict.swift */; };
+		3DABD5431AF22A2400A09200 /* ViewAddEventHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DABD5421AF22A2400A09200 /* ViewAddEventHub.swift */; };
+		3DABD5451AF22A6D00A09200 /* ViewAddEventAirport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DABD5441AF22A6D00A09200 /* ViewAddEventAirport.swift */; };
 		3DDE98601AA2736500378DEE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDE985F1AA2736500378DEE /* AppDelegate.swift */; };
 		3DDE98631AA2736500378DEE /* DOTlog.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3DDE98611AA2736500378DEE /* DOTlog.xcdatamodeld */; };
 		3DDE98651AA2736500378DEE /* ViewAccountSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDE98641AA2736500378DEE /* ViewAccountSettings.swift */; };
@@ -79,6 +83,10 @@
 		3D981C251AD5EFB400505945 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		3DA2153E1AF1803F0021E7A8 /* ViewAddEventCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewAddEventCategory.swift; path = Views/ViewAddEventCategory.swift; sourceTree = "<group>"; };
 		3DABD53C1AF195AE00A09200 /* ViewNavEventList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewNavEventList.swift; path = Views/ViewNavEventList.swift; sourceTree = "<group>"; };
+		3DABD53E1AF229EA00A09200 /* ViewAddEventRegion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewAddEventRegion.swift; path = Views/ViewAddEventRegion.swift; sourceTree = "<group>"; };
+		3DABD5401AF229FC00A09200 /* ViewAddEventDistrict.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewAddEventDistrict.swift; path = Views/ViewAddEventDistrict.swift; sourceTree = "<group>"; };
+		3DABD5421AF22A2400A09200 /* ViewAddEventHub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewAddEventHub.swift; path = Views/ViewAddEventHub.swift; sourceTree = "<group>"; };
+		3DABD5441AF22A6D00A09200 /* ViewAddEventAirport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewAddEventAirport.swift; path = Views/ViewAddEventAirport.swift; sourceTree = "<group>"; };
 		3DDE985A1AA2736500378DEE /* DOTlog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DOTlog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DDE985E1AA2736500378DEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DDE985F1AA2736500378DEE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = "Support Files/AppDelegate.swift"; sourceTree = "<group>"; };
@@ -221,13 +229,17 @@
 			children = (
 				3DDE986B1AA2736500378DEE /* LaunchScreen.xib */,
 				3DDE98661AA2736500378DEE /* Main.storyboard */,
-				3D7A5AA21ABA2BDA00CB5871 /* ViewEntryList.swift */,
-				3D4152781AE4EADE001A9AFD /* ViewAddEvent.swift */,
-				3DDE98641AA2736500378DEE /* ViewAccountSettings.swift */,
 				3D94BB171AE474FB00E8DC9D /* TabBarViewController.swift */,
-				3D42DF2E1AE6F28E00A79198 /* ViewSyncCredentials.swift */,
-				3DA2153E1AF1803F0021E7A8 /* ViewAddEventCategory.swift */,
 				3DABD53C1AF195AE00A09200 /* ViewNavEventList.swift */,
+				3D7A5AA21ABA2BDA00CB5871 /* ViewEntryList.swift */,
+				3D42DF2E1AE6F28E00A79198 /* ViewSyncCredentials.swift */,
+				3D4152781AE4EADE001A9AFD /* ViewAddEvent.swift */,
+				3DA2153E1AF1803F0021E7A8 /* ViewAddEventCategory.swift */,
+				3DABD53E1AF229EA00A09200 /* ViewAddEventRegion.swift */,
+				3DABD5401AF229FC00A09200 /* ViewAddEventDistrict.swift */,
+				3DABD5421AF22A2400A09200 /* ViewAddEventHub.swift */,
+				3DABD5441AF22A6D00A09200 /* ViewAddEventAirport.swift */,
+				3DDE98641AA2736500378DEE /* ViewAccountSettings.swift */,
 			);
 			name = "Views & Storyboards";
 			sourceTree = "<group>";
@@ -354,6 +366,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D94BB181AE474FB00E8DC9D /* TabBarViewController.swift in Sources */,
+				3DABD5411AF229FC00A09200 /* ViewAddEventDistrict.swift in Sources */,
+				3DABD53F1AF229EA00A09200 /* ViewAddEventRegion.swift in Sources */,
 				3D120A6B1ADDB1E400A31204 /* ErrorObserver.swift in Sources */,
 				3DDE98651AA2736500378DEE /* ViewAccountSettings.swift in Sources */,
 				3D6322E31AD5E38500617DEC /* APIAirportResource.swift in Sources */,
@@ -366,7 +380,9 @@
 				3D0C49921ADB7DE000F91E3C /* APIResource.swift in Sources */,
 				3D6322E71AD5E3D400617DEC /* APIEventResource.swift in Sources */,
 				3D42DF2F1AE6F28E00A79198 /* ViewSyncCredentials.swift in Sources */,
+				3DABD5451AF22A6D00A09200 /* ViewAddEventAirport.swift in Sources */,
 				3DDE98631AA2736500378DEE /* DOTlog.xcdatamodeld in Sources */,
+				3DABD5431AF22A2400A09200 /* ViewAddEventHub.swift in Sources */,
 				3D0B5DA11AD2050B0053C0FF /* AirportEntry.swift in Sources */,
 				3D4152791AE4EADE001A9AFD /* ViewAddEvent.swift in Sources */,
 				3D6322E51AD5E3B800617DEC /* APICategoryResource.swift in Sources */,
