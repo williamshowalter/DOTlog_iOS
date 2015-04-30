@@ -46,30 +46,72 @@ class APIAirportResource : APIResource {
 		var error: NSError?
 		let errorinfo = ["NSLocalizedDescriptionKey":"Bad data received for from airport resource \(getAPIAddressString())"]
 
-		let regionData = JSON(data: webData, error: &error)["REGIONS"]
+		let regionData = JSON(data: webData, error: &error)
 		//		let data = JSON(data: webData, error: &error)["AIRPORTS"]
+		println(regionData)
+		println(regionData.count)
+		let regionDescription = NSEntityDescription.entityForName("RegionEntry", inManagedObjectContext: managedObjectContext!)
+		let districtDescription = NSEntityDescription.entityForName("DistrictEntry", inManagedObjectContext: managedObjectContext!)
+		let hubDescription = NSEntityDescription.entityForName("HubEntry", inManagedObjectContext: managedObjectContext!)
+		let airportDescription = NSEntityDescription.entityForName("AirportEntry", inManagedObjectContext: managedObjectContext!)
 
 		if regionData.error == nil {
+			// Do more error checking first
+			deleteOld()
+
 			var newRegions : [RegionEntry] = []
 			var newDistricts : [DistrictEntry] = []
 			var newHubs : [HubEntry] = []
 			var newAirports : [AirportEntry] = []
 
 			for (index,region) in regionData {
+				println(region)
+				println(region.count)
 				if let regionName = region["REGION_NAME"].string {
+					// New Region Object
 					let districtData = region["DISTRICTS"]
+					let regionObj = RegionEntry(entity: regionDescription!, insertIntoManagedObjectContext: managedObjectContext)
+					regionObj.region_name = regionName
+
 					if districtData.type == .Array {
 						for (index, district) in districtData {
 							if let districtName = district["DISTRICT_NAME"].string {
+								// New District Object
 								let hubData = district["HUBS"]
+								let districtObj = DistrictEntry(entity: districtDescription!, insertIntoManagedObjectContext: managedObjectContext)
+								districtObj.district_name = districtName
+								districtObj.region = regionObj
+
+								var mutableDistricts = regionObj.district.mutableCopy() as! NSMutableOrderedSet
+								mutableDistricts.addObject(districtObj)
+								regionObj.district = mutableDistricts.copy() as! NSOrderedSet
+
 								if hubData.type == .Array {
 									for (index, hub) in hubData {
 										if let hubName = hub["HUB_NAME"].string {
+											// New Hub Object
 											let airportData = hub["AIRPORTS"]
+											let hubObj = HubEntry(entity: hubDescription!, insertIntoManagedObjectContext: managedObjectContext)
+											hubObj.hub_name = hubName
+											hubObj.district = districtObj
+
+											var mutableHubs = districtObj.hub.mutableCopy() as! NSMutableOrderedSet
+											mutableHubs.addObject(hubObj)
+											districtObj.hub = mutableHubs.copy() as! NSOrderedSet
+
 											if airportData.type == .Array {
 												for (index, airport) in airportData {
 													if let airportName = airport["FAA_CODE"].string {
-														// save object
+														// New Airport Object
+														let airportObj = AirportEntry(entity: airportDescription!, insertIntoManagedObjectContext: managedObjectContext)
+														airportObj.faa_code = airportName
+														airportObj.hub = hubObj
+
+														var mutableAirports = hubObj.airport.mutableCopy() as! NSMutableOrderedSet
+														mutableAirports.addObject(airportObj)
+														hubObj.airport = mutableAirports.copy() as! NSOrderedSet
+
+														managedObjectContext?.save(&error)
 													}
 												}
 											}
@@ -89,47 +131,8 @@ class APIAirportResource : APIResource {
 					return error
 				}
 			}
-
-			if newAirports.count != 0 {
-				deleteOld()
-			}
-
-			for airport in newAirports {
-				let entityDescription = NSEntityDescription.entityForName("AirportEntry", inManagedObjectContext: managedObjectContext!)
-				let newAirportEntry = AirportEntry(entity: entityDescription!, insertIntoManagedObjectContext: managedObjectContext)
-				//newAirportEntry.faa_code = airport
-
-				managedObjectContext?.save(&error)
-			}
 		}
 
-/*
-if data.error == nil {
-var newAirports : [String] = []
-
-for (index,entry) in data {
-if let eventText = entry["FAA_CODE"].string {
-newAirports.append(eventText)
-}
-else {
-error = NSError (domain: "API Airport", code: 10, userInfo: errorinfo)
-return error
-}
-}
-
-if newAirports.count != 0 {
-deleteOld()
-}
-
-for airport in newAirports {
-let entityDescription = NSEntityDescription.entityForName("AirportEntry", inManagedObjectContext: managedObjectContext!)
-let newAirportEntry = AirportEntry(entity: entityDescription!, insertIntoManagedObjectContext: managedObjectContext)
-newAirportEntry.faa_code = airport
-
-managedObjectContext?.save(&error)
-}
-}
-*/
 		else {
 			error = NSError (domain: "API Airport", code: 11, userInfo: errorinfo)
 		}
