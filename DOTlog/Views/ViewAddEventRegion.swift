@@ -49,16 +49,16 @@ class ViewAddEventRegion: UITableViewController {
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		let cell = self.tableView.cellForRowAtIndexPath(indexPath)
 		currentRegion = cell?.textLabel?.text
-		performSegueWithIdentifier("SegueRegionToDistrict", sender: self)
+		performSegueWithIdentifier("SegueRegionsToDistricts", sender: self)
 
 	}
 
 	func resetPage() {
 		let categoryFetch = NSFetchRequest (entityName:"RegionEntry")
-		if let categoryResults = managedObjectContext!.executeFetchRequest(categoryFetch, error:nil) as? [CategoryEntry]{
+		if let regionResults = managedObjectContext!.executeFetchRequest(categoryFetch, error:nil) as? [RegionEntry]{
 			regions = Array<String>() // Clear old array
-			for category in categoryResults {
-				regions.append(category.category_title)
+			for region in regionResults {
+				regions.append(region.region_name)
 			}
 		}
 	}
@@ -69,10 +69,10 @@ class ViewAddEventRegion: UITableViewController {
 	}
 
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		var destinationViewController = segue.destinationViewController as! ViewAddEvent
 
-		if segue.identifier == "SegueRegionToDistrict" {
-			// setup region for district selection
+		if segue.identifier == "SegueRegionsToDistricts" {
+			var destinationViewController = segue.destinationViewController as! ViewAddEventDistrict
+			destinationViewController.currentRegion = currentRegion
 		}
 	}
 

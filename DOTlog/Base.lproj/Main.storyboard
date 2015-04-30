@@ -330,7 +330,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Airports" id="ohC-Dc-u5U"/>
                     <connections>
-                        <segue destination="TmP-Gj-nJQ" kind="unwind" identifier="SegueAirportToAddEvent" unwindAction="ButtonReturnToAddEvent:" id="Qil-H8-yEW"/>
+                        <segue destination="TmP-Gj-nJQ" kind="unwind" identifier="SegueAirportsToAddEvent" unwindAction="ButtonReturnToAddEvent:" id="Qil-H8-yEW"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YT0-jN-doM" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -899,8 +899,8 @@
         <image name="settings.png" width="30" height="29"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="KLP-0v-yct"/>
         <segue reference="Fyg-Ok-NxM"/>
         <segue reference="eFu-Mh-H4p"/>
-        <segue reference="lO5-iV-La5"/>
     </inferredMetricsTieBreakers>
 </document>

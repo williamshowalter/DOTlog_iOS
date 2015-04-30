@@ -12,7 +12,7 @@ import CoreData
 
 let SUMMARYCHARLIMIT : Int = 4000
 
-class ViewAddEvent: UITableViewController, UITextFieldDelegate, UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class ViewAddEvent: UITableViewController, UITextFieldDelegate, UITextViewDelegate {
 
 	let uninitializedString = "Must Run Sync"
 	let notSyncedAlert = UIAlertController(title: "Must Run Sync", message: "Please sync for airport & category lists", preferredStyle: .Alert)
@@ -22,7 +22,6 @@ class ViewAddEvent: UITableViewController, UITextFieldDelegate, UITextViewDelega
 
 	var airports : [String] = []
 
-	@IBOutlet var pickerAirports: UIPickerView! = UIPickerView()
 	var pickerTime  : UIDatePicker! = UIDatePicker()
 
 	@IBOutlet weak var UIFieldCategory: UITextField!
@@ -61,8 +60,6 @@ class ViewAddEvent: UITableViewController, UITextFieldDelegate, UITextViewDelega
 			style: UIAlertActionStyle.Default,
 			handler: {(alert: UIAlertAction!) in}))
 
-		pickerAirports.delegate = self
-
 		resetPage()
 
 	}
@@ -80,7 +77,7 @@ class ViewAddEvent: UITableViewController, UITextFieldDelegate, UITextViewDelega
 			airports = [uninitializedString]
 		}
 
-		UIFieldAirport.text = airports[0]
+		UIFieldAirport.text = ""
 
 		UIFieldCategory.text = ""
 
@@ -174,23 +171,6 @@ class ViewAddEvent: UITableViewController, UITextFieldDelegate, UITextViewDelega
 		self.UIFieldTime.resignFirstResponder()
 	}
 
-	func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int{
-		return 1
-	}
-
-	func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
-			return airports.count
-	}
-
-	func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
-			return airports[row];
-	}
-
-	func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
-	{
-			UIFieldAirport.text = airports[row];
-	}
-
 	func textFieldDidBeginEditing(textField: UITextField) {
 		textField.becomeFirstResponder()
 	}
@@ -214,8 +194,8 @@ class ViewAddEvent: UITableViewController, UITextFieldDelegate, UITextViewDelega
 	}
 
 	@IBAction func editAirport(sender: UITextField) {
-		pickerAirports.reloadAllComponents()
-		sender.inputView = pickerAirports;
+		performSegueWithIdentifier("SegueAddEventToRegions", sender: self)
+
 	}
 
 	// Returns to this view controller

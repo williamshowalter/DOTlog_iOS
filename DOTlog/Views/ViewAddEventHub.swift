@@ -17,6 +17,7 @@ class ViewAddEventHub: UITableViewController {
 
 	var hubs : [String] = []
 	var currentHub : String? = nil
+	var currentDistrict : String?
 
 	override func viewWillAppear(animated: Bool){
 		super.viewWillAppear(animated)
@@ -50,16 +51,18 @@ class ViewAddEventHub: UITableViewController {
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		let cell = self.tableView.cellForRowAtIndexPath(indexPath)
 		currentHub = cell?.textLabel?.text
-		performSegueWithIdentifier("SegueHubToAirport", sender: self)
+		performSegueWithIdentifier("SegueHubsToAirports", sender: self)
 
 	}
 
 	func resetPage() {
-		let categoryFetch = NSFetchRequest (entityName:"HubEntry")
-		if let categoryResults = managedObjectContext!.executeFetchRequest(categoryFetch, error:nil) as? [CategoryEntry]{
+		let hubFetch = NSFetchRequest (entityName:"HubEntry")
+		if let hubResults = managedObjectContext!.executeFetchRequest(hubFetch, error:nil) as? [HubEntry]{
 			hubs = Array<String>() // Clear old array
-			for category in categoryResults {
-				hubs.append(category.category_title)
+			for hub in hubResults {
+				if currentDistrict == hub.district.district_name {
+					hubs.append(hub.hub_name)
+				}
 			}
 		}
 	}
@@ -70,10 +73,9 @@ class ViewAddEventHub: UITableViewController {
 	}
 
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		var destinationViewController = segue.destinationViewController as! ViewAddEvent
-
-		if segue.identifier == "SegueHubToAirport" {
-			// setup hub for airport selection
+		if segue.identifier == "SegueHubsToAirports" {
+			var destinationViewController = segue.destinationViewController as! ViewAddEventAirport
+			destinationViewController.currentHub = currentHub
 		}
 	}
 

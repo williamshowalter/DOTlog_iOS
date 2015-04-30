@@ -16,6 +16,7 @@ class ViewAddEventDistrict: UITableViewController {
 
 	var districts : [String] = []
 	var currentDistrict : String? = nil
+	var currentRegion : String?
 
 	override func viewWillAppear(animated: Bool){
 		super.viewWillAppear(animated)
@@ -49,16 +50,18 @@ class ViewAddEventDistrict: UITableViewController {
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		let cell = self.tableView.cellForRowAtIndexPath(indexPath)
 		currentDistrict = cell?.textLabel?.text
-		performSegueWithIdentifier("SegueDistrictToHub", sender: self)
+		performSegueWithIdentifier("SegueDistrictsToHubs", sender: self)
 
 	}
 
 	func resetPage() {
-		let categoryFetch = NSFetchRequest (entityName:"DistrictEntry")
-		if let categoryResults = managedObjectContext!.executeFetchRequest(categoryFetch, error:nil) as? [CategoryEntry]{
+		let districtFetch = NSFetchRequest (entityName:"DistrictEntry")
+		if let districtResults = managedObjectContext!.executeFetchRequest(districtFetch, error:nil) as? [DistrictEntry]{
 			districts = Array<String>() // Clear old array
-			for category in categoryResults {
-				districts.append(category.category_title)
+			for district in districtResults {
+				if (currentRegion == district.region.region_name) {
+					districts.append(district.district_name)
+				}
 			}
 		}
 	}
@@ -69,10 +72,11 @@ class ViewAddEventDistrict: UITableViewController {
 	}
 
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		var destinationViewController = segue.destinationViewController as! ViewAddEvent
 
-		if segue.identifier == "SegueDistrictToHub" {
-			// setup district for district selection
+		if segue.identifier == "SegueDistrictsToHubs" {
+			var destinationViewController = segue.destinationViewController as! ViewAddEventHub
+			destinationViewController.currentDistrict = currentDistrict
+
 		}
 	}
 

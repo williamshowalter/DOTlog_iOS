@@ -48,8 +48,6 @@ class APIAirportResource : APIResource {
 
 		let regionData = JSON(data: webData, error: &error)
 		//		let data = JSON(data: webData, error: &error)["AIRPORTS"]
-		println(regionData)
-		println(regionData.count)
 		let regionDescription = NSEntityDescription.entityForName("RegionEntry", inManagedObjectContext: managedObjectContext!)
 		let districtDescription = NSEntityDescription.entityForName("DistrictEntry", inManagedObjectContext: managedObjectContext!)
 		let hubDescription = NSEntityDescription.entityForName("HubEntry", inManagedObjectContext: managedObjectContext!)
@@ -65,8 +63,6 @@ class APIAirportResource : APIResource {
 			var newAirports : [AirportEntry] = []
 
 			for (index,region) in regionData {
-				println(region)
-				println(region.count)
 				if let regionName = region["REGION_NAME"].string {
 					// New Region Object
 					let districtData = region["DISTRICTS"]
