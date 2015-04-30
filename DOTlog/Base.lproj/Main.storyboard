@@ -202,6 +202,10 @@
                         <outlet property="UIFieldTime" destination="nK7-aV-D09" id="QJH-2e-Lv5"/>
                         <outlet property="UISwitchInWeeklyReport" destination="iPg-gT-JEf" id="1m4-f3-jSU"/>
                         <segue destination="C6p-l2-tFE" kind="show" identifier="SegueSelectCategory" id="XGU-3Q-bzS"/>
+                        <segue destination="yY6-Jr-q3U" kind="show" identifier="SegueAddEventToRegions" id="XQX-yr-lr5"/>
+                        <segue destination="0sL-uZ-89j" kind="show" identifier="SegueAddEventToDistricts" id="WEO-KV-afo"/>
+                        <segue destination="Nvr-uG-OUK" kind="show" identifier="SegueAddEventToHubs" id="D5A-TR-aiZ"/>
+                        <segue destination="ueo-o4-LRW" kind="show" identifier="SegueAddEventToAirports" id="KLP-0v-yct"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g39-U8-FG2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -212,6 +216,127 @@
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-564" y="1093"/>
+        </scene>
+        <!--Regions-->
+        <scene sceneID="4pK-Tf-2ks">
+            <objects>
+                <tableViewController id="yY6-Jr-q3U" customClass="ViewAddEventRegion" customModule="DOTlog" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="oWG-me-hbT">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="pS1-U6-QSX">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pS1-U6-QSX" id="1pJ-Gf-PM8">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="yY6-Jr-q3U" id="yDX-iI-ElD"/>
+                            <outlet property="delegate" destination="yY6-Jr-q3U" id="fMH-vQ-HBI"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Regions" id="6un-Sq-D68"/>
+                    <connections>
+                        <segue destination="0sL-uZ-89j" kind="show" identifier="SegueRegionsToDistricts" id="Fyg-Ok-NxM"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="16q-Mr-Sc4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="168" y="1093"/>
+        </scene>
+        <!--Districts-->
+        <scene sceneID="Fiu-u9-13B">
+            <objects>
+                <tableViewController id="0sL-uZ-89j" customClass="ViewAddEventDistrict" customModule="DOTlog" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="3TD-Ia-PN5">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="bGg-N1-SRL">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bGg-N1-SRL" id="wpF-hG-Jwv">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="0sL-uZ-89j" id="qm9-6Y-9Tt"/>
+                            <outlet property="delegate" destination="0sL-uZ-89j" id="ZF7-sA-cPs"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Districts" id="2dN-yx-wSJ"/>
+                    <connections>
+                        <segue destination="Nvr-uG-OUK" kind="show" identifier="SegueDistrictsToHubs" id="eFu-Mh-H4p"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TiS-hG-N9S" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="902" y="1093"/>
+        </scene>
+        <!--Hubs-->
+        <scene sceneID="4mf-tO-mvo">
+            <objects>
+                <tableViewController id="Nvr-uG-OUK" customClass="ViewAddEventHub" customModule="DOTlog" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="c6s-zL-m4U">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="fcQ-YE-tYD">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fcQ-YE-tYD" id="jBp-Vy-jOZ">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Nvr-uG-OUK" id="ZKf-zI-aFZ"/>
+                            <outlet property="delegate" destination="Nvr-uG-OUK" id="gWo-Jg-ay6"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Hubs" id="LxC-F0-33a"/>
+                    <connections>
+                        <segue destination="ueo-o4-LRW" kind="show" identifier="SegueHubsToAirports" id="lO5-iV-La5"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TqL-Sx-G94" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="168" y="1850"/>
+        </scene>
+        <!--Airports-->
+        <scene sceneID="ga2-MV-kfi">
+            <objects>
+                <tableViewController id="ueo-o4-LRW" customClass="ViewAddEventAirport" customModule="DOTlog" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="4hP-Cd-gbX">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="yfA-K4-AY8">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yfA-K4-AY8" id="6vZ-tf-LR1">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="ueo-o4-LRW" id="EsJ-SG-Hk9"/>
+                            <outlet property="delegate" destination="ueo-o4-LRW" id="p7K-FQ-Ywa"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Airports" id="ohC-Dc-u5U"/>
+                    <connections>
+                        <segue destination="TmP-Gj-nJQ" kind="unwind" identifier="SegueAirportToAddEvent" unwindAction="ButtonReturnToAddEvent:" id="Qil-H8-yEW"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YT0-jN-doM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="TmP-Gj-nJQ" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="902" y="1850"/>
         </scene>
         <!--Select Category-->
         <scene sceneID="Ivm-dY-PJV">
@@ -773,4 +898,9 @@
         <image name="events.png" width="30" height="30"/>
         <image name="settings.png" width="30" height="29"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="KLP-0v-yct"/>
+        <segue reference="Fyg-Ok-NxM"/>
+        <segue reference="eFu-Mh-H4p"/>
+    </inferredMetricsTieBreakers>
 </document>
