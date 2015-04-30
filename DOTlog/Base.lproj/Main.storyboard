@@ -103,7 +103,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <connections>
-                                                        <action selector="editCategory:" destination="AAj-fc-vBz" eventType="editingDidBegin" id="uXr-qq-mpE"/>
+                                                        <action selector="editCategory:" destination="AAj-fc-vBz" eventType="editingDidBegin" id="2dO-fw-Ke9"/>
                                                         <outlet property="delegate" destination="AAj-fc-vBz" id="gc9-he-5BW"/>
                                                     </connections>
                                                 </textField>
@@ -201,6 +201,7 @@
                         <outlet property="UIFieldSummary" destination="dZD-sU-1L3" id="Rwp-z2-N7D"/>
                         <outlet property="UIFieldTime" destination="nK7-aV-D09" id="QJH-2e-Lv5"/>
                         <outlet property="UISwitchInWeeklyReport" destination="iPg-gT-JEf" id="1m4-f3-jSU"/>
+                        <segue destination="C6p-l2-tFE" kind="show" identifier="SegueSelectCategory" id="XGU-3Q-bzS"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g39-U8-FG2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -211,6 +212,44 @@
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-564" y="1093"/>
+        </scene>
+        <!--Select Category-->
+        <scene sceneID="Ivm-dY-PJV">
+            <objects>
+                <tableViewController id="C6p-l2-tFE" customClass="ViewAddEventCategory" customModule="DOTlog" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="bge-Gp-HXW">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="categoryCell" id="qqX-yq-TS6">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qqX-yq-TS6" id="a3y-G9-4ER">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="checkmark" indentationWidth="10" reuseIdentifier="selectedCategoryCell" id="Hb9-CT-jUS">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Hb9-CT-jUS" id="pT5-Za-eNw">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="C6p-l2-tFE" id="QmB-TX-T2g"/>
+                            <outlet property="delegate" destination="C6p-l2-tFE" id="IIj-kj-lLn"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Select Category" id="TxV-dw-4Vm"/>
+                    <connections>
+                        <segue destination="329-wi-f8D" kind="unwind" identifier="SegueCategoryToAddEvent" unwindAction="ButtonReturnToAddEvent:" id="ALx-p2-m5a"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="B1e-WV-Zmq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="329-wi-f8D" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="-564" y="1850"/>
         </scene>
         <!--Account Settings-->
         <scene sceneID="UTE-4h-MoL">
@@ -414,7 +453,7 @@
         <!--NavEventList-->
         <scene sceneID="gai-Dh-gD3">
             <objects>
-                <navigationController title="NavEventList" id="m69-gC-jMt" sceneMemberID="viewController">
+                <navigationController title="NavEventList" id="m69-gC-jMt" customClass="ViewNavEventList" customModule="DOTlog" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Events" image="events.png" selectedImage="events.png" id="R81-3Z-vVE" userLabel="Entries"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="w0m-uf-jnj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

@@ -20,10 +20,8 @@ class ViewAddEvent: UITableViewController, UITextFieldDelegate, UITextViewDelega
 	let noEventSummaryAlert = UIAlertController(title: "No Event Summary", message: "Please enter an event summary", preferredStyle: .Alert)
 	let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
-	var categories : [String] = []
 	var airports : [String] = []
 
-	@IBOutlet var pickerCategories: UIPickerView! = UIPickerView()
 	@IBOutlet var pickerAirports: UIPickerView! = UIPickerView()
 	var pickerTime  : UIDatePicker! = UIDatePicker()
 
@@ -48,7 +46,6 @@ class ViewAddEvent: UITableViewController, UITextFieldDelegate, UITextViewDelega
 
 	override func viewWillAppear(animated: Bool){
 		super.viewWillAppear(animated)
-		resetPage()
 	}
 
 	override func viewDidLoad() {
@@ -64,8 +61,10 @@ class ViewAddEvent: UITableViewController, UITextFieldDelegate, UITextViewDelega
 			style: UIAlertActionStyle.Default,
 			handler: {(alert: UIAlertAction!) in}))
 
-		pickerCategories.delegate = self
 		pickerAirports.delegate = self
+
+		resetPage()
+
 	}
 
 	func resetPage() {
@@ -77,23 +76,12 @@ class ViewAddEvent: UITableViewController, UITextFieldDelegate, UITextViewDelega
 			}
 		}
 
-		let categoryFetch = NSFetchRequest (entityName:"CategoryEntry")
-		if let categoryResults = managedObjectContext!.executeFetchRequest(categoryFetch, error:nil) as? [CategoryEntry]{
-			categories = Array<String>() // Clear old array
-			for category in categoryResults {
-				categories.append(category.category_title)
-			}
-		}
-
 		if airports.count == 0 {
 			airports = [uninitializedString]
 		}
 
-		if categories.count == 0 {
-			categories = [uninitializedString]
-		}
-
 		UIFieldAirport.text = airports[0]
+
 		UIFieldCategory.text = ""
 
 		pickerTime.date = NSDate()
@@ -191,43 +179,46 @@ class ViewAddEvent: UITableViewController, UITextFieldDelegate, UITextViewDelega
 	}
 
 	func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
-		if (pickerView == pickerCategories){
-			return categories.count
-		}
-		else if (pickerView == pickerAirports){
 			return airports.count
-		}
-		return categories.count
 	}
 
 	func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
-		if (pickerView == pickerCategories && categories.count != 0){
-			return categories[row]
-		}
-		else if (pickerView == pickerAirports && airports.count != 0){
 			return airports[row];
-		}
-		return uninitializedString
 	}
 
 	func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
 	{
-		if (pickerView == pickerCategories && categories.count != 0){
-			UIFieldCategory.text = categories[row]
-		}
-		else if (pickerView == pickerAirports && airports.count != 0){
 			UIFieldAirport.text = airports[row];
-		}
+	}
+
+	func textFieldDidBeginEditing(textField: UITextField) {
+		textField.becomeFirstResponder()
 	}
 
 	@IBAction func editCategory(sender: UITextField) {
-		pickerCategories.reloadAllComponents()
-		sender.inputView = pickerCategories
+		performSegueWithIdentifier("SegueSelectCategory", sender: self)
+	}
+
+	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+		if segue.identifier == "SegueSelectCategory" {
+			var destinationViewController = segue.destinationViewController as! ViewAddEventCategory
+
+			if let currentCategory = UIFieldCategory.text {
+				destinationViewController.currentCategory = currentCategory
+			}
+		}
+	}
+
+	override func canBecomeFirstResponder() -> Bool {
+		return true
 	}
 
 	@IBAction func editAirport(sender: UITextField) {
 		pickerAirports.reloadAllComponents()
 		sender.inputView = pickerAirports;
 	}
-	
+
+	// Returns to this view controller
+	@IBAction func ButtonReturnToAddEvent(segue: UIStoryboardSegue) {
+	}
 }

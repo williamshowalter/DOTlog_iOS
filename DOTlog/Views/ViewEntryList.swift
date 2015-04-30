@@ -217,4 +217,8 @@ class ViewEventList: UIViewController, UITableViewDelegate, UITableViewDataSourc
 
 		self.viewWillAppear(true)
 	}
+
+	override func disablesAutomaticKeyboardDismissal() -> Bool {
+		return false
+	}
 }

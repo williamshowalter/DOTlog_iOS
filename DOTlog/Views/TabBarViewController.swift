@@ -26,6 +26,10 @@ class TabBarViewController: UITabBarController {
         // Dispose of any resources that can be recreated.
     }
 
+	override func disablesAutomaticKeyboardDismissal() -> Bool {
+		return false
+	}
+
 }
 
 extension UIImage {
