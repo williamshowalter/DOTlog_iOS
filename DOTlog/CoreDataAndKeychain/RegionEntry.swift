@@ -1,5 +1,5 @@
 //
-//  AirportEntry.swift
+//  RegionEntry.swift
 //  DOTlog
 //
 //  Created by William Showalter on 15/04/30.
@@ -9,9 +9,9 @@
 import Foundation
 import CoreData
 
-class AirportEntry: NSManagedObject {
+class RegionEntry: NSManagedObject {
 
-    @NSManaged var faa_code: String
-    @NSManaged var hub: HubEntry
+    @NSManaged var region_name: String
+    @NSManaged var district: NSOrderedSet
 
 }

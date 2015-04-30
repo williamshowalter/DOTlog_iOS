@@ -11,8 +11,6 @@
 		3D0B5D991AD201410053C0FF /* EventEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B5D971AD201410053C0FF /* EventEntry.swift */; };
 		3D0B5D9E1AD2050B0053C0FF /* CategoryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B5D9D1AD2050B0053C0FF /* CategoryEntry.swift */; };
 		3D0B5D9F1AD2050B0053C0FF /* CategoryEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B5D9D1AD2050B0053C0FF /* CategoryEntry.swift */; };
-		3D0B5DA11AD2050B0053C0FF /* AirportEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B5DA01AD2050B0053C0FF /* AirportEntry.swift */; };
-		3D0B5DA21AD2050B0053C0FF /* AirportEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0B5DA01AD2050B0053C0FF /* AirportEntry.swift */; };
 		3D0C498F1ADB7AA100F91E3C /* NetworkVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0C498E1ADB7AA100F91E3C /* NetworkVisitor.swift */; };
 		3D0C49921ADB7DE000F91E3C /* APIResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0C49911ADB7DE000F91E3C /* APIResource.swift */; };
 		3D120A6B1ADDB1E400A31204 /* ErrorObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D120A6A1ADDB1E400A31204 /* ErrorObserver.swift */; };
@@ -28,6 +26,10 @@
 		3D9276181ADF7C9A007B1159 /* SyncURLEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D9276171ADF7C9A007B1159 /* SyncURLEntry.swift */; };
 		3D94BB151AE4602A00E8DC9D /* DOTheader.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D94BB141AE4602A00E8DC9D /* DOTheader.png */; };
 		3D94BB181AE474FB00E8DC9D /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D94BB171AE474FB00E8DC9D /* TabBarViewController.swift */; };
+		3D94E29B1AF2CE5900D5606E /* AirportEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D94E29A1AF2CE5900D5606E /* AirportEntry.swift */; };
+		3D94E29D1AF2CE5900D5606E /* RegionEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D94E29C1AF2CE5900D5606E /* RegionEntry.swift */; };
+		3D94E29F1AF2CE5900D5606E /* DistrictEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D94E29E1AF2CE5900D5606E /* DistrictEntry.swift */; };
+		3D94E2A11AF2CE5900D5606E /* HubEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D94E2A01AF2CE5900D5606E /* HubEntry.swift */; };
 		3D96E63F1AE762790040B3E3 /* SyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D96E63E1AE762790040B3E3 /* SyncManager.swift */; };
 		3D981C261AD5EFB400505945 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D981C251AD5EFB400505945 /* Security.framework */; };
 		3DA2153F1AF1803F0021E7A8 /* ViewAddEventCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA2153E1AF1803F0021E7A8 /* ViewAddEventCategory.swift */; };
@@ -63,7 +65,6 @@
 /* Begin PBXFileReference section */
 		3D0B5D971AD201410053C0FF /* EventEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventEntry.swift; path = CoreDataAndKeychain/EventEntry.swift; sourceTree = "<group>"; };
 		3D0B5D9D1AD2050B0053C0FF /* CategoryEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryEntry.swift; path = CoreDataAndKeychain/CategoryEntry.swift; sourceTree = "<group>"; };
-		3D0B5DA01AD2050B0053C0FF /* AirportEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AirportEntry.swift; path = CoreDataAndKeychain/AirportEntry.swift; sourceTree = "<group>"; };
 		3D0C498E1ADB7AA100F91E3C /* NetworkVisitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkVisitor.swift; path = DOTlog/API/NetworkVisitor.swift; sourceTree = SOURCE_ROOT; };
 		3D0C49911ADB7DE000F91E3C /* APIResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APIResource.swift; path = API/APIResource.swift; sourceTree = "<group>"; };
 		3D120A6A1ADDB1E400A31204 /* ErrorObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ErrorObserver.swift; path = API/ErrorObserver.swift; sourceTree = "<group>"; };
@@ -79,6 +80,10 @@
 		3D9276171ADF7C9A007B1159 /* SyncURLEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SyncURLEntry.swift; path = CoreDataAndKeychain/SyncURLEntry.swift; sourceTree = "<group>"; };
 		3D94BB141AE4602A00E8DC9D /* DOTheader.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DOTheader.png; path = "Support Files/Images/DOTheader.png"; sourceTree = "<group>"; };
 		3D94BB171AE474FB00E8DC9D /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabBarViewController.swift; path = Views/TabBarViewController.swift; sourceTree = "<group>"; };
+		3D94E29A1AF2CE5900D5606E /* AirportEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AirportEntry.swift; path = CoreDataAndKeychain/AirportEntry.swift; sourceTree = "<group>"; };
+		3D94E29C1AF2CE5900D5606E /* RegionEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegionEntry.swift; path = CoreDataAndKeychain/RegionEntry.swift; sourceTree = "<group>"; };
+		3D94E29E1AF2CE5900D5606E /* DistrictEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DistrictEntry.swift; path = CoreDataAndKeychain/DistrictEntry.swift; sourceTree = "<group>"; };
+		3D94E2A01AF2CE5900D5606E /* HubEntry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HubEntry.swift; path = CoreDataAndKeychain/HubEntry.swift; sourceTree = "<group>"; };
 		3D96E63E1AE762790040B3E3 /* SyncManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SyncManager.swift; path = API/SyncManager.swift; sourceTree = "<group>"; };
 		3D981C251AD5EFB400505945 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		3DA2153E1AF1803F0021E7A8 /* ViewAddEventCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewAddEventCategory.swift; path = Views/ViewAddEventCategory.swift; sourceTree = "<group>"; };
@@ -248,7 +253,10 @@
 			isa = PBXGroup;
 			children = (
 				3DDE98611AA2736500378DEE /* DOTlog.xcdatamodeld */,
-				3D0B5DA01AD2050B0053C0FF /* AirportEntry.swift */,
+				3D94E29A1AF2CE5900D5606E /* AirportEntry.swift */,
+				3D94E2A01AF2CE5900D5606E /* HubEntry.swift */,
+				3D94E29E1AF2CE5900D5606E /* DistrictEntry.swift */,
+				3D94E29C1AF2CE5900D5606E /* RegionEntry.swift */,
 				3D0B5D9D1AD2050B0053C0FF /* CategoryEntry.swift */,
 				3D0B5D971AD201410053C0FF /* EventEntry.swift */,
 				3D8A9B621AD5F17E00DFB734 /* KeychainAccess.swift */,
@@ -370,11 +378,14 @@
 				3DABD53F1AF229EA00A09200 /* ViewAddEventRegion.swift in Sources */,
 				3D120A6B1ADDB1E400A31204 /* ErrorObserver.swift in Sources */,
 				3DDE98651AA2736500378DEE /* ViewAccountSettings.swift in Sources */,
+				3D94E29D1AF2CE5900D5606E /* RegionEntry.swift in Sources */,
 				3D6322E31AD5E38500617DEC /* APIAirportResource.swift in Sources */,
 				3D0B5D9E1AD2050B0053C0FF /* CategoryEntry.swift in Sources */,
 				3DE1DE481ADC5B4200BF314F /* SwiftyJSON.swift in Sources */,
+				3D94E29B1AF2CE5900D5606E /* AirportEntry.swift in Sources */,
 				3D7A5AA31ABA2BDA00CB5871 /* ViewEntryList.swift in Sources */,
 				3DABD53D1AF195AE00A09200 /* ViewNavEventList.swift in Sources */,
+				3D94E2A11AF2CE5900D5606E /* HubEntry.swift in Sources */,
 				3D9276181ADF7C9A007B1159 /* SyncURLEntry.swift in Sources */,
 				3DA2153F1AF1803F0021E7A8 /* ViewAddEventCategory.swift in Sources */,
 				3D0C49921ADB7DE000F91E3C /* APIResource.swift in Sources */,
@@ -383,9 +394,9 @@
 				3DABD5451AF22A6D00A09200 /* ViewAddEventAirport.swift in Sources */,
 				3DDE98631AA2736500378DEE /* DOTlog.xcdatamodeld in Sources */,
 				3DABD5431AF22A2400A09200 /* ViewAddEventHub.swift in Sources */,
-				3D0B5DA11AD2050B0053C0FF /* AirportEntry.swift in Sources */,
 				3D4152791AE4EADE001A9AFD /* ViewAddEvent.swift in Sources */,
 				3D6322E51AD5E3B800617DEC /* APICategoryResource.swift in Sources */,
+				3D94E29F1AF2CE5900D5606E /* DistrictEntry.swift in Sources */,
 				3DDE98601AA2736500378DEE /* AppDelegate.swift in Sources */,
 				3D96E63F1AE762790040B3E3 /* SyncManager.swift in Sources */,
 				3D8A9B631AD5F17E00DFB734 /* KeychainAccess.swift in Sources */,
@@ -398,7 +409,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D0B5DA21AD2050B0053C0FF /* AirportEntry.swift in Sources */,
 				3D0B5D991AD201410053C0FF /* EventEntry.swift in Sources */,
 				3D0B5D9F1AD2050B0053C0FF /* CategoryEntry.swift in Sources */,
 				3DE1DE491ADC5B4200BF314F /* SwiftyJSON.swift in Sources */,
