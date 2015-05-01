@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import CoreData
 
-class ViewEventList: UIViewController, UITableViewDelegate, UITableViewDataSource, ErrorObserver {
+class ViewEventList: UIViewController, UITableViewDelegate, UITableViewDataSource, ErrorObserver, UIActionSheetDelegate {
 
 	// This class is an ErrorObserver from the Observer design pattern
 	// This allows the class to have subjects to keep references to the observer
@@ -47,6 +47,56 @@ class ViewEventList: UIViewController, UITableViewDelegate, UITableViewDataSourc
 		self.syncSuccessAlert.addAction(UIAlertAction(title: "Okay",
 			style: UIAlertActionStyle.Default,
 			handler: {(alert: UIAlertAction!) in}))
+
+		let longpress = UILongPressGestureRecognizer(target: self, action: "longPressGestureRecognized:")
+
+		entryTableView.addGestureRecognizer(longpress)
+	}
+
+	func longPressGestureRecognized(gestureRecognizer: UIGestureRecognizer) {
+		if UIGestureRecognizerState.Began == gestureRecognizer.state {
+			let longPress = gestureRecognizer as! UILongPressGestureRecognizer
+			let state = longPress.state
+			var locationInView = longPress.locationInView(entryTableView)
+			var indexPath = entryTableView.indexPathForRowAtPoint(locationInView)
+
+			let cellActionSheet = createActionSheet()
+			if let indexPathVal = indexPath {
+				cellActionSheet.accessibilityElements = [] as [NSIndexPath]
+				cellActionSheet.accessibilityElements.append(indexPathVal)
+				cellActionSheet.showInView(self.view)
+			}
+		}
+	}
+
+	func createActionSheet() -> UIActionSheet {
+		var actionSheet = UIActionSheet()
+
+		actionSheet.addButtonWithTitle("Delete Event")
+		actionSheet.addButtonWithTitle("Cancel")
+		actionSheet.destructiveButtonIndex = 0
+		actionSheet.cancelButtonIndex = actionSheet.numberOfButtons - 1
+
+		actionSheet.delegate = self
+		return actionSheet
+	}
+
+	func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int){
+		if let var indexPath : NSIndexPath = actionSheet.accessibilityElements[0] as? NSIndexPath {
+			switch buttonIndex {
+			case 0:
+				let entryToDelete = eventEntries[indexPath.row]
+				managedObjectContext?.deleteObject(entryToDelete)
+
+				eventEntries.removeAtIndex(indexPath.row)
+				entryTableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+
+				managedObjectContext?.save(nil)
+				break;
+			default:
+				break;
+			}
+		}
 	}
 
 	override func viewWillAppear(animated: Bool){
@@ -92,7 +142,6 @@ class ViewEventList: UIViewController, UITableViewDelegate, UITableViewDataSourc
 			tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
 		}
 	}
-
 
 	@IBAction func addEventButton(sender: AnyObject) {
 		var airports = Array<String>()
