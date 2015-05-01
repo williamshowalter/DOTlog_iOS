@@ -39,8 +39,8 @@ class SyncManager {
 		visitorObj = NetworkVisitor()
 		visitorObj.setCreds(username, pass: password)
 		visitorObj.registerObserver(observer)
-		//activeSyncCounter++
-		//eventResource.accept(visitorObj)
+		activeSyncCounter++
+		eventResource.accept(visitorObj)
 	}
 
 	func getActiveSyncCount() -> Int {
