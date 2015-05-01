@@ -59,7 +59,7 @@ class ViewAddEventAirport: UITableViewController {
 		if let airportResults = managedObjectContext!.executeFetchRequest(airportFetch, error:nil) as? [AirportEntry]{
 			airports = Array<String>() // Clear old array
 			for airport in airportResults {
-				if currentHub == airport.hub.hub_name {
+				if currentHub == airport.hub.hub_name || currentHub == nil {
 					airports.append(airport.faa_code)
 				}
 			}

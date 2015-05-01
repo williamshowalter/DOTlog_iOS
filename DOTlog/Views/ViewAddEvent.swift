@@ -194,8 +194,28 @@ class ViewAddEvent: UITableViewController, UITextFieldDelegate, UITextViewDelega
 	}
 
 	@IBAction func editAirport(sender: UITextField) {
-		performSegueWithIdentifier("SegueAddEventToRegions", sender: self)
-
+		let fetchRegions = NSFetchRequest (entityName: "RegionEntry")
+		let regions = managedObjectContext!.executeFetchRequest(fetchRegions, error: nil) as! [RegionEntry]
+		if regions.count > 1 {
+			performSegueWithIdentifier("SegueAddEventToRegions", sender: self)
+		}
+		else {
+			let fetchDistricts = NSFetchRequest (entityName: "DistrictEntry")
+			let districts = managedObjectContext!.executeFetchRequest(fetchDistricts, error: nil) as! [RegionEntry]
+			if districts.count > 1 {
+				performSegueWithIdentifier("SegueAddEventToDistricts", sender: self)
+			}
+			else {
+				let fetchHubs = NSFetchRequest (entityName: "HubEntry")
+				let hubs = managedObjectContext!.executeFetchRequest(fetchHubs, error: nil) as! [RegionEntry]
+				if hubs.count > 1 {
+					performSegueWithIdentifier("SegueAddEventToHubs", sender: self)
+				}
+				else {
+					performSegueWithIdentifier("SegueAddEventToAirports", sender: self)
+				}
+			}
+		}
 	}
 
 	// Returns to this view controller

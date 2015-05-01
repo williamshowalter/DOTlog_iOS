@@ -60,7 +60,7 @@ class ViewAddEventHub: UITableViewController {
 		if let hubResults = managedObjectContext!.executeFetchRequest(hubFetch, error:nil) as? [HubEntry]{
 			hubs = Array<String>() // Clear old array
 			for hub in hubResults {
-				if currentDistrict == hub.district.district_name {
+				if currentDistrict == hub.district.district_name || currentDistrict == nil {
 					hubs.append(hub.hub_name)
 				}
 			}

@@ -59,7 +59,7 @@ class ViewAddEventDistrict: UITableViewController {
 		if let districtResults = managedObjectContext!.executeFetchRequest(districtFetch, error:nil) as? [DistrictEntry]{
 			districts = Array<String>() // Clear old array
 			for district in districtResults {
-				if (currentRegion == district.region.region_name) {
+				if (currentRegion == district.region.region_name || currentRegion == nil) {
 					districts.append(district.district_name)
 				}
 			}

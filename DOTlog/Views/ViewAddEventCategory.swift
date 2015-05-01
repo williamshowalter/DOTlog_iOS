@@ -72,7 +72,6 @@ class ViewAddEventCategory: UITableViewController {
 		var destinationViewController = segue.destinationViewController as! ViewAddEvent
 
 		if segue.identifier == "SegueCategoryToAddEvent" {
-			println(currentCategory)
 			destinationViewController.UIFieldCategory.text = currentCategory
 		}
 	}

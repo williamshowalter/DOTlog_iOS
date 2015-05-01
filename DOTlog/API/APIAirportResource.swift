@@ -55,6 +55,7 @@ class APIAirportResource : APIResource {
 
 		if regionData.error == nil {
 			// Do more error checking first
+			// Potentially add API validation functions. This deletes all airports and does inline error checking while inserting them afterward.
 			deleteOld()
 
 			var newRegions : [RegionEntry] = []
@@ -111,36 +112,45 @@ class APIAirportResource : APIResource {
 													}
 												}
 											}
+											else {
+												// error no airports in hub
+												error = NSError (domain: "API Airport", code: 10, userInfo: errorinfo)
+												return error
+											}
 										}
 									}
+								}
+								else {
+									// error no hubs in district
+									error = NSError (domain: "API Airport", code: 11, userInfo: errorinfo)
+									return error
 								}
 							}
 						}
 					}
 					else {
 						// error no districts in region
+						error = NSError (domain: "API Airport", code: 12, userInfo: errorinfo)
+						return error
 					}
-				}
-
-				else {
-					error = NSError (domain: "API Airport", code: 10, userInfo: errorinfo)
-					return error
 				}
 			}
 		}
 
 		else {
-			error = NSError (domain: "API Airport", code: 11, userInfo: errorinfo)
+			error = NSError (domain: "API Airport", code: 13, userInfo: errorinfo)
 		}
 
 		return error
 	}
 
 	private func deleteOld() {
-		let fetch = NSFetchRequest (entityName:"AirportEntry")
-		let entries = managedObjectContext!.executeFetchRequest(fetch, error:nil) as! [AirportEntry]
+		// Data model deletes all districts under region, which deletes all hubs, which delete all airports. Only need to delete regions, therefore.
+		let fetch = NSFetchRequest (entityName: "RegionEntry")
+		let entries = managedObjectContext!.executeFetchRequest(fetch, error: nil) as! [RegionEntry]
 		for entry in entries {
 			managedObjectContext?.deleteObject(entry)
+			managedObjectContext?.save(nil)
 		}
 	}
 }
