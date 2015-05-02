@@ -377,11 +377,61 @@
             <point key="canvasLocation" x="-564" y="1850"/>
         </scene>
         <!--Account Settings-->
+        <scene sceneID="jNy-io-SOL">
+            <objects>
+                <viewController id="AAg-gR-pJ2" customClass="ViewAccountSettings" customModule="DOTlog" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="87y-Rl-aKc"/>
+                        <viewControllerLayoutGuide type="bottom" id="vaO-9A-R20"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ceR-6C-x9y">
+                        <rect key="frame" x="0.0" y="64" width="600" height="487"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DOTheader.png" translatesAutoresizingMaskIntoConstraints="NO" id="ytk-k5-MO1">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="56"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="ytk-k5-MO1" secondAttribute="height" multiplier="75:7" id="abk-zd-97O"/>
+                                </constraints>
+                            </imageView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1B8-wi-FzX">
+                                <rect key="frame" x="0.0" y="56" width="600" height="431"/>
+                                <connections>
+                                    <segue destination="Ckp-RH-Dhv" kind="embed" id="4yj-0r-1OJ"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="ytk-k5-MO1" secondAttribute="trailing" constant="-16" id="2Ed-bY-7jb"/>
+                            <constraint firstItem="ytk-k5-MO1" firstAttribute="leading" secondItem="ceR-6C-x9y" secondAttribute="leadingMargin" constant="-16" id="CXT-kU-0NH"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="1B8-wi-FzX" secondAttribute="trailing" constant="-16" id="CYC-BN-geb"/>
+                            <constraint firstItem="1B8-wi-FzX" firstAttribute="top" secondItem="ytk-k5-MO1" secondAttribute="bottom" id="EL1-1T-z63"/>
+                            <constraint firstItem="ytk-k5-MO1" firstAttribute="top" secondItem="87y-Rl-aKc" secondAttribute="bottom" id="Nmv-Su-bdK"/>
+                            <constraint firstItem="1B8-wi-FzX" firstAttribute="leading" secondItem="ceR-6C-x9y" secondAttribute="leadingMargin" constant="-16" id="jbm-BQ-nmf"/>
+                            <constraint firstItem="vaO-9A-R20" firstAttribute="top" secondItem="1B8-wi-FzX" secondAttribute="bottom" id="zeF-FB-lKY"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <navigationItem key="navigationItem" title="Account Settings" id="G2B-hH-6yc">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="rTK-wS-nw8">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="ButtonSave:" destination="AAg-gR-pJ2" id="gv1-g6-IUD"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GrL-ko-0Km" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1298" y="1850"/>
+        </scene>
+        <!--Account Settings TableView-->
         <scene sceneID="UTE-4h-MoL">
             <objects>
-                <tableViewController id="Ckp-RH-Dhv" customClass="ViewAccountSettings" customModule="DOTlog" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="Ckp-RH-Dhv" customClass="ViewAccountSettingsTableView" customModule="DOTlog" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="P1v-63-g1i">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="431"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
@@ -534,14 +584,7 @@
                             <outlet property="delegate" destination="Ckp-RH-Dhv" id="Z59-ph-BeJ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Account Settings" id="di6-zV-5Ha">
-                        <barButtonItem key="rightBarButtonItem" title="Save" id="rTK-wS-nw8">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <action selector="ButtonSave:" destination="Ckp-RH-Dhv" id="Ahn-yw-V7V"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Account Settings TableView" id="di6-zV-5Ha"/>
                     <connections>
                         <outlet property="UIFieldBaseURL" destination="nQO-mU-X51" id="2Iz-gx-fgD"/>
                         <outlet property="UIFieldPassword" destination="g1G-r5-B0q" id="FKv-b6-2eC"/>
@@ -550,7 +593,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h1g-zw-n6C" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1298" y="1850"/>
+            <point key="canvasLocation" x="-1298" y="2521.5"/>
         </scene>
         <!--NavAccountSettings-->
         <scene sceneID="cIy-Oo-tvM">
@@ -568,7 +611,7 @@
                         </textAttributes>
                     </navigationBar>
                     <connections>
-                        <segue destination="Ckp-RH-Dhv" kind="relationship" relationship="rootViewController" id="UFP-cn-wNg"/>
+                        <segue destination="AAg-gR-pJ2" kind="relationship" relationship="rootViewController" id="AJn-sU-OiY"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IL0-Ns-CUs" userLabel="First Responder" sceneMemberID="firstResponder"/>
