@@ -140,6 +140,8 @@ class ViewEventList: UIViewController, UITableViewDelegate, UITableViewDataSourc
 
 			eventEntries.removeAtIndex(indexPath.row)
 			tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+
+			managedObjectContext?.save(nil)
 		}
 	}
 
