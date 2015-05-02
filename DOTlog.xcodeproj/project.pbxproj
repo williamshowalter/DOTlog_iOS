@@ -181,8 +181,8 @@
 		3DDE985D1AA2736500378DEE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				3D94BB161AE4604C00E8DC9D /* Images */,
 				3DDE98691AA2736500378DEE /* Images.xcassets */,
+				3D94BB161AE4604C00E8DC9D /* Images */,
 				3DDE985F1AA2736500378DEE /* AppDelegate.swift */,
 				3DDE985E1AA2736500378DEE /* Info.plist */,
 			);
