@@ -18,9 +18,8 @@ class APIAirportResource : APIResource {
 
 
 	private let httpMethod = "GET"
+	private var APIAddressString : String
 	private let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-
-	private var APIAddressString = String()
 
 	init (baseURLString base: String){
 		APIAddressString = base + airportURI
@@ -39,7 +38,7 @@ class APIAirportResource : APIResource {
 	}
 
 	func getBody() -> NSData? {
-		return nil // No sending data for Airports
+		return nil
 	}
 
 	func getResourceIdentifier () -> String {
@@ -149,7 +148,7 @@ class APIAirportResource : APIResource {
 	}
 
 	private func deleteOld() {
-		// Data model deletes all districts under region, which deletes all hubs, which delete all airports. Only need to delete regions, therefore.
+		// Core data delete rules are cascade -- deleting region deletes all children
 		let fetch = NSFetchRequest (entityName: "RegionEntry")
 		let entries = managedObjectContext!.executeFetchRequest(fetch, error: nil) as! [RegionEntry]
 		for entry in entries {

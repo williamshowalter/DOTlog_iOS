@@ -17,9 +17,9 @@ class APICategoryResource : APIResource {
 	// *******  DOT MAY HAVE TO UPDATE BASED ON DOTLOG INSTALLATION DIRECTORY STRUCTURE  ******* //
 
 	private let httpMethod = "GET"
+	private var APIAddressString = String()
 	private let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
-	private var APIAddressString = String()
 
 	init (baseURLString base: String){
 		APIAddressString = base + categoryURI
@@ -38,7 +38,7 @@ class APICategoryResource : APIResource {
 	}
 
 	func getBody() -> NSData? {
-		return nil // No sending data for Categories
+		return nil
 	}
 
 	func getResourceIdentifier () -> String {
@@ -52,31 +52,31 @@ class APICategoryResource : APIResource {
 		let data = JSON(data: webData)["CATEGORIES"]
 
 		if data.error == nil {
-			var newCategories : [String] = []
-			for (index,entry) in data{
-				if let eventText = entry["CATEGORY_TITLE"].string {
-					newCategories.append(eventText)
+			var receivedCategories : [String] = []
+			for (index,category) in data{
+				if let categoryText = category["CATEGORY_TITLE"].string {
+					receivedCategories.append(categoryText)
 				}
 				else {
-					error = NSError (domain: "API Category", code: 20, userInfo: errorinfo)
+					error = NSError (domain: "API Category", code: 21, userInfo: errorinfo)
 					return error
 				}
 			}
 
-			if newCategories.count != 0 {
+			if receivedCategories.count != 0 {
 				deleteOld()
 			}
 
-			for category in newCategories {
-				let entityDescription = NSEntityDescription.entityForName("CategoryEntry", inManagedObjectContext: managedObjectContext!)
-				let newCategoryEntry = CategoryEntry(entity: entityDescription!, insertIntoManagedObjectContext: managedObjectContext)
-				newCategoryEntry.category_title = category
+			for category in receivedCategories {
+				let categoryDescription = NSEntityDescription.entityForName("CategoryEntry", inManagedObjectContext: managedObjectContext!)
+				let receivedCategoryEntry = CategoryEntry(entity: categoryDescription!, insertIntoManagedObjectContext: managedObjectContext)
+				receivedCategoryEntry.category_title = category
 
 				managedObjectContext?.save(&error)
 			}
 		}
 		else {
-			error = NSError (domain: "API Category", code: 21, userInfo: errorinfo)
+			error = NSError (domain: "API Category", code: 20, userInfo: errorinfo)
 		}
 
 		return error
@@ -84,9 +84,9 @@ class APICategoryResource : APIResource {
 
 	private func deleteOld() {
 		let fetch = NSFetchRequest (entityName:"CategoryEntry")
-		let entries = managedObjectContext!.executeFetchRequest(fetch, error:nil) as! [CategoryEntry]
-		for entry in entries {
-			managedObjectContext?.deleteObject(entry)
+		let categories = managedObjectContext!.executeFetchRequest(fetch, error:nil) as! [CategoryEntry]
+		for category in categories {
+			managedObjectContext?.deleteObject(category)
 		}
 	}
 }
