@@ -13,7 +13,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="ViewAddEvent" id="AAj-fc-vBz" customClass="ViewAddEvent" customModule="DOTlog" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" canCancelContentTouches="NO" keyboardDismissMode="onDrag" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="cI7-6d-jeJ">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
@@ -222,7 +222,7 @@
             <objects>
                 <tableViewController id="yY6-Jr-q3U" customClass="ViewAddEventRegion" customModule="DOTlog" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="oWG-me-hbT">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
@@ -252,7 +252,7 @@
             <objects>
                 <tableViewController id="0sL-uZ-89j" customClass="ViewAddEventDistrict" customModule="DOTlog" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="3TD-Ia-PN5">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
@@ -282,7 +282,7 @@
             <objects>
                 <tableViewController id="Nvr-uG-OUK" customClass="ViewAddEventHub" customModule="DOTlog" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="c6s-zL-m4U">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
@@ -312,7 +312,7 @@
             <objects>
                 <tableViewController id="ueo-o4-LRW" customClass="ViewAddEventAirport" customModule="DOTlog" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="4hP-Cd-gbX">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
@@ -343,7 +343,7 @@
             <objects>
                 <tableViewController id="C6p-l2-tFE" customClass="ViewAddEventCategory" customModule="DOTlog" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="bge-Gp-HXW">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
@@ -605,7 +605,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="barTintColor" red="0.074509803920000006" green="0.38431372549999998" blue="0.38431372549999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.086154322350000007" green="0.44369476009999997" blue="0.44369476009999997" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
@@ -623,11 +623,11 @@
             <objects>
                 <navigationController title="NavEventList" id="m69-gC-jMt" customClass="ViewNavEventList" customModule="DOTlog" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Events" image="events.png" selectedImage="events.png" id="R81-3Z-vVE" userLabel="Entries"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="w0m-uf-jnj">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="w0m-uf-jnj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="barTintColor" red="0.074509803920000006" green="0.38431372549999998" blue="0.38431372549999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.086154322350000007" green="0.44369476009999997" blue="0.44369476009999997" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
@@ -703,7 +703,7 @@
             <objects>
                 <tableViewController id="qjy-vs-CVt" customClass="ViewSyncCredentials" customModule="DOTlog" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="znJ-Gv-TWV">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
@@ -848,7 +848,7 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" id="Y07-Bg-EZF">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.35294117650000001" green="0.61960784310000006" blue="0.61960784310000006" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.3729014156203001" green="0.66222147946363641" blue="0.66222147946363641" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="m69-gC-jMt" kind="relationship" relationship="viewControllers" id="JL0-hs-JJ3"/>
@@ -856,82 +856,6 @@
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pQf-9A-Nkc" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="FWj-bR-Tig">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FWj-bR-Tig" id="cFq-Qs-A0B">
-                        <autoresizingMask key="autoresizingMask"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ipf-LQ-v7e">
-                                <rect key="frame" x="8" y="10" width="92" height="22"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="username" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gbg-68-2JX">
-                                <rect key="frame" x="100" y="7" width="492" height="30"/>
-                                <gestureRecognizers/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
-                                <connections>
-                                    <outlet property="delegate" destination="qjy-vs-CVt" id="RFW-bc-GcF"/>
-                                </connections>
-                            </textField>
-                        </subviews>
-                        <constraints>
-                            <constraint firstItem="Ipf-LQ-v7e" firstAttribute="centerY" secondItem="cFq-Qs-A0B" secondAttribute="centerY" id="5zU-jw-aLf"/>
-                            <constraint firstItem="Ipf-LQ-v7e" firstAttribute="leading" secondItem="cFq-Qs-A0B" secondAttribute="leadingMargin" id="7cn-Gl-Ly5"/>
-                            <constraint firstItem="Gbg-68-2JX" firstAttribute="centerX" secondItem="cFq-Qs-A0B" secondAttribute="centerX" constant="46" id="8ax-oz-zOq"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Gbg-68-2JX" secondAttribute="trailing" constant="-7" id="Gbi-CK-04G"/>
-                            <constraint firstItem="Gbg-68-2JX" firstAttribute="top" secondItem="cFq-Qs-A0B" secondAttribute="topMargin" constant="-1" id="Jjk-lk-dmy"/>
-                            <constraint firstItem="Ipf-LQ-v7e" firstAttribute="firstBaseline" secondItem="Gbg-68-2JX" secondAttribute="baseline" id="R9O-gI-HMz"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Gbg-68-2JX" secondAttribute="trailing" id="Tpz-8d-X90"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="Gbg-68-2JX" secondAttribute="bottom" constant="-2" id="VW6-7O-80D"/>
-                            <constraint firstItem="Gbg-68-2JX" firstAttribute="leading" secondItem="Ipf-LQ-v7e" secondAttribute="trailing" id="dwJ-fS-BCa"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="Gbi-CK-04G"/>
-                            </mask>
-                        </variation>
-                    </tableViewCellContentView>
-                </tableViewCell>
-                <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="UEw-dG-rhF">
-                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                    <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UEw-dG-rhF" id="HoS-2f-FId">
-                        <autoresizingMask key="autoresizingMask"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hcu-yQ-IxR">
-                                <rect key="frame" x="8" y="10" width="81" height="22"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="password" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5XK-QU-9nl">
-                                <rect key="frame" x="65" y="7" width="527" height="30"/>
-                                <gestureRecognizers/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES"/>
-                            </textField>
-                        </subviews>
-                        <constraints>
-                            <constraint firstAttribute="bottomMargin" secondItem="5XK-QU-9nl" secondAttribute="bottom" constant="-2" id="DiY-r3-5Ev"/>
-                            <constraint firstItem="5XK-QU-9nl" firstAttribute="top" secondItem="HoS-2f-FId" secondAttribute="topMargin" constant="-1" id="Mzz-8t-HrP"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="5XK-QU-9nl" secondAttribute="trailing" constant="-7" id="Pn5-6J-Yi2"/>
-                            <constraint firstItem="Hcu-yQ-IxR" firstAttribute="centerY" secondItem="HoS-2f-FId" secondAttribute="centerY" id="Sgs-dH-vXD"/>
-                            <constraint firstItem="Hcu-yQ-IxR" firstAttribute="leading" secondItem="HoS-2f-FId" secondAttribute="leadingMargin" id="WBr-gM-gei"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="5XK-QU-9nl" secondAttribute="trailing" id="Woc-e3-lh8"/>
-                            <constraint firstItem="5XK-QU-9nl" firstAttribute="baseline" secondItem="Hcu-yQ-IxR" secondAttribute="firstBaseline" id="cHV-GZ-SqO"/>
-                            <constraint firstItem="5XK-QU-9nl" firstAttribute="centerX" secondItem="HoS-2f-FId" secondAttribute="centerX" constant="28.5" id="cxq-tw-IyG"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="Pn5-6J-Yi2"/>
-                            </mask>
-                        </variation>
-                    </tableViewCellContentView>
-                </tableViewCell>
             </objects>
             <point key="canvasLocation" x="-1298" y="325"/>
         </scene>
@@ -942,8 +866,8 @@
         <image name="settings.png" width="30" height="29"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="WEO-KV-afo"/>
+        <segue reference="D5A-TR-aiZ"/>
         <segue reference="KLP-0v-yct"/>
-        <segue reference="Fyg-Ok-NxM"/>
-        <segue reference="eFu-Mh-H4p"/>
     </inferredMetricsTieBreakers>
 </document>
