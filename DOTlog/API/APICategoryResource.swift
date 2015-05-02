@@ -12,7 +12,10 @@ import Foundation
 
 class APICategoryResource : APIResource {
 
+	// *******  DOT MAY HAVE TO UPDATE BASED ON DOTLOG INSTALLATION DIRECTORY STRUCTURE  ******* //
 	private let categoryURI = "/dotlog/api/index.cfm/api/categories"
+	// *******  DOT MAY HAVE TO UPDATE BASED ON DOTLOG INSTALLATION DIRECTORY STRUCTURE  ******* //
+
 	private let httpMethod = "GET"
 	private let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 

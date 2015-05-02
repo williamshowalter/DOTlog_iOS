@@ -14,9 +14,14 @@ class KeychainAccess {
 	let serviceIdentifier = "DOTlogCredentials"
 	let storageUser = "DOT"
 
-	func setUsernamePassword (user: String, pass: String){
+	func setUsernamePassword (user: String, pass: String) -> NSError? {
+		// Errors from Locksmith in delete prevent new credentials from being saved
 		let errorDelete = Locksmith.deleteDataForUserAccount(storageUser, inService: serviceIdentifier)
-		let errorSave = Locksmith.saveData(["username": user,"password": pass], forUserAccount: storageUser, inService: serviceIdentifier)
+		if errorDelete == nil {
+			let errorSave = Locksmith.saveData(["username": user,"password": pass], forUserAccount: storageUser, inService: serviceIdentifier)
+			return errorSave
+		}
+			return errorDelete
 	}
 
 	func getUsername() -> String? {

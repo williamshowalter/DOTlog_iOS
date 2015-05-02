@@ -13,7 +13,7 @@ import CoreData
 class ViewEventList: UIViewController, UITableViewDelegate, UITableViewDataSource, ErrorObserver, UIActionSheetDelegate {
 
 	// This class is an ErrorObserver from the Observer design pattern
-	// This allows the class to have subjects to keep references to the observer
+	// This allows the class to have subjects that keep references to itself
 	// and notify this viewcontroller with errors through the notify(NSError) function.
 	// http://en.wikipedia.org/wiki/Observer_pattern
 

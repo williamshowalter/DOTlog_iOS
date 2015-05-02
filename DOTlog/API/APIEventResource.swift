@@ -12,7 +12,10 @@ import Foundation
 
 class APIEventResource : APIResource {
 
+	// *******  DOT MAY HAVE TO UPDATE BASED ON DOTLOG INSTALLATION DIRECTORY STRUCTURE  ******* //
 	private let eventURI = "/dotlog/api/index.cfm/api/events"
+	// *******  DOT MAY HAVE TO UPDATE BASED ON DOTLOG INSTALLATION DIRECTORY STRUCTURE  ******* //
+
 	private let httpMethod = "PUT"
 	private let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 

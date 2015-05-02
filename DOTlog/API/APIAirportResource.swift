@@ -12,7 +12,11 @@ import Foundation
 
 class APIAirportResource : APIResource {
 
+	// *******  DOT MAY HAVE TO UPDATE BASED ON DOTLOG INSTALLATION DIRECTORY STRUCTURE  ******* //
 	private let airportURI = "/dotlog/api/index.cfm/api/airports"
+	// *******  DOT MAY HAVE TO UPDATE BASED ON DOTLOG INSTALLATION DIRECTORY STRUCTURE  ******* //
+
+
 	private let httpMethod = "GET"
 	private let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
