@@ -17,7 +17,7 @@ class APICategoryResource : APIResource {
 	// *******  DOT MAY HAVE TO UPDATE BASED ON DOTLOG INSTALLATION DIRECTORY STRUCTURE  ******* //
 
 	private let httpMethod = "GET"
-	private var APIAddressString = String()
+	private var APIAddressString : String
 	private let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
 
@@ -85,8 +85,10 @@ class APICategoryResource : APIResource {
 	private func deleteOld() {
 		let fetch = NSFetchRequest (entityName:"CategoryEntry")
 		let categories = managedObjectContext!.executeFetchRequest(fetch, error:nil) as! [CategoryEntry]
+		
 		for category in categories {
 			managedObjectContext?.deleteObject(category)
 		}
+		managedObjectContext?.save(nil)
 	}
 }

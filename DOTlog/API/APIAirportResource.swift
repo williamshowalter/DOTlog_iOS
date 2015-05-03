@@ -150,10 +150,12 @@ class APIAirportResource : APIResource {
 	private func deleteOld() {
 		// Core data delete rules are cascade -- deleting region deletes all children
 		let fetch = NSFetchRequest (entityName: "RegionEntry")
-		let entries = managedObjectContext!.executeFetchRequest(fetch, error: nil) as! [RegionEntry]
-		for entry in entries {
-			managedObjectContext?.deleteObject(entry)
-			managedObjectContext?.save(nil)
+		let airports = managedObjectContext!.executeFetchRequest(fetch, error: nil) as! [RegionEntry]
+		
+		for airport in airports {
+			managedObjectContext?.deleteObject(airport)
 		}
+		managedObjectContext?.save(nil)
+
 	}
 }
