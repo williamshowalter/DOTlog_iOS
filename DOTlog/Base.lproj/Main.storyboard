@@ -621,7 +621,7 @@
         <!--NavEventList-->
         <scene sceneID="gai-Dh-gD3">
             <objects>
-                <navigationController title="NavEventList" id="m69-gC-jMt" customClass="ViewNavEventList" customModule="DOTlog" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController title="NavEventList" id="m69-gC-jMt" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Events" image="events.png" selectedImage="events.png" id="R81-3Z-vVE" userLabel="Entries"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="w0m-uf-jnj">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

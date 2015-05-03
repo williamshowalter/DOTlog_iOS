@@ -24,7 +24,6 @@ class ViewAddEventRegion: UITableViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
 	}
 
 	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -61,11 +60,6 @@ class ViewAddEventRegion: UITableViewController {
 				regions.append(region.region_name)
 			}
 		}
-	}
-
-
-	@IBAction func SaveCategory(sender: AnyObject) {
-
 	}
 
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

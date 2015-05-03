@@ -18,7 +18,7 @@ class ViewAccountSettings: UIViewController {
 
 	@IBAction func ButtonSave(sender: AnyObject) {
 		let tableViewController = self.childViewControllers.last as? ViewAccountSettingsTableView
-		tableViewController?.ButtonSave()
+		tableViewController?.SaveAccountSettings()
 	}
 
 	override func didReceiveMemoryWarning() {

@@ -29,7 +29,6 @@ class TabBarViewController: UITabBarController {
 	override func disablesAutomaticKeyboardDismissal() -> Bool {
 		return false
 	}
-
 }
 
 extension UIImage {

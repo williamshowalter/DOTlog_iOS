@@ -14,6 +14,7 @@
 		3D0C498F1ADB7AA100F91E3C /* NetworkVisitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0C498E1ADB7AA100F91E3C /* NetworkVisitor.swift */; };
 		3D0C49921ADB7DE000F91E3C /* APIResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0C49911ADB7DE000F91E3C /* APIResource.swift */; };
 		3D120A6B1ADDB1E400A31204 /* ErrorObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D120A6A1ADDB1E400A31204 /* ErrorObserver.swift */; };
+		3D351BE71AF5CFA700BCA7B6 /* ErrorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D351BE61AF5CFA700BCA7B6 /* ErrorFactory.swift */; };
 		3D4152791AE4EADE001A9AFD /* ViewAddEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4152781AE4EADE001A9AFD /* ViewAddEvent.swift */; };
 		3D4152801AE50D9B001A9AFD /* events.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D41527E1AE50D9B001A9AFD /* events.png */; };
 		3D4152811AE50D9B001A9AFD /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D41527F1AE50D9B001A9AFD /* settings.png */; };
@@ -33,7 +34,6 @@
 		3D96E63F1AE762790040B3E3 /* SyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D96E63E1AE762790040B3E3 /* SyncManager.swift */; };
 		3D981C261AD5EFB400505945 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D981C251AD5EFB400505945 /* Security.framework */; };
 		3DA2153F1AF1803F0021E7A8 /* ViewAddEventCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA2153E1AF1803F0021E7A8 /* ViewAddEventCategory.swift */; };
-		3DABD53D1AF195AE00A09200 /* ViewNavEventList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DABD53C1AF195AE00A09200 /* ViewNavEventList.swift */; };
 		3DABD53F1AF229EA00A09200 /* ViewAddEventRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DABD53E1AF229EA00A09200 /* ViewAddEventRegion.swift */; };
 		3DABD5411AF229FC00A09200 /* ViewAddEventDistrict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DABD5401AF229FC00A09200 /* ViewAddEventDistrict.swift */; };
 		3DABD5431AF22A2400A09200 /* ViewAddEventHub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DABD5421AF22A2400A09200 /* ViewAddEventHub.swift */; };
@@ -69,6 +69,7 @@
 		3D0C498E1ADB7AA100F91E3C /* NetworkVisitor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NetworkVisitor.swift; path = DOTlog/API/NetworkVisitor.swift; sourceTree = SOURCE_ROOT; };
 		3D0C49911ADB7DE000F91E3C /* APIResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APIResource.swift; path = API/APIResource.swift; sourceTree = "<group>"; };
 		3D120A6A1ADDB1E400A31204 /* ErrorObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ErrorObserver.swift; path = API/ErrorObserver.swift; sourceTree = "<group>"; };
+		3D351BE61AF5CFA700BCA7B6 /* ErrorFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ErrorFactory.swift; path = "Error Handling/ErrorFactory.swift"; sourceTree = "<group>"; };
 		3D4152781AE4EADE001A9AFD /* ViewAddEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewAddEvent.swift; path = Views/ViewAddEvent.swift; sourceTree = "<group>"; };
 		3D41527E1AE50D9B001A9AFD /* events.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = events.png; path = "Support Files/Images/events.png"; sourceTree = "<group>"; };
 		3D41527F1AE50D9B001A9AFD /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = settings.png; path = "Support Files/Images/settings.png"; sourceTree = "<group>"; };
@@ -88,7 +89,6 @@
 		3D96E63E1AE762790040B3E3 /* SyncManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SyncManager.swift; path = API/SyncManager.swift; sourceTree = "<group>"; };
 		3D981C251AD5EFB400505945 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		3DA2153E1AF1803F0021E7A8 /* ViewAddEventCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewAddEventCategory.swift; path = Views/ViewAddEventCategory.swift; sourceTree = "<group>"; };
-		3DABD53C1AF195AE00A09200 /* ViewNavEventList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewNavEventList.swift; path = Views/ViewNavEventList.swift; sourceTree = "<group>"; };
 		3DABD53E1AF229EA00A09200 /* ViewAddEventRegion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewAddEventRegion.swift; path = Views/ViewAddEventRegion.swift; sourceTree = "<group>"; };
 		3DABD5401AF229FC00A09200 /* ViewAddEventDistrict.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewAddEventDistrict.swift; path = Views/ViewAddEventDistrict.swift; sourceTree = "<group>"; };
 		3DABD5421AF22A2400A09200 /* ViewAddEventHub.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewAddEventHub.swift; path = Views/ViewAddEventHub.swift; sourceTree = "<group>"; };
@@ -129,6 +129,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D351BE51AF5CF7C00BCA7B6 /* Error Handling */ = {
+			isa = PBXGroup;
+			children = (
+				3D351BE61AF5CFA700BCA7B6 /* ErrorFactory.swift */,
+			);
+			name = "Error Handling";
+			sourceTree = "<group>";
+		};
 		3D94BB161AE4604C00E8DC9D /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -172,6 +180,7 @@
 			children = (
 				3DE1DE4B1ADC601400BF314F /* Views & Storyboards */,
 				3DE1DE4A1ADC5FF900BF314F /* API */,
+				3D351BE51AF5CF7C00BCA7B6 /* Error Handling */,
 				3DE1DE4C1ADC602300BF314F /* CoreData & Keychain */,
 				3DDE985D1AA2736500378DEE /* Supporting Files */,
 			);
@@ -237,7 +246,6 @@
 				3DDE986B1AA2736500378DEE /* LaunchScreen.xib */,
 				3DDE98661AA2736500378DEE /* Main.storyboard */,
 				3D94BB171AE474FB00E8DC9D /* TabBarViewController.swift */,
-				3DABD53C1AF195AE00A09200 /* ViewNavEventList.swift */,
 				3D7A5AA21ABA2BDA00CB5871 /* ViewEntryList.swift */,
 				3D42DF2E1AE6F28E00A79198 /* ViewSyncCredentials.swift */,
 				3D4152781AE4EADE001A9AFD /* ViewAddEvent.swift */,
@@ -246,8 +254,8 @@
 				3DABD5401AF229FC00A09200 /* ViewAddEventDistrict.swift */,
 				3DABD5421AF22A2400A09200 /* ViewAddEventHub.swift */,
 				3DABD5441AF22A6D00A09200 /* ViewAddEventAirport.swift */,
-				3DDE98641AA2736500378DEE /* ViewAccountSettingsTableView.swift */,
 				3DAE16E01AF5726E006C1B08 /* ViewAccountSettings.swift */,
+				3DDE98641AA2736500378DEE /* ViewAccountSettingsTableView.swift */,
 			);
 			name = "Views & Storyboards";
 			sourceTree = "<group>";
@@ -388,12 +396,12 @@
 				3DE1DE481ADC5B4200BF314F /* SwiftyJSON.swift in Sources */,
 				3D94E29B1AF2CE5900D5606E /* AirportEntry.swift in Sources */,
 				3D7A5AA31ABA2BDA00CB5871 /* ViewEntryList.swift in Sources */,
-				3DABD53D1AF195AE00A09200 /* ViewNavEventList.swift in Sources */,
 				3D94E2A11AF2CE5900D5606E /* HubEntry.swift in Sources */,
 				3D9276181ADF7C9A007B1159 /* SyncURLEntry.swift in Sources */,
 				3DA2153F1AF1803F0021E7A8 /* ViewAddEventCategory.swift in Sources */,
 				3D0C49921ADB7DE000F91E3C /* APIResource.swift in Sources */,
 				3D6322E71AD5E3D400617DEC /* APIEventResource.swift in Sources */,
+				3D351BE71AF5CFA700BCA7B6 /* ErrorFactory.swift in Sources */,
 				3D42DF2F1AE6F28E00A79198 /* ViewSyncCredentials.swift in Sources */,
 				3DABD5451AF22A6D00A09200 /* ViewAddEventAirport.swift in Sources */,
 				3DDE98631AA2736500378DEE /* DOTlog.xcdatamodeld in Sources */,

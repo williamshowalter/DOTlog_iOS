@@ -78,15 +78,10 @@ class ViewAddEvent: UITableViewController, UITextFieldDelegate, UITextViewDelega
 		}
 
 		UIFieldAirport.text = ""
-
 		UIFieldCategory.text = ""
-
 		pickerTime.date = NSDate()
-
 		setEventTime(pickerTime)
-
 		UISwitchInWeeklyReport.on = false
-
 		UIFieldSummary.text = ""
 	}
 

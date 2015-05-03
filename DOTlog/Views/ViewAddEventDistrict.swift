@@ -25,7 +25,6 @@ class ViewAddEventDistrict: UITableViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
 	}
 
 	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -64,11 +63,6 @@ class ViewAddEventDistrict: UITableViewController {
 				}
 			}
 		}
-	}
-
-
-	@IBAction func SaveCategory(sender: AnyObject) {
-
 	}
 
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

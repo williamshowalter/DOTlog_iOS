@@ -104,6 +104,8 @@ class APIAirportResource : APIResource {
 														var mutableAirports = hubObj.airport.mutableCopy() as! NSMutableOrderedSet
 														mutableAirports.addObject(airportObj)
 														hubObj.airport = mutableAirports.copy() as! NSOrderedSet
+														
+														managedObjectContext?.save(&error)
 													}
 													else {
 														// error no name for airport
@@ -150,8 +152,6 @@ class APIAirportResource : APIResource {
 					return NSError (domain: "API Airport", code: 16, userInfo: errorinfo)
 				}
 			}
-
-			managedObjectContext?.save(&error)
 		}
 
 		else {

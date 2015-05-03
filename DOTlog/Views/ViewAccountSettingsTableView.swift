@@ -128,7 +128,7 @@ class ViewAccountSettingsTableView: UITableViewController, UITextFieldDelegate {
 		}
 	}
 
-	func ButtonSave() {
+	func SaveAccountSettings() {
 		saveCreds()
 		saveURL()
 

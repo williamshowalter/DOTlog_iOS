@@ -25,7 +25,6 @@ class ViewAddEventAirport: UITableViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
 	}
 
 	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -51,7 +50,6 @@ class ViewAddEventAirport: UITableViewController {
 		let cell = self.tableView.cellForRowAtIndexPath(indexPath)
 		currentAirport = cell?.textLabel?.text
 		performSegueWithIdentifier("SegueAirportsToAddEvent", sender: self)
-
 	}
 
 	func resetPage() {
@@ -64,11 +62,6 @@ class ViewAddEventAirport: UITableViewController {
 				}
 			}
 		}
-	}
-
-
-	@IBAction func SaveCategory(sender: AnyObject) {
-
 	}
 
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

@@ -16,9 +16,7 @@ class ViewSyncCredentials: UITableViewController {
 	var keychainObj = KeychainAccess()
 
 	@IBOutlet weak var UIFieldUsername: UITextField!
-
 	@IBOutlet weak var UIFieldPassword: UITextField!
-
 	@IBOutlet weak var UISwitchRememberMe: UISwitch!
 
 	override func viewWillAppear(animated: Bool){
@@ -27,7 +25,6 @@ class ViewSyncCredentials: UITableViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
 	}
 
 	@IBAction func ButtonLogin(sender: AnyObject) {
@@ -42,13 +39,11 @@ class ViewSyncCredentials: UITableViewController {
 			var destinationViewController = segue.destinationViewController as! ViewEventList
 
 			destinationViewController.syncManagerObj.runSync(UIFieldUsername.text!, password: UIFieldPassword.text!, baseURL: destinationViewController.baseURL!, observer: destinationViewController)
-
 		}
 	}
 
-	// COPIED FROM VIEWACCOUNTSETTINGS - REFACTOR
 	func saveCreds () {
-		println(keychainObj.setUsernamePassword(UIFieldUsername.text, pass: UIFieldPassword.text))
+		keychainObj.setUsernamePassword(UIFieldUsername.text, pass: UIFieldPassword.text)
 	}
 
 	override func didReceiveMemoryWarning() {
