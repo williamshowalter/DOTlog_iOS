@@ -26,8 +26,8 @@ class SyncManager {
 
 		let baseOptions = SyncOptions(resource: nil, username: username, password: password, baseURL: baseURL, observer: observer)
 		var airportOptions = baseOptions; airportOptions.resource = airportResource
-		var categoryOptions = baseOptions; categoryOptions.resource = airportResource
-		var eventOptions = baseOptions; eventOptions.resource = airportResource
+		var categoryOptions = baseOptions; categoryOptions.resource = categoryResource
+		var eventOptions = baseOptions; eventOptions.resource = eventResource
 
 		newResourceSync(airportOptions)
 		newResourceSync(categoryOptions)

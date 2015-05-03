@@ -48,7 +48,7 @@ class ViewSyncCredentials: UITableViewController {
 
 	// COPIED FROM VIEWACCOUNTSETTINGS - REFACTOR
 	func saveCreds () {
-		keychainObj.setUsernamePassword(UIFieldUsername.text, pass: UIFieldPassword.text)
+		println(keychainObj.setUsernamePassword(UIFieldUsername.text, pass: UIFieldPassword.text))
 	}
 
 	override func didReceiveMemoryWarning() {

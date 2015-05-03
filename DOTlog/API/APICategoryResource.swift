@@ -52,6 +52,8 @@ class APICategoryResource : APIResource {
 		let data = JSON(data: webData)["CATEGORIES"]
 
 		if data.error == nil {
+			deleteOld()
+
 			var receivedCategories : [String] = []
 			for (index,category) in data{
 				if let categoryText = category["CATEGORY_TITLE"].string {
@@ -61,10 +63,6 @@ class APICategoryResource : APIResource {
 					error = NSError (domain: "API Category", code: 21, userInfo: errorinfo)
 					return error
 				}
-			}
-
-			if receivedCategories.count != 0 {
-				deleteOld()
 			}
 
 			for category in receivedCategories {
@@ -85,7 +83,7 @@ class APICategoryResource : APIResource {
 	private func deleteOld() {
 		let fetch = NSFetchRequest (entityName:"CategoryEntry")
 		let categories = managedObjectContext!.executeFetchRequest(fetch, error:nil) as! [CategoryEntry]
-		
+
 		for category in categories {
 			managedObjectContext?.deleteObject(category)
 		}
