@@ -220,12 +220,12 @@
 		3DE1DE4A1ADC5FF900BF314F /* API */ = {
 			isa = PBXGroup;
 			children = (
-				3D0C498E1ADB7AA100F91E3C /* NetworkVisitor.swift */,
+				3D120A6A1ADDB1E400A31204 /* ErrorObserver.swift */,
 				3D0C49911ADB7DE000F91E3C /* APIResource.swift */,
 				3D6322E21AD5E38500617DEC /* APIAirportResource.swift */,
 				3D6322E41AD5E3B800617DEC /* APICategoryResource.swift */,
 				3D6322E61AD5E3D400617DEC /* APIEventResource.swift */,
-				3D120A6A1ADDB1E400A31204 /* ErrorObserver.swift */,
+				3D0C498E1ADB7AA100F91E3C /* NetworkVisitor.swift */,
 				3D96E63E1AE762790040B3E3 /* SyncManager.swift */,
 			);
 			name = API;
