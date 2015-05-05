@@ -32,12 +32,12 @@
         <attribute name="urlString" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="AirportEntry" positionX="52" positionY="71" width="128" height="73"/>
-        <element name="CategoryEntry" positionX="-126" positionY="-90" width="128" height="58"/>
-        <element name="EventEntry" positionX="52" positionY="-102" width="128" height="120"/>
-        <element name="SyncURLEntry" positionX="-290" positionY="-96" width="128" height="60"/>
-        <element name="RegionEntry" positionX="-450" positionY="78" width="128" height="73"/>
-        <element name="DistrictEntry" positionX="-279" positionY="63" width="128" height="88"/>
-        <element name="HubEntry" positionX="-117" positionY="63" width="128" height="88"/>
+        <element name="AirportEntry" positionX="-12530" positionY="-1935" width="128" height="73"/>
+        <element name="CategoryEntry" positionX="-12872" positionY="-2097" width="128" height="58"/>
+        <element name="DistrictEntry" positionX="-12870" positionY="-1935" width="128" height="88"/>
+        <element name="EventEntry" positionX="-12701" positionY="-2097" width="128" height="120"/>
+        <element name="HubEntry" positionX="-12699" positionY="-1935" width="128" height="88"/>
+        <element name="RegionEntry" positionX="-13041" positionY="-1936" width="128" height="73"/>
+        <element name="SyncURLEntry" positionX="-13041" positionY="-2097" width="128" height="60"/>
     </elements>
 </model>

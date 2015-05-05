@@ -54,7 +54,7 @@ class NetworkVisitor : NSObject, NSURLConnectionDelegate {
 		observer = newObserver
 	}
 
-	func unregisterObserver (oldObserver : ErrorObserver) {
+	func unregisterObserver () {
 		observer = nil
 	}
 

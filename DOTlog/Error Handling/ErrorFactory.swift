@@ -12,7 +12,7 @@ import CoreData
 
 class ErrorFactory {
 
-	// INCLUDE NOTE ABOUT FACTOR
+	// Class that creates alerts given internally designated error codes and a view controller to present the errors to.
 	
 	class func ErrorAlert (error: NSError, caller: UIViewController) -> UIAlertController {
 		let code = error.code
