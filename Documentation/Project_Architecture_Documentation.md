@@ -53,7 +53,7 @@ DOTlog iOS provides a mechanism for DOTlog event creation. Users login to the ap
 - [9.1 Logout must exit app & User misreporting](#91-logout-must-exit-app--user-misreporting)
 - [9.2 KeychainAccess errors ignored](#92-keychainaccess-errors-ignored)
 - [9.3 Summary Field maximum length](#93-summary-field-maximum-length)
-- [*Section 10 – References *](#section-10--references)
+- [Section 10 – References](#section-10--references)
 - [Section 11 – Glossary](#section-11--glossary)
 
 # **Section 2 - Overview**
@@ -378,14 +378,10 @@ Any errors encountered with the internal credential storage library, or the acce
 
 The maximum length of the summary field is limited to 4000 characters. This is set in the ViewAddEvent.swift file, in the variable SUMMARYCHARLIMIT.
 
-# **Section 10 – References **
-
+# **Section 10 – References**
 
 
 # **Section 11 – Glossary**
-
-
-
 
 
 ---
