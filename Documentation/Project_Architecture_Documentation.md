@@ -338,11 +338,11 @@ The Locksmith version used was published under the MIT license, and is provided 
 
 8.2.2 Inclusion
 
-	Locksmith is included in it’s entirety statically inside the KeychainAccess.swift file.
+Locksmith is included in it’s entirety statically inside the KeychainAccess.swift file.
 
 8.2.3 Software Location
 
-	[https://github.com/matthewpalmer/Locksmith/](https://github.com/matthewpalmer/Locksmith/)
+[https://github.com/matthewpalmer/Locksmith/](https://github.com/matthewpalmer/Locksmith/)
 
 
 
