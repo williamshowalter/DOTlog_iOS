@@ -19,42 +19,42 @@ DOTlog iOS provides a mechanism for DOTlog event creation. Users login to the ap
 
 **Table of Contents**
 
-- [Section 1 - DOTlog iOS Description](#)
-- [1.1 DOTlog iOS](#)
-- [1.2 Description](#)
-- [1.3 Revision History](#)
-- [Section 2 - Overview](#)
-- [2.1 Purpose](#)
-- [2.2 Scope](#)
-- [2.3 Requirements](#)
-- [Section 3 - System Architecture](#)
-- [Section 4 - Core Data Model](#)
-- [Section 5 - Software Design](#)
-- [5.1 iOS Storyboard and Views](#)
-- [5.2 API Handling Components](#)
-- [Section 6 – Components to customize in final environment](#)
-- [6.1 Default DOTlog Domain Address](#)
-- [6.2 API URIs](#)
-- [6.1 Default HTTPS behavior](#)
-- [Section 7 - Alert and Error Documentation](#)
-- [7.1 Alert Messages](#)
-- [7.1.1 Events List Messages](#)
-- [7.1.2 Add Event Messages](#)
-- [7.2 Syncing & API Errors](#)
-- [7.2.1 Airport API Errors](#)
-- [7.2.2 Category API Errors](#)
-- [7.2.3 Events API Errors](#)
-- [7.2.3 Network API Errors](#)
-- [Section 8 - Dependent & Included Libraries / Frameworks / Assets](#)
-- [8.1 SwiftyJSON](#)
-- [8.2 Locksmith](#)
-- [8.3 Icons & Images](#)
-- [Section 9 - Extra Design Features / Outstanding Issues](#)
-- [9.1 Logout must exit app & User misreporting](#)
-- [9.2 KeychainAccess errors ignored](#)
-- [9.3 Summary Field maximum length](#)
-- [*Section 10 – References *](#)
-- [Section 11 – Glossary](#)
+- [Section 1 - DOTlog iOS Description](#section-1---dotlog-ios-description)
+- [1.1 DOTlog iOS](#11-dotlog-ios)
+- [1.2 Description](#12-description)
+- [1.3 Revision History](#13-revision-history)
+- [Section 2 - Overview](#section-2---overview)
+- [2.1 Purpose](#21-purpose)
+- [2.2 Scope](#22-scope)
+- [2.3 Requirements](#23-requirements)
+- [Section 3 - System Architecture](#section-3---system-architecture)
+- [Section 4 - Core Data Model](#section-4---core-data-model)
+- [Section 5 - Software Design](#section-5---software-design)
+- [5.1 iOS Storyboard and Views](#51-ios-storyboard-and-views)
+- [5.2 API Handling Components](#52-api-handling-components)
+- [Section 6 – Components to customize in final environment](#section-6--components-to-customize-in-final-environment)
+- [6.1 Default DOTlog Domain Address](#61-default-dotlog-domain-address)
+- [6.2 API URIs](#62-api-uris)
+- [6.3 Default HTTPS behavior](#63-default-https-behavior)
+- [Section 7 - Alert and Error Documentation](#section-7---alert-and-error-documentation)
+- [7.1 Alert Messages](#71-alert-messages)
+- [7.1.1 Events List Messages](#711-events-list-messages)
+- [7.1.2 Add Event Messages](#712-add-event-messages)
+- [7.2 Syncing & API Errors](#72-syncing--api-errors)
+- [7.2.1 Airport API Errors](#721-airport-api-errors)
+- [7.2.2 Category API Errors](#722-category-api-errors)
+- [7.2.3 Events API Errors](#723-events-api-errors)
+- [7.2.4 Network API Errors](#724-network-api-errors)
+- [Section 8 - Dependent & Included Libraries / Frameworks / Assets](#section-8---dependent--included-libraries--frameworks--assets)
+- [8.1 SwiftyJSON](#81-swiftyjson)
+- [8.2 Locksmith](#82-locksmith)
+- [8.3 Icons & Images](#83-icons--images)
+- [Section 9 - Extra Design Features / Outstanding Issues](#section-9---extra-design-features--outstanding-issues)
+- [9.1 Logout must exit app & User misreporting](#91-logout-must-exit-app--user-misreporting)
+- [9.2 KeychainAccess errors ignored](#92-keychainaccess-errors-ignored)
+- [9.3 Summary Field maximum length](#93-summary-field-maximum-length)
+- [*Section 10 – References *](#section-10--references)
+- [Section 11 – Glossary](#section-11--glossary)
 
 # **Section 2 - Overview**
 
@@ -148,7 +148,7 @@ When DOTlog iOS is deployed there are components which may require adjusting to 
 
 **Variables** : airportURI, categoryURI, eventURI
 
-## 6.1 Default HTTPS behavior
+## 6.3 Default HTTPS behavior
 
 **Description** : When a user enters a domain without specifying a protocol scheme, it will default to HTTPS. Users may type HTTP manually to achieve that result. Behavior by modifying the scheme variable in saveURL function.
 
@@ -284,7 +284,7 @@ A number of events will cause an alert to be displayed to the user, and are docu
 
 
 
-### 7.2.3 Network API Errors
+### 7.2.4 Network API Errors
 
 **Error Code** : 401
 
