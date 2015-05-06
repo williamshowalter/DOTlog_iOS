@@ -17,13 +17,44 @@ DOTlog iOS provides a mechanism for DOTlog event creation. Users login to the ap
 |                   |                   |                    |
 
 
+**Table of Contents**
 
-
-
-
-**Contents**
-
-[[TOC]]# 
+- [Section 1 - DOTlog iOS Description](#)
+- [1.1 DOTlog iOS](#)
+- [1.2 Description](#)
+- [1.3 Revision History](#)
+- [Section 2 - Overview](#)
+- [2.1 Purpose](#)
+- [2.2 Scope](#)
+- [2.3 Requirements](#)
+- [Section 3 - System Architecture](#)
+- [Section 4 - Core Data Model](#)
+- [Section 5 - Software Design](#)
+- [5.1 iOS Storyboard and Views](#)
+- [5.2 API Handling Components](#)
+- [Section 6 – Components to customize in final environment](#)
+- [6.1 Default DOTlog Domain Address](#)
+- [6.2 API URIs](#)
+- [6.1 Default HTTPS behavior](#)
+- [Section 7 - Alert and Error Documentation](#)
+- [7.1 Alert Messages](#)
+- [7.1.1 Events List Messages](#)
+- [7.1.2 Add Event Messages](#)
+- [7.2 Syncing & API Errors](#)
+- [7.2.1 Airport API Errors](#)
+- [7.2.2 Category API Errors](#)
+- [7.2.3 Events API Errors](#)
+- [7.2.3 Network API Errors](#)
+- [Section 8 - Dependent & Included Libraries / Frameworks / Assets](#)
+- [8.1 SwiftyJSON](#)
+- [8.2 Locksmith](#)
+- [8.3 Icons & Images](#)
+- [Section 9 - Extra Design Features / Outstanding Issues](#)
+- [9.1 Logout must exit app & User misreporting](#)
+- [9.2 KeychainAccess errors ignored](#)
+- [9.3 Summary Field maximum length](#)
+- [*Section 10 – References *](#)
+- [Section 11 – Glossary](#)
 
 # **Section 2 - Overview**
 
