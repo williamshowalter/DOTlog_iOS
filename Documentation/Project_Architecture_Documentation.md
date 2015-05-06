@@ -76,7 +76,7 @@ Xcode 6.3 (for compilation)
 
 # **Section 3 - System Architecture**
 
-
+![iOS Sync Architecture](https://github.com/williamshowalter/DOTlog_iOS/blob/master/Documentation/Assets/iOSSyncArchitecture.png)
 
 DOTlog iOS will be integrate with the DOTlog ColdFusion web application, performing Windows(NTLM) authentication to the web server and performing syncing with the DOTlog API.
 
@@ -84,13 +84,15 @@ DOTlog iOS will be integrate with the DOTlog ColdFusion web application, perform
 
 # **Section 4 - Core Data Model**
 
+![iOS CoreData](https://github.com/williamshowalter/DOTlog_iOS/blob/master/Documentation/Assets/iOSCoreData.png)
+
 Local storage is achieved using Apple’s built in Core Data model utilities. An entity description is provided below.
 
 # **Section 5 - Software Design**
 
 ## 5.1 iOS Storyboard and Views
 
-
+![Storyboard Diagram](https://github.com/williamshowalter/DOTlog_iOS/blob/master/Documentation/Assets/iOSStoryboard.png)
 
 The iOS app uses a number of types of view components. 
 
@@ -124,7 +126,7 @@ ViewAccountsSettingsTableView - Allows for well formatted data presentation.
 
 
 
-![image alt text](img_0.png)
+![API Sync UML](https://github.com/williamshowalter/DOTlog_iOS/blob/master/Documentation/Assets/iOSSyncUML.png)
 
 UML Class diagram of the classes involved in the API handling.
 
