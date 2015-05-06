@@ -10,9 +10,6 @@
 import UIKit
 import CoreData
 
-// *******  REPLACE WITH OFFICIAL DOT DOMAIN TO BE USED FOR DOTLOG  ******* //
-let defaultBaseURL : String = "http://dotlog.uafcsc.com"
-
 class ViewAccountSettingsTableView: UITableViewController, UITextFieldDelegate {
 
 	let managedObjectContext =
