@@ -33,6 +33,17 @@ class NetworkVisitor : NSObject, NSURLConnectionDelegate {
 
 	private let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
+	func resourceRequest() {
+		let request = NSMutableURLRequest (URL: URLObj)
+
+		request.HTTPMethod = APIClient!.getMethod()
+		request.HTTPBody = APIClient!.getBody()
+		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+		request.addValue("application/json", forHTTPHeaderField: "Accept")
+
+		let initRequest = NSURLConnection(request: request, delegate:self, startImmediately:true)!
+	}
+
 	func visit (APIObj : APIResource){
 		APIClient = APIObj
 		URLObj = NSURL(string: APIClient!.getAPIAddressString())!
@@ -43,7 +54,7 @@ class NetworkVisitor : NSObject, NSURLConnectionDelegate {
 		observer = newObserver
 	}
 
-	func unregisterObserver (oldObserver : ErrorObserver) {
+	func unregisterObserver () {
 		observer = nil
 	}
 
@@ -54,29 +65,23 @@ class NetworkVisitor : NSObject, NSURLConnectionDelegate {
 
 	func connection(connection: NSURLConnection, willSendRequestForAuthenticationChallenge challenge: NSURLAuthenticationChallenge){
 		if (challenge.previousFailureCount != 0){
-			// Previous failures
-
 			let	error = NSError (domain: "Incorrect Username or Password", code: 401, userInfo : ["NSLocalizedDescriptionKey":"Login Failed"])
-
 			observer!.notify(error)
-
 			challenge.sender.cancelAuthenticationChallenge(challenge)
 		}
 		else {
-			var credential = NSURLCredential (user: username!,
-				password: password!,
-				persistence: NSURLCredentialPersistence.None)
+			var credential = NSURLCredential (user: username!, password: password!, persistence: NSURLCredentialPersistence.None)
 			challenge.sender.useCredential(credential, forAuthenticationChallenge: challenge)
 		}
-	}
-
-	func connection(connection: NSURLConnection, didReceiveData data: NSData){
-		webData.appendData(data)
 	}
 
 	func connection(connection: NSURLConnection, didReceiveResponse response: NSURLResponse){
 		webData = NSMutableData ()
 		httpResponse = response as? NSHTTPURLResponse
+	}
+
+	func connection(connection: NSURLConnection, didReceiveData data: NSData){
+		webData.appendData(data)
 	}
 
 	func connectionDidFinishLoading(connection : NSURLConnection) {
@@ -101,17 +106,6 @@ class NetworkVisitor : NSObject, NSURLConnectionDelegate {
 
 	func connectionShouldUseCredentialStorage(connection: NSURLConnection) -> Bool {
 		return false
-	}
-
-	func resourceRequest() {
-		let request = NSMutableURLRequest (URL: URLObj)
-
-		request.HTTPMethod = APIClient!.getMethod()
-		request.HTTPBody = APIClient!.getBody()
-		request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-		request.addValue("application/json", forHTTPHeaderField: "Accept")
-
-		let initRequest = NSURLConnection(request: request, delegate:self, startImmediately:true)!
 	}
 
 }

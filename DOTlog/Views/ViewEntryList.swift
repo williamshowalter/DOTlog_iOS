@@ -13,24 +13,23 @@ import CoreData
 class ViewEventList: UIViewController, UITableViewDelegate, UITableViewDataSource, ErrorObserver, UIActionSheetDelegate {
 
 	// This class is an ErrorObserver from the Observer design pattern
-	// This allows the class to have subjects to keep references to the observer
+	// This allows the class to have subjects that keep references to itself
 	// and notify this viewcontroller with errors through the notify(NSError) function.
 	// http://en.wikipedia.org/wiki/Observer_pattern
 
 	@IBOutlet weak var entryTableView: UITableView!
 
 	let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-	let notSyncedAlert = UIAlertController(title: "Run Initial Sync Before Adding Events", message: nil, preferredStyle: .Alert)
-	let noCredentialAlert = UIAlertController(title: "Set Credentials in Account Settings", message: nil, preferredStyle: .Alert)
-	let syncSuccessAlert = UIAlertController(title: "Sync Completed Successfully", message: nil, preferredStyle: .Alert)
+	let hasNotBeenSyncedAlert = UIAlertController(title: "Run Initial Sync Before Adding Events", message: nil, preferredStyle: .Alert)
+	let successfullySyncedAlert = UIAlertController(title: "Sync Completed Successfully", message: nil, preferredStyle: .Alert)
 	let syncManagerObj = SyncManager()
 
-	var errorReceivedSinceLastSync = false
+	var hasBeenErrorSinceLastSync = false
 	var eventEntries = [EventEntry]()
 	var keychainObj = KeychainAccess()
 
-	var username : String?
-	var password : String?
+	private var username : String?
+	private var password : String?
 	var baseURL : String?
 
 	override func viewDidLoad() {
@@ -38,19 +37,16 @@ class ViewEventList: UIViewController, UITableViewDelegate, UITableViewDataSourc
 		entryTableView.dataSource = self
 		entryTableView.delegate = self
 
-		self.notSyncedAlert.addAction(UIAlertAction(title: "Dismiss",
+		self.hasNotBeenSyncedAlert.addAction(UIAlertAction(title: "Dismiss",
 			style: UIAlertActionStyle.Default,
 			handler: {(alert: UIAlertAction!) in}))
-		self.noCredentialAlert.addAction(UIAlertAction(title: "Dismiss",
-			style: UIAlertActionStyle.Default,
-			handler: {(alert: UIAlertAction!) in}))
-		self.syncSuccessAlert.addAction(UIAlertAction(title: "Okay",
+		self.successfullySyncedAlert.addAction(UIAlertAction(title: "Okay",
 			style: UIAlertActionStyle.Default,
 			handler: {(alert: UIAlertAction!) in}))
 
-		let longpress = UILongPressGestureRecognizer(target: self, action: "longPressGestureRecognized:")
+		let longPress = UILongPressGestureRecognizer(target: self, action: "longPressGestureRecognized:")
 
-		entryTableView.addGestureRecognizer(longpress)
+		entryTableView.addGestureRecognizer(longPress)
 	}
 
 	func longPressGestureRecognized(gestureRecognizer: UIGestureRecognizer) {
@@ -60,7 +56,7 @@ class ViewEventList: UIViewController, UITableViewDelegate, UITableViewDataSourc
 			var locationInView = longPress.locationInView(entryTableView)
 			var indexPath = entryTableView.indexPathForRowAtPoint(locationInView)
 
-			let cellActionSheet = createActionSheet()
+			let cellActionSheet = createDeleteEventActionSheet()
 			if let indexPathVal = indexPath {
 				cellActionSheet.accessibilityElements = [] as [NSIndexPath]
 				cellActionSheet.accessibilityElements.append(indexPathVal)
@@ -69,7 +65,7 @@ class ViewEventList: UIViewController, UITableViewDelegate, UITableViewDataSourc
 		}
 	}
 
-	func createActionSheet() -> UIActionSheet {
+	func createDeleteEventActionSheet() -> UIActionSheet {
 		var actionSheet = UIActionSheet()
 
 		actionSheet.addButtonWithTitle("Delete Event")
@@ -101,7 +97,7 @@ class ViewEventList: UIViewController, UITableViewDelegate, UITableViewDataSourc
 
 	override func viewWillAppear(animated: Bool){
 		super.viewWillAppear(animated)
-		fetchLogs()
+		fetchEvents()
 		self.entryTableView.reloadData()
 	}
 
@@ -110,9 +106,9 @@ class ViewEventList: UIViewController, UITableViewDelegate, UITableViewDataSourc
 		// Dispose of any resources that can be recreated.
 	}
 
-	func fetchLogs(){
-		let logsFetch = NSFetchRequest (entityName:"EventEntry")
-		eventEntries = managedObjectContext!.executeFetchRequest(logsFetch, error:nil) as! [EventEntry]
+	func fetchEvents(){
+		let eventFetch = NSFetchRequest (entityName:"EventEntry")
+		eventEntries = managedObjectContext!.executeFetchRequest(eventFetch, error:nil) as! [EventEntry]
 	}
 
 	// Functions for UITableViewDataSources
@@ -124,19 +120,19 @@ class ViewEventList: UIViewController, UITableViewDelegate, UITableViewDataSourc
 		var newCell : UITableViewCell? = tableView.dequeueReusableCellWithIdentifier("EventEntry") as? UITableViewCell
 
 		if newCell == nil {
-			newCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "EventEntry")
+			newCell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: "EventEntry")
 		}
 
 		let eventEntry = eventEntries[indexPath.row]
-		newCell!.detailTextLabel!.text = eventEntry.faa_code + " - " + eventEntry.category_title + " - " + eventEntry.event_text
+		newCell!.textLabel!.text = eventEntry.faa_code + " | " + eventEntry.category_title + " - " + eventEntry.event_text
 		return newCell!
 	}
 
 	func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
 		if editingStyle == UITableViewCellEditingStyle.Delete {
-
 			let entryToDelete = eventEntries[indexPath.row]
 			managedObjectContext?.deleteObject(entryToDelete)
+			managedObjectContext?.save(nil)
 
 			eventEntries.removeAtIndex(indexPath.row)
 			tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
@@ -144,6 +140,15 @@ class ViewEventList: UIViewController, UITableViewDelegate, UITableViewDataSourc
 	}
 
 	@IBAction func addEventButton(sender: AnyObject) {
+		if hasNotBeenSynced() {
+			self.presentViewController(hasNotBeenSyncedAlert, animated: true, completion:nil)
+		}
+		else {
+			performSegueWithIdentifier("AddEventSegue", sender: self)
+		}
+	}
+
+	func hasNotBeenSynced() -> Bool {
 		var airports = Array<String>()
 		var categories = Array<String>()
 
@@ -161,27 +166,22 @@ class ViewEventList: UIViewController, UITableViewDelegate, UITableViewDataSourc
 			}
 		}
 
-		if airports.count == 0 || categories.count == 0 {
-			self.presentViewController(notSyncedAlert, animated: true, completion:nil)
-		}
-		else {
-			performSegueWithIdentifier("AddEventSegue", sender: self)
-		}
+		return (airports.count == 0 || categories.count == 0)
 	}
 
 	@IBAction func syncButton(sender: AnyObject) {
-		errorReceivedSinceLastSync = false
-		fetchURLUsernamePass()
+		hasBeenErrorSinceLastSync = false
+		setURL()
 
-		if username == "" || password == "" || baseURL == nil {
-			performSegueWithIdentifier("SyncCredentials", sender: self)
+		if attemptCredentialFetch() {
+			syncManagerObj.runSync(username!, password: password!, baseURL: baseURL!, observer: self)
 		}
 		else {
-			syncManagerObj.runSync(username!, password: password!, baseURL: baseURL!, observer: self)
+			performSegueWithIdentifier("SyncCredentials", sender: self)
 		}
 	}
 
-	func fetchURLUsernamePass() {
+	func setURL () {
 		let URLFetch = NSFetchRequest (entityName:"SyncURLEntry")
 		if let URLs = managedObjectContext!.executeFetchRequest(URLFetch, error:nil) as? [SyncURLEntry] {
 			if URLs.count != 0 {
@@ -194,6 +194,9 @@ class ViewEventList: UIViewController, UITableViewDelegate, UITableViewDataSourc
 		else {
 			baseURL = defaultBaseURL
 		}
+	}
+
+	func attemptCredentialFetch() -> Bool {
 
 		if let usernameFetch = keychainObj.getUsername(){
 			username = usernameFetch;
@@ -208,60 +211,30 @@ class ViewEventList: UIViewController, UITableViewDelegate, UITableViewDataSourc
 		else {
 			password = "";
 		}
+
+		return (!(username == "")) && (!(password == ""))
 	}
 
 	func notify (error : NSError) {
 
 		syncManagerObj.reduceActiveSyncCount()
 
-		if !errorReceivedSinceLastSync {
-			errorReceivedSinceLastSync = true
+		if !hasBeenErrorSinceLastSync {
+			hasBeenErrorSinceLastSync = true
 
-			let code = error.code
-
-			var errorMessage = "Contact Regional Aviation Office If Problem Persists."
-			var errorDetailMessage = error.localizedDescription
-			var errorTitle = "Unable to Sync"
-			var errorDetailTitle = "Error Code: \(code)"
-
-			if let detailMessage : [NSObject : AnyObject] = error.userInfo {
-				if let errorDetailMessageText = detailMessage["NSLocalizedDescriptionKey"] as? String {
-					errorDetailMessage = "\(errorDetailMessageText)"
-				}
-			}
-
-			if code == 401 {
-				errorTitle = error.domain
-				errorMessage = ""
-			}
-
-			if code == -1003 {
-				errorTitle = "Bad URL" // Needs to match page wording
-				errorMessage = "Please check Website URL"
-			}
-
-			let errorAlert = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: UIAlertControllerStyle.Alert)
-
-			let errorAlertDetail = UIAlertController(title: errorDetailTitle, message: errorDetailMessage as String, preferredStyle: UIAlertControllerStyle.Alert)
-
-			errorAlert.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler:{ (ACTION :UIAlertAction!)in }))
-			errorAlert.addAction(UIAlertAction(title: "Details", style: UIAlertActionStyle.Default, handler:{ (ACTION :UIAlertAction!)in self.presentViewController(errorAlertDetail, animated: true, completion: nil)}))
-			errorAlertDetail.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler:{ (ACTION :UIAlertAction!)in }))
-
-			self.presentViewController(errorAlert, animated: true, completion: nil)
+			self.presentViewController(ErrorFactory.ErrorAlert(error, caller: self), animated: true, completion: nil)
 		}
 	}
 
 	// Returns to this view controller
 	@IBAction func ButtonCancelToEventList(segue: UIStoryboardSegue) {
-
 	}
 
 	func notifyFinishSuccess () {
 		syncManagerObj.reduceActiveSyncCount()
 
-		if (syncManagerObj.getActiveSyncCount() == 0 && !errorReceivedSinceLastSync) {
-			self.presentViewController(syncSuccessAlert, animated: true, completion: nil)
+		if (syncManagerObj.getActiveSyncCount() == 0 && !hasBeenErrorSinceLastSync) {
+			self.presentViewController(successfullySyncedAlert, animated: true, completion: nil)
 		}
 
 		self.viewWillAppear(true)

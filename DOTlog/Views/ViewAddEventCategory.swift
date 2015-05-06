@@ -63,16 +63,10 @@ class ViewAddEventCategory: UITableViewController {
 		}
 	}
 
-
-	@IBAction func SaveCategory(sender: AnyObject) {
-
-	}
-
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		var destinationViewController = segue.destinationViewController as! ViewAddEvent
 
 		if segue.identifier == "SegueCategoryToAddEvent" {
-			println(currentCategory)
 			destinationViewController.UIFieldCategory.text = currentCategory
 		}
 	}

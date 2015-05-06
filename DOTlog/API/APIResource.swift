@@ -8,6 +8,9 @@
 
 import Foundation
 
+// *******  REPLACE WITH OFFICIAL DOT DOMAIN TO BE USED FOR DOTLOG  ******* //
+let defaultBaseURL : String = "http://dotlog.uafcsc.com"
+
 // This is an abstract base class for clients in the visitor design pattern
 // used in the NetworkVisitor class
 // http://en.wikipedia.org/wiki/Visitor_pattern

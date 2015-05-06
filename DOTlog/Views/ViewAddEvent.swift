@@ -12,7 +12,7 @@ import CoreData
 
 let SUMMARYCHARLIMIT : Int = 4000
 
-class ViewAddEvent: UITableViewController, UITextFieldDelegate, UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class ViewAddEvent: UITableViewController, UITextFieldDelegate, UITextViewDelegate {
 
 	let uninitializedString = "Must Run Sync"
 	let notSyncedAlert = UIAlertController(title: "Must Run Sync", message: "Please sync for airport & category lists", preferredStyle: .Alert)
@@ -22,7 +22,6 @@ class ViewAddEvent: UITableViewController, UITextFieldDelegate, UITextViewDelega
 
 	var airports : [String] = []
 
-	@IBOutlet var pickerAirports: UIPickerView! = UIPickerView()
 	var pickerTime  : UIDatePicker! = UIDatePicker()
 
 	@IBOutlet weak var UIFieldCategory: UITextField!
@@ -61,8 +60,6 @@ class ViewAddEvent: UITableViewController, UITextFieldDelegate, UITextViewDelega
 			style: UIAlertActionStyle.Default,
 			handler: {(alert: UIAlertAction!) in}))
 
-		pickerAirports.delegate = self
-
 		resetPage()
 
 	}
@@ -80,16 +77,11 @@ class ViewAddEvent: UITableViewController, UITextFieldDelegate, UITextViewDelega
 			airports = [uninitializedString]
 		}
 
-		UIFieldAirport.text = airports[0]
-
+		UIFieldAirport.text = ""
 		UIFieldCategory.text = ""
-
 		pickerTime.date = NSDate()
-
 		setEventTime(pickerTime)
-
 		UISwitchInWeeklyReport.on = false
-
 		UIFieldSummary.text = ""
 	}
 
@@ -174,23 +166,6 @@ class ViewAddEvent: UITableViewController, UITextFieldDelegate, UITextViewDelega
 		self.UIFieldTime.resignFirstResponder()
 	}
 
-	func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int{
-		return 1
-	}
-
-	func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
-			return airports.count
-	}
-
-	func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
-			return airports[row];
-	}
-
-	func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
-	{
-			UIFieldAirport.text = airports[row];
-	}
-
 	func textFieldDidBeginEditing(textField: UITextField) {
 		textField.becomeFirstResponder()
 	}
@@ -214,8 +189,28 @@ class ViewAddEvent: UITableViewController, UITextFieldDelegate, UITextViewDelega
 	}
 
 	@IBAction func editAirport(sender: UITextField) {
-		pickerAirports.reloadAllComponents()
-		sender.inputView = pickerAirports;
+		let fetchRegions = NSFetchRequest (entityName: "RegionEntry")
+		let regions = managedObjectContext!.executeFetchRequest(fetchRegions, error: nil) as! [RegionEntry]
+		if regions.count > 1 {
+			performSegueWithIdentifier("SegueAddEventToRegions", sender: self)
+		}
+		else {
+			let fetchDistricts = NSFetchRequest (entityName: "DistrictEntry")
+			let districts = managedObjectContext!.executeFetchRequest(fetchDistricts, error: nil) as! [RegionEntry]
+			if districts.count > 1 {
+				performSegueWithIdentifier("SegueAddEventToDistricts", sender: self)
+			}
+			else {
+				let fetchHubs = NSFetchRequest (entityName: "HubEntry")
+				let hubs = managedObjectContext!.executeFetchRequest(fetchHubs, error: nil) as! [RegionEntry]
+				if hubs.count > 1 {
+					performSegueWithIdentifier("SegueAddEventToHubs", sender: self)
+				}
+				else {
+					performSegueWithIdentifier("SegueAddEventToAirports", sender: self)
+				}
+			}
+		}
 	}
 
 	// Returns to this view controller

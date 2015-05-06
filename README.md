@@ -2,6 +2,9 @@
 iOS App Component to the DOTlog Project for the Spring 2015 UAF Computer Science Senior Project group.
 Takes log event entries from users and syncs them with the DOTlog server application.
 
+[![License](https://img.shields.io/:License-MIT-blue.svg)](http://dotlog.mit-license.org)
+[![Platform](https://img.shields.io/:Platform-iOS-lightgrey.svg)](https://github.com/williamshowalter/DOTlog_iOS)
+
 #Instructions:
 This project includes submodules, so you should perform clones recursively.
 

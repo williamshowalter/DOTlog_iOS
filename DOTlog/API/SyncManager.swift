@@ -17,40 +17,46 @@ class SyncManager {
 	var airportResource = APIAirportResource(baseURLString: "/")
 	var categoryResource = APICategoryResource(baseURLString: "/")
 	var eventResource = APIEventResource(baseURLString: "/")
-	var activeSyncCounter : Int = 0
+	var activeResourceSyncCount : Int = 0
 
 	func runSync(username: String, password: String, baseURL: String, observer : ErrorObserver) {
 		airportResource = APIAirportResource(baseURLString: baseURL)
 		categoryResource = APICategoryResource(baseURLString: baseURL)
 		eventResource = APIEventResource(baseURLString: baseURL)
 
-		var visitorObj = NetworkVisitor()
-		visitorObj.setCreds(username, pass: password)
-		visitorObj.registerObserver(observer)
-		activeSyncCounter++
-		airportResource.accept(visitorObj)
+		let baseOptions = SyncOptions(resource: nil, username: username, password: password, baseURL: baseURL, observer: observer)
+		var airportOptions = baseOptions; airportOptions.resource = airportResource
+		var categoryOptions = baseOptions; categoryOptions.resource = categoryResource
+		var eventOptions = baseOptions; eventOptions.resource = eventResource
 
-		visitorObj = NetworkVisitor()
-		visitorObj.setCreds(username, pass: password)
-		visitorObj.registerObserver(observer)
-		activeSyncCounter++
-		categoryResource.accept(visitorObj)
+		newResourceSync(airportOptions)
+		newResourceSync(categoryOptions)
+		newResourceSync(eventOptions)
+	}
 
-		visitorObj = NetworkVisitor()
-		visitorObj.setCreds(username, pass: password)
-		visitorObj.registerObserver(observer)
-		activeSyncCounter++
-		eventResource.accept(visitorObj)
+	func newResourceSync(options: SyncOptions) {
+		var networkVisitorObj = NetworkVisitor()
+		networkVisitorObj.setCreds(options.username, pass: options.password)
+		networkVisitorObj.registerObserver(options.observer)
+		activeResourceSyncCount++
+		options.resource?.accept(networkVisitorObj)
 	}
 
 	func getActiveSyncCount() -> Int {
-		return activeSyncCounter
+		return activeResourceSyncCount
 	}
 
 	func reduceActiveSyncCount() {
-		if activeSyncCounter != 0 {
-			--activeSyncCounter
+		if activeResourceSyncCount != 0 {
+			--activeResourceSyncCount
 		}
 	}
+}
 
+struct SyncOptions {
+	var resource : APIResource?
+	var username: String
+	var password: String
+	var baseURL: String
+	var observer: ErrorObserver
 }
