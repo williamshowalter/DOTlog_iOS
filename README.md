@@ -8,7 +8,7 @@ Takes log event entries from users and syncs them with the DOTlog server applica
 #Documentation
 Documentation of the project architecture can be found in the Documents folder.
 
-[Project Architecture Documentation](https://github.com/williamshowalter/DOTlog_iOS/blob/master/Documentation/Project_Architecture_Documentation.md)
+[Project Architecture Documentation](Documentation/Project_Architecture_Documentation.md)
 
 #Instructions:
 This project includes submodules, so you should perform clones recursively.
