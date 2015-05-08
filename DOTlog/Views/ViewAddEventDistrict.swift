@@ -15,9 +15,11 @@ class ViewAddEventDistrict: UITableViewController {
 	let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
 	var districts : [String] = []
-	var currentDistrict : String? = nil
+	var currentAirport : String?
+	var currentHub : String?
+	var currentDistrict : String?
 	var currentRegion : String?
-
+	
 	override func viewWillAppear(animated: Bool){
 		super.viewWillAppear(animated)
 		resetPage()
@@ -65,7 +67,10 @@ class ViewAddEventDistrict: UITableViewController {
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		if segue.identifier == "SegueDistrictsToHubs" {
 			var destinationViewController = segue.destinationViewController as! ViewAddEventHub
+			destinationViewController.currentRegion = currentRegion
 			destinationViewController.currentDistrict = currentDistrict
+			destinationViewController.currentHub = currentHub
+			destinationViewController.currentAirport = currentAirport
 		}
 	}
 

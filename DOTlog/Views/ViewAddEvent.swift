@@ -14,53 +14,47 @@ let SUMMARYCHARLIMIT : Int = 4000
 
 class ViewAddEvent: UITableViewController, UITextFieldDelegate, UITextViewDelegate {
 
-	let uninitializedString = "Must Run Sync"
-	let notSyncedAlert = UIAlertController(title: "Must Run Sync", message: "Please sync for airport & category lists", preferredStyle: .Alert)
+	let airportNotSelectedAlert = UIAlertController(title: "No Airport", message: "Please select an airport", preferredStyle: .Alert)
 	let categoryNotSelectedAlert = UIAlertController(title: "No Category", message: "Please select a category", preferredStyle: .Alert)
 	let noEventSummaryAlert = UIAlertController(title: "No Event Summary", message: "Please enter an event summary", preferredStyle: .Alert)
 	let managedObjectContext = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
 
-	var airports : [String] = []
-
 	var datePicker  : UIDatePicker! = UIDatePicker()
+	var dateFormatter :NSDateFormatter = NSDateFormatter()
+	var currentRegion : String? = nil
+	var currentDistrict : String? = nil
+	var currentHub : String? = nil
 
+	@IBOutlet weak var UIFieldAirport: UITextField!
 	@IBOutlet weak var UIFieldCategory: UITextField!
 	@IBOutlet weak var UIFieldSummary: UITextView!
 	@IBOutlet weak var UIFieldTime: UITextField!
-	@IBOutlet weak var UIFieldAirport: UITextField!
-
 	@IBOutlet weak var UISwitchInWeeklyReport: UISwitch!
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
-		self.notSyncedAlert.addAction(UIAlertAction(title: "Dismiss",
+		self.noEventSummaryAlert.addAction(UIAlertAction(title: "Dismiss",
 			style: UIAlertActionStyle.Default,
 			handler: {(alert: UIAlertAction!) in}))
-		self.noEventSummaryAlert.addAction(UIAlertAction(title: "Dismiss",
+		self.airportNotSelectedAlert.addAction(UIAlertAction(title: "Dismiss",
 			style: UIAlertActionStyle.Default,
 			handler: {(alert: UIAlertAction!) in}))
 		self.categoryNotSelectedAlert.addAction(UIAlertAction(title: "Dismiss",
 			style: UIAlertActionStyle.Default,
 			handler: {(alert: UIAlertAction!) in}))
+		dateFormatter.dateFormat = "MMM dd yyyy hh:mm a"
 
 		resetPage()
 	}
 
 	func resetPage() {
-		let airportFetch = NSFetchRequest (entityName:"AirportEntry")
-		if let airportResults = managedObjectContext!.executeFetchRequest(airportFetch, error:nil) as? [AirportEntry]{
-			airports = Array<String>() // Clear old array
-			for airport in airportResults {
-				airports.append(airport.faa_code)
-			}
-		}
+		let fetchAirports = NSFetchRequest (entityName: "AirportEntry")
+		let airports = managedObjectContext!.executeFetchRequest(fetchAirports, error: nil) as! [AirportEntry]
+		UIFieldAirport.text = airports[0].faa_code
+		currentHub = airports[0].hub.hub_name
+		currentDistrict = airports[0].hub.district.district_name
+		currentRegion = airports[0].hub.district.region.region_name
 
-		if airports.count == 0 {
-			airports = [uninitializedString]
-		}
-
-		UIFieldAirport.text = ""
 		UIFieldCategory.text = ""
 		datePicker.date = NSDate()
 		setEventTime(datePicker)
@@ -68,14 +62,14 @@ class ViewAddEvent: UITableViewController, UITextFieldDelegate, UITextViewDelega
 		UIFieldSummary.text = ""
 	}
 
-	@IBAction func saveEvent(sender: AnyObject) {
+	@IBAction func ButtonSaveEvent(sender: AnyObject) {
 
-		if UIFieldCategory.text == uninitializedString || UIFieldAirport.text == uninitializedString {
-			self.presentViewController(notSyncedAlert, animated: true, completion:nil)
+		if UIFieldCategory.text == "" {
+			self.presentViewController(categoryNotSelectedAlert, animated: true, completion:nil)
 		}
 
-		else if UIFieldCategory.text == "" {
-			self.presentViewController(categoryNotSelectedAlert, animated: true, completion:nil)
+		if UIFieldAirport.text == "" {
+			self.presentViewController(airportNotSelectedAlert, animated: true, completion:nil)
 		}
 
 		else if UIFieldSummary.text == "" {
@@ -83,40 +77,48 @@ class ViewAddEvent: UITableViewController, UITextFieldDelegate, UITextViewDelega
 		}
 
 		else if count(UIFieldSummary.text) > SUMMARYCHARLIMIT {
+			// Local alert declaration due to character count message being unknown at construction
 			let summaryLengthAlert = UIAlertController(title: "Character Limit Exceeded", message: "Maximum Characters: \(String(SUMMARYCHARLIMIT))\nCurrent Characters: \(String(count(UIFieldSummary.text)))", preferredStyle: .Alert)
-
 			summaryLengthAlert.addAction(UIAlertAction(title: "Dismiss",
 				style: UIAlertActionStyle.Default,
 				handler: {(alert: UIAlertAction!) in}))
+
 			self.presentViewController(summaryLengthAlert, animated:true, completion:nil)
 		}
 
 		else {
-			let entityDescription =
-			NSEntityDescription.entityForName("EventEntry",
-				inManagedObjectContext: managedObjectContext!)
+			createEventEntry()
+		}
+	}
 
-			let event = EventEntry(entity: entityDescription!,
-				insertIntoManagedObjectContext: managedObjectContext)
+	func createEventEntry() {
+		let entityDescription =
+		NSEntityDescription.entityForName("EventEntry",
+			inManagedObjectContext: managedObjectContext!)
+		let event = EventEntry(entity: entityDescription!,
+			insertIntoManagedObjectContext: managedObjectContext)
 
-			event.faa_code = UIFieldAirport.text
-			event.category_title = UIFieldCategory.text
-			event.event_text = UIFieldSummary.text
-			event.in_weekly_report = UISwitchInWeeklyReport.on
+		event.faa_code = UIFieldAirport.text
+		event.category_title = UIFieldCategory.text
+		event.event_text = UIFieldSummary.text
+		event.in_weekly_report = UISwitchInWeeklyReport.on
 
-			var dateFormatter:NSDateFormatter = NSDateFormatter()
-			dateFormatter.dateFormat = "MMM dd yyyy hh:mm a"
-			var tempDate:String = UIFieldTime.text
-			event.event_time = dateFormatter.dateFromString (tempDate)!
+		var tempDate:String = UIFieldTime.text
+		event.event_time = dateFormatter.dateFromString (tempDate)!
 
-			var error: NSError?
-			managedObjectContext?.save(&error)
-			if let err = error {
-				// Should only happen if the internal object becomes unwritable.
-			} else {
-				var vc = self.storyboard?.instantiateViewControllerWithIdentifier("TabBarViewController") as! TabBarViewController
-				self.presentViewController(vc, animated: true, completion: nil)
-			}
+		var error: NSError?
+		managedObjectContext?.save(&error)
+		if let err = error {
+			// Should only happen if the internal object becomes unwritable.
+			let saveErrorAlert = UIAlertController(title: "Save Failed", message: "Restart or Reinstall app.", preferredStyle: .Alert)
+			saveErrorAlert.addAction(UIAlertAction(title: "Dismiss",
+				style: UIAlertActionStyle.Default,
+				handler: {(alert: UIAlertAction!) in}))
+			self.presentViewController(saveErrorAlert, animated: true, completion: nil)
+		}
+		else {
+			var vc = self.storyboard?.instantiateViewControllerWithIdentifier("TabBarViewController") as! TabBarViewController
+			self.presentViewController(vc, animated: true, completion: nil)
 		}
 	}
 
@@ -127,9 +129,7 @@ class ViewAddEvent: UITableViewController, UITextFieldDelegate, UITextViewDelega
 	}
 
 	func setEventTime(sender: UIDatePicker) {
-		var timeFormatter = NSDateFormatter()
-		timeFormatter.dateFormat = "MMM dd yyyy hh:mm a"
-		UIFieldTime.text = timeFormatter.stringFromDate(sender.date)
+		UIFieldTime.text = dateFormatter.stringFromDate(sender.date)
 	}
 
 	@IBAction func editAirport(sender: UITextField) {
@@ -168,6 +168,38 @@ class ViewAddEvent: UITableViewController, UITextFieldDelegate, UITextViewDelega
 			if let currentCategory = UIFieldCategory.text {
 				destinationViewController.currentCategory = currentCategory
 			}
+		}
+		else if segue.identifier == "SegueAddEventToRegions" {
+			var destinationViewController = segue.destinationViewController as! ViewAddEventRegion
+
+			destinationViewController.currentRegion = currentRegion
+			destinationViewController.currentDistrict = currentDistrict
+			destinationViewController.currentHub = currentHub
+			destinationViewController.currentAirport = UIFieldAirport.text
+		}
+		else if segue.identifier == "SegueAddEventToDistricts" {
+			var destinationViewController = segue.destinationViewController as! ViewAddEventDistrict
+
+			destinationViewController.currentRegion = currentRegion
+			destinationViewController.currentDistrict = currentDistrict
+			destinationViewController.currentHub = currentHub
+			destinationViewController.currentAirport = UIFieldAirport.text
+		}
+		else if segue.identifier == "SegueAddEventToHubs" {
+			var destinationViewController = segue.destinationViewController as! ViewAddEventHub
+
+			destinationViewController.currentRegion = currentRegion
+			destinationViewController.currentDistrict = currentDistrict
+			destinationViewController.currentHub = currentHub
+			destinationViewController.currentAirport = UIFieldAirport.text
+		}
+		else if segue.identifier == "SegueAddEventToAirports" {
+			var destinationViewController = segue.destinationViewController as! ViewAddEventAirport
+
+			destinationViewController.currentRegion = currentRegion
+			destinationViewController.currentDistrict = currentDistrict
+			destinationViewController.currentHub = currentHub
+			destinationViewController.currentAirport = UIFieldAirport.text
 		}
 	}
 
