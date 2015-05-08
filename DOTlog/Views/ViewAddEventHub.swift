@@ -34,14 +34,12 @@ class ViewAddEventHub: UITableViewController {
 
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		var cell : UITableViewCell?
-
 		if hubs[indexPath.row] == currentHub {
 			cell = tableView.dequeueReusableCellWithIdentifier("selectedHubCell") as! UITableViewCell?
 		}
 		else {
 			cell = tableView.dequeueReusableCellWithIdentifier("hubCell") as! UITableViewCell?
 		}
-
 		cell?.textLabel?.text = hubs[indexPath.row]
 
 		return cell!
@@ -51,7 +49,6 @@ class ViewAddEventHub: UITableViewController {
 		let cell = self.tableView.cellForRowAtIndexPath(indexPath)
 		currentHub = cell?.textLabel?.text
 		performSegueWithIdentifier("SegueHubsToAirports", sender: self)
-
 	}
 
 	func resetPage() {

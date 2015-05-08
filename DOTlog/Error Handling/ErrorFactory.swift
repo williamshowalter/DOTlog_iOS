@@ -34,8 +34,8 @@ class ErrorFactory {
 		}
 
 		if code == -1003 {
-			errorTitle = "Bad URL" // Needs to match page wording
-			errorMessage = "Please check Website URL"
+			errorTitle = "Bad Address" // Needs to match page wording
+			errorMessage = "Confirm Address in Account Settings"
 		}
 
 		let errorAlert = UIAlertController(title: errorTitle, message: errorMessage, preferredStyle: UIAlertControllerStyle.Alert)

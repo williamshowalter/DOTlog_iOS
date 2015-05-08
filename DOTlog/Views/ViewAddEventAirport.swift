@@ -33,14 +33,12 @@ class ViewAddEventAirport: UITableViewController {
 
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		var cell : UITableViewCell?
-
 		if airports[indexPath.row] == currentAirport {
 			cell = tableView.dequeueReusableCellWithIdentifier("selectedAirportCell") as! UITableViewCell?
 		}
 		else {
 			cell = tableView.dequeueReusableCellWithIdentifier("airportCell") as! UITableViewCell?
 		}
-
 		cell?.textLabel?.text = airports[indexPath.row]
 
 		return cell!
@@ -65,7 +63,6 @@ class ViewAddEventAirport: UITableViewController {
 	}
 
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		// different
 		if segue.identifier == "SegueAirportsToAddEvent" {
 			var destinationViewController = segue.destinationViewController as! ViewAddEvent
 			destinationViewController.UIFieldAirport.text = currentAirport
