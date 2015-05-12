@@ -11,10 +11,11 @@ DOTlog iOS provides a mechanism for DOTlog event creation. Users login to the ap
 ## 1.3 Revision History
 
 
-| **Date**          | **Comment**       | **Author**         |
-|-------------------|-------------------|--------------------|
-| 2015-05-04        | Initial Version   | William Showalter  |
-|                   |                   |                    |
+| **Date**          | **Comment**         | **Author**         |
+|-------------------|---------------------|--------------------|
+| 2015-05-04        | Initial Version     | William Showalter  |
+| 2015-05-11        | Updated error codes | William Showalter  |
+|                   |                     |                    |
 
 
 **Table of Contents**
@@ -274,15 +275,21 @@ A number of events will cause an alert to be displayed to the user, and are docu
 
 ### 7.2.3 Events API Errors
 
-**Error Code** : 30
+**Error Code** : 430
 
-**Description of Problem** : 
+**Description of Problem** : User is submitting events for airports they do not own. To resolve, delete and recreate events in the app after deleting all events and resyncing.
 
 
 
-**Error Code** : 31
+**Error Code** : 431
 
-**Description of Problem** : 
+**Description of Problem** : Airport not found in database
+
+
+
+**Error Code** : 432
+
+**Description of Problem** : Category not found in database
 
 
 
